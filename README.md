@@ -2,7 +2,7 @@
 ### 네 스펙을 리스펙 - Respect your spec
 - [캡스톤 프로젝트 계획서](./.github/report.pdf)
 
-# 👨‍👩‍👧‍👦 Members
+## 👨‍👩‍👧‍👦 Members
 **데브몬(DevMon)**
 - 최지윤 [@J1Yun](https://github.com/J1Yun)
   - Leader(FE/BE/DB)
