@@ -6,7 +6,7 @@
 **데브몬(DevMon)**
 - 최지윤 [@J1Yun](https://github.com/J1Yun)
   - Leader(FE/BE/DB)
-- 김채은 [chchaeun](https://github.com/chchaeun)
+- 김채은 [@chchaeun](https://github.com/chchaeun)
   - Frontend(React.js)
 - 이성준 [@castlejun-2](https://github.com/castlejun-2)
   - Backend(Node.js), Database(Mysql)
