@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "server": "cd server && nodemon server",
+    "frontend": "cd frontend && yarn start",
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn frontend\""
+  },
+  "dependencies": {
+    "concurrently": "^6.2.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
