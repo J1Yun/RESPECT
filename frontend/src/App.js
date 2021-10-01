@@ -27,9 +27,12 @@ import {
 
 import TestMainPage from "./testfolder/TestMainPage";
 import SecondTestPage from "./testfolder/SecondTestPage";
+import MenuBar from "./components/MenuBar/MenuBar";
 
 function App() {
   return (
+    <>
+    <MenuBar/>
     <Router>
       <Switch>
         <Route exact path="/" component={TestMainPage} />
@@ -37,6 +40,7 @@ function App() {
         <Redirect to="/" />
       </Switch>
     </Router>
+    </>
   );
 }
 
