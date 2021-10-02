@@ -1,5 +1,6 @@
 import logo from '../../logo.png';
-import {BiLinkExternal} from 'react-icons/bi';
+
+import {BsCollectionFill, BsFillPeopleFill} from 'react-icons/bs'
 
 // import ProfileBtn from 'components/MenuBar/ProfileBtn'
 // import SignBtn from 'components/MenuBar/SignBtn';
@@ -12,35 +13,30 @@ const MenuBar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     return (
         <div id="menu">
-        <nav id="menubar" className="navbar navbar-expand bg-white navbar-light">
-            <a className="navbar-brand" href="/">
+            <div id="logo-zone">
+            <a  href="/">
             <img src={logo} id="logo"/>
             </a>
+            </div>
 
-            <ul className="navbar-nav">
-            <li className="nav-item">
-                <a className="nav-link" href="/open">Open Lab</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" href="/recruitment">Connect</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" target='_blank'>
-                Univ.
-                <BiLinkExternal className="link-icon"/>
+            <div id="items">
+            <div id="around">
+                <a href="/around">
+                <BsCollectionFill color='#181818' size={22} id="around-icon"/>    
+                <div id="around-txt">둘러보기</div>
                 </a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" target='_blank' >
-                RISS
-                <BiLinkExternal className="link-icon" />
+
+            </div>
+            <div id="pool">
+                <a  href="/pool">
+                <BsFillPeopleFill color='#181818' size={22} id="pool-icon"/>    
+                <div id="pool-txt">인재풀</div>
                 </a>
-            </li>
-            </ul>
+            </div>
+            </div>
 {/* 
             {isLoggedIn ? <ProfileBtn/>:<SignBtn/>} */}
 
-        </nav>
         </div>
         
     );
