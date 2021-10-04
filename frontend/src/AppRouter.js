@@ -1,15 +1,18 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-import AroundPage from './components/AroundPage/style/AroundPage';
-import PoolPage from './components/PoolPage/style/PoolPage';
-import Login from './testfolder/Login';
+
+import { useState } from 'react';
+import LoginPage from './components/LoginPage/LoginPage';
+import AroundPage from './components/AroundPage/AroundPage';
+import PoolPage from './components/PoolPage/PoolPage';
 
 const AppRouter = () => {
+
   return (
     <Router>
       <Switch>
         <Route path="/login">
-          <Login />
+          <LoginPage />
         </Route>
         <Route path="/around">
           <AroundPage />
