@@ -1,10 +1,8 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const test = require("./routes/test.js");
-const apitest = require("./routes/apitest");
+const home = require('./src/routes/index');
 
-app.use("/api", test);
-app.use("/api/apitest", apitest);
+app.use('/api', home);
 
 const port = 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));

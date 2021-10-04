@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import MenuBar from "./components/MenuBar/MenuBar";
-import AppRouter from './AppRouter'
+import MenuBar from './components/MenuBar/MenuBar';
+import AppRouter from './AppRouter';
 
 function App() {
   return (
     <>
-    <MenuBar/>
-    <AppRouter/>
+      <MenuBar />
+      <AppRouter />
     </>
   );
 }
