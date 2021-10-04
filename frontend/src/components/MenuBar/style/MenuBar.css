@@ -8,6 +8,7 @@
     position: fixed;
     background: #FFFFFF;
     box-shadow: 0px 10px 40px rgba(89, 120, 150, 0.06);
+    z-index: 100;
 }
 
 a{
@@ -20,6 +21,7 @@ left: 1.6%;
 right: 87.11%;
 top: 0%;
 bottom: 0%;
+width: 162.56px;
 }
 #logo{
     position: absolute;
@@ -31,8 +33,7 @@ bottom: 0%;
 }
 #items{
     position: absolute;
-    left: 13.96%;
-    right: 73.54%;
+    left: 180px;
     top: 0%;
     bottom: 0%;
     width: 180px;
@@ -44,7 +45,7 @@ bottom: 0%;
     top: 0%;
     bottom: 0%;
     width: 90px;
-    height: 80px
+    height: 80px;
 }
 
 #around-icon{
