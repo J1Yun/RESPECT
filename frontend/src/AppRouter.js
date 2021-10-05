@@ -5,6 +5,7 @@ import { useState } from 'react';
 import LoginPage from './components/LoginPage/LoginPage';
 import AroundPage from './components/AroundPage/AroundPage';
 import PoolPage from './components/PoolPage/PoolPage';
+import RegisterPage from './components/RegisterPage/RegisterPage';
 
 const AppRouter = () => {
 
@@ -13,6 +14,9 @@ const AppRouter = () => {
       <Switch>
         <Route path="/login">
           <LoginPage />
+        </Route>
+        <Route path="/register">
+          <RegisterPage />
         </Route>
         <Route path="/around">
           <AroundPage />
