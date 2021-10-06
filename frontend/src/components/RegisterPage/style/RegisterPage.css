@@ -1,0 +1,106 @@
+#register-container{
+    position: absolute;
+    width: 700px;
+    height: 600px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    left: 50%;
+    top: 240px;
+    transform: translateX(-50%);
+}
+
+#register-txt{
+
+    position: relative;
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    top: 10px;
+}
+
+.register-label{
+    position: absolute;
+    width: 230px;
+    height: 18.32px;    
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: uppercase;
+    left: 210px;
+    color: #4A4A4A;
+}
+
+.register-input{
+    
+    position: absolute;
+    width: 283px;
+    height: 36px;
+    left:350px;
+    transform: translateX(-50%);
+    background: #FFFFFF;
+    border: 0.5px solid #C6C6C6;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.register-input:focus{
+    outline:none;
+    background: #f3f8ff;
+}
+
+#r-email-label{
+    top: 80px;
+}
+#r-email-input{
+    top: 105px;
+}
+
+#r-password-label{
+    top: 160px;
+}
+#r-password-input{
+    top: 185px;
+}
+
+#r-password-confirm-label{
+    top: 240px;
+}
+#r-password-confirm-input{
+    top: 265px;
+}
+
+#r-name-label{
+    top: 320px;
+}
+#r-name-input{
+    top: 345px;
+}
+
+#r-nickname-label{
+    top: 400px;
+}
+#r-nickname-input{
+    top: 425px;
+}
+
+
+
+#r-submit-btn{
+    
+position: absolute;
+width: 282px;
+height: 43px;
+left: 350px;
+top: 485px;
+border: none;
+background: #EDEDED;
+border-radius: 4px;
+transform: translateX(-50%);
+}
+
+#r-submit-btn:hover{
+    box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
