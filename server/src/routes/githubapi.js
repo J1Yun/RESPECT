@@ -8,8 +8,7 @@ exports.getUserRepositoryList = function(req, res){
     
     repositoryList.listRepos(function(err,repos){
         repos.forEach((repo) => {
-            console.log(`"${repo.name} " : "${repo.owner.login}"`)
-            repoInfo.repository.name.push(repo.name);
+            console.log(`"${repo.name} " : "${repo.owner.login}"`);
         })
         res.json(repos);
     })
