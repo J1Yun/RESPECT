@@ -3,6 +3,8 @@ const app = express();
 const logger = require('morgan');
 const home = require('./src/routes/index');
 
+require('dotenv').config();
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
