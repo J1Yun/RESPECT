@@ -4,7 +4,7 @@ const NonUserBtn = () =>{
     return (
         <>
             <a id="login" href="/login">Sign In</a>
-            <a id="join">Join</a>
+            <a id="join" href="/register">Join</a>
         </>
     );
 
