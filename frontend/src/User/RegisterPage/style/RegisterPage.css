@@ -1,7 +1,7 @@
 #register-container{
     position: absolute;
     width: 700px;
-    height: 600px;
+    height: 510px;
     background-color: #FFFFFF;
     border-radius: 4px;
     left: 50%;
@@ -51,10 +51,10 @@
     background: #f3f8ff;
 }
 
-#r-email-label{
+#r-nickname-label{
     top: 80px;
 }
-#r-email-input{
+#r-nickname-input{
     top: 105px;
 }
 
@@ -78,23 +78,13 @@
 #r-name-input{
     top: 345px;
 }
-
-#r-nickname-label{
-    top: 400px;
-}
-#r-nickname-input{
-    top: 425px;
-}
-
-
-
 #r-submit-btn{
     
 position: absolute;
 width: 282px;
 height: 43px;
 left: 350px;
-top: 485px;
+top: 410px;
 border: none;
 background: #EDEDED;
 border-radius: 4px;
