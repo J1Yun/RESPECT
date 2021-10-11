@@ -7,7 +7,7 @@ import {BsCollectionFill, BsFillPeopleFill} from 'react-icons/bs'
 
 import {useState, useEffect} from 'react'
 import './style/MenuBar.css'
-import NonUserBtn from './NonUserBtn';
+import NonUserBtn from './components/NonUserBtn';
 
 
 
