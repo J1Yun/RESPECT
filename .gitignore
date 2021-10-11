@@ -107,3 +107,4 @@ dist
 
 #Database Configuration
 config/.env
+.env
