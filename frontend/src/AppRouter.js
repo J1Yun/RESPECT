@@ -25,7 +25,7 @@ const AppRouter = () => {
         <Route exact path="/pool">
           <PoolPage />
         </Route>
-        <Route path="/:nickname">
+        <Route exact path="/:nickname">
           <PortfolioPage/>
         </Route>
         <Redirect to="/" />

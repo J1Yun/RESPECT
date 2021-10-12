@@ -5,7 +5,7 @@
     bottom: 0%;
     width: 100vw;
     height: 80px;
-    position: sticky;
+    position: fixed;
     background: #FFFFFF;
     box-shadow: 0px 10px 40px rgba(89, 120, 150, 0.06);
     z-index: 100;
