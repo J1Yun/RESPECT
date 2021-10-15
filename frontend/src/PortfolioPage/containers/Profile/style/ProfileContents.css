@@ -1,0 +1,93 @@
+.profile-name{
+
+    position: absolute;
+    width: 74px;
+    height: 40px;
+    left: 220px;
+    top: 159px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 40px;
+    color: #181818;
+
+}
+.profile-nickname{
+    position: absolute;
+    width: 200px;
+    height: 14px;
+    left: 301px;
+    top: 170px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+}
+
+.profile-info{
+    position: absolute;
+    width: 400px;
+    height: 58px;
+    left: 220px;
+    top: 203px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 25px;
+    color: #181818;
+
+}
+
+.profile-location{
+    position: absolute;
+    width: 300px;
+    height: 18px;
+    left: 243px;
+    top: 245px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 150%;
+}
+
+.profile-connect{
+    position: absolute;
+    width: 583px;
+    height: 60px;
+    left: 222px;
+    top: 278px;
+    font-size: 14px;
+    line-height: 21px;
+    
+    
+    color: #535353;
+}
+
+.profile-connect-phone{
+    position: absolute;
+width: 125px;
+height: 30px;
+left: 25px;
+font-style: normal;
+font-weight: normal;
+font-size: 13px;
+line-height: 19px;
+
+color: #767676;
+}
+
+.profile-connect-email{
+    position: absolute;
+
+    height: 30px;
+    width: 200px;
+
+    left: 150px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 19px;
+    
+    color: #767676;
+}
