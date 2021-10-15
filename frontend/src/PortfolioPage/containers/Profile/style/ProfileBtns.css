@@ -1,0 +1,60 @@
+.profile-upload{
+    cursor: pointer;
+    position: absolute;
+    width: 137px;
+    height: 36px;
+
+    left: 20px;
+    top: 20px;
+    
+    background: #FFFFFF;
+    border-radius: 4px;
+    border: none;
+    position: absolute;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+
+    color: #0275B1;
+
+}
+
+.profile-edit{
+    cursor: pointer;
+
+    position: absolute;
+    width: 132px;
+    height: 36px;
+    top: 20px;
+    left: 700px;
+    background: rgba(255, 255, 255);
+    border-radius: 4px;
+    border: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.profile-setting{
+    cursor: pointer;
+    
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    left: 840px;
+    top: 20px;
+
+    background: rgba(255, 255, 255);
+    border-radius: 4px;
+    border: none;
+
+}
+
+
+.profile-upload:active,
+.profile-edit:active,
+.profile-setting:active{
+    
+    box-shadow: inset 2px 2px 1px rgba(0, 0, 0, 0.25);
+}
