@@ -70,3 +70,9 @@
     color: #444444;
 
 }
+
+.profile-respect-modal{
+    top: 45px;
+    left: 25px;
+    position: absolute;
+}
