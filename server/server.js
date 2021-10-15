@@ -1,15 +1,6 @@
-const express = require('express');
-const app = express();
-const logger = require('morgan');
-const home = require('./src/routes/index');
-
-require('dotenv').config();
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-app.use('/api', home);
-
+const app = require('./app.js');
 const port = 5000;
-app.listen(port, () => console.log(`Listening on port ${port}`));
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
