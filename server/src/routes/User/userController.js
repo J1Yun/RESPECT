@@ -6,7 +6,7 @@ const { response } = require('../../config/baseResponseStatus');
 const output = {
   login: (req, res) => {
     console.log('hihi');
-    res.send({ text: 'login' });
+    res.redirect('/');
   },
 };
 
