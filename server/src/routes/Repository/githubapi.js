@@ -7,7 +7,7 @@ exports.getUserRepositoryList = function (req, res) {
   var repositoryList = noAuth.getUser(`${req.params.userId}`);
 
   repositoryList.listRepos(function (err, repos) {
-    repos.forEach((repo) => {
+    repos.forEach(repo => {
       console.log(`"${repo.full_name} " : "${repo.owner.login}"`);
     });
     res.json(repos);

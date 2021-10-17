@@ -1,7 +1,10 @@
 const express = require('express');
 const logger = require('morgan');
 const methodOverride = require('method-override');
-
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
+dotenv.config();
 const home = require('./src/routes/index');
 const repository = require('./src/routes/index');
 
@@ -29,6 +32,22 @@ class App {
 
     // method-override
     this.app.use(methodOverride());
+
+    // express session
+    this.app.use(cookieParser());
+    this.app.use(
+      expressSession({
+        secret: process.env.SESSION_SECRET,
+        resave: true,
+        saveUninitialized: true,
+      }),
+    );
+
+    this.app.use(function (req, res, next) {
+      if (req.session.user) res.locals.user = req.session.user;
+      else res.locals.user = undefined;
+      next();
+    });
   }
 
   setStatic() {
