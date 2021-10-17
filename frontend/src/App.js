@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MenuBar from './Bars/MenuBar/MenuBar';
+import MenuBar from 'pages/MenuBar/MenuBar';
 import AppRouter from './AppRouter';
 
 function App() {

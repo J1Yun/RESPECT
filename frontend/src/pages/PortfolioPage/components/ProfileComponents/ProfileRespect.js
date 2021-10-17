@@ -1,5 +1,6 @@
-import '../style/ProfileRespect.css'
-import respectBtn from '../style/img/respect.png'
+import 'pages/PortfolioPage/styles/ProfileRespect.css'
+
+import respectBtn from 'pages/PortfolioPage/styles/img/respect.png'
 
 import {useState, useEffect, useRef} from 'react'
 import ProfileRespectModal from './ProfileRespectModal';

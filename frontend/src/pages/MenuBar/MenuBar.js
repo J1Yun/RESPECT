@@ -6,7 +6,7 @@ import {BsCollectionFill, BsFillPeopleFill} from 'react-icons/bs'
 // import SignBtn from 'components/MenuBar/SignBtn';
 
 import {useState, useEffect} from 'react'
-import './style/MenuBar.css'
+import 'pages/MenuBar/styles/MenuBar.css'
 import NonUserBtn from './components/NonUserBtn';
 
 

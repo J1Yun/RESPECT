@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 
-import './style/RegisterPage.css'
+import 'pages/RegisterPage/styles/RegisterPage.css'
 
 const RegisterPage = () =>{
 

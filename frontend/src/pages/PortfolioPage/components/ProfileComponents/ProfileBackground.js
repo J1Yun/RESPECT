@@ -1,4 +1,4 @@
-import '../style/ProfileBackground.css'
+import 'pages/PortfolioPage/styles/ProfileBackground.css'
 import ProfileBtns from './ProfileBtns';
 
 const ProfileBackground = () =>{

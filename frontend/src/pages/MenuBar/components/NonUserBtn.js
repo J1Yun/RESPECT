@@ -1,4 +1,4 @@
-import '../style/NonUserBtn.css'
+import 'pages/MenuBar/styles/NonUserBtn.css'
 const NonUserBtn = () =>{
 
     return (

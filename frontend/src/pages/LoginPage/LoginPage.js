@@ -3,7 +3,7 @@ import {FiLogIn} from 'react-icons/fi'
 import {BsFillPersonFill} from 'react-icons/bs'
 import {BiKey} from 'react-icons/bi'
 
-import './style/LoginPage.css'
+import 'pages/LoginPage/styles/LoginPage.css'
 
 const LoginPage = () =>{
 
