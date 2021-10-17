@@ -106,6 +106,7 @@ dist
 .tern-port
 
 #Database Configuration
+config/.env 
 .env
 server/.env
 src/.env
