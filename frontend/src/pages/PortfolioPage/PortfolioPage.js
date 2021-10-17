@@ -1,4 +1,4 @@
-import Profile from "./containers/Profile/Profile";
+import Profile from "./containers/Profile";
 
 const PortfolioPage = ()=>{
     return(

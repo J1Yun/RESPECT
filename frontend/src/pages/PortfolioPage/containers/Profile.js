@@ -1,7 +1,7 @@
-import ProfileBackground from "./components/ProfileBackground";
-import ProfileContents from "./components/ProfileContents";
-import ProfileImg from "./components/ProfileImg";
-import ProfileRespect from "./components/ProfileRespect";
+import ProfileBackground from "../components/ProfileBackground";
+import ProfileContents from "../components/ProfileContents";
+import ProfileImg from "../components/ProfileImg";
+import ProfileRespect from "../components/ProfileRespect";
 
 import './style/Profile.css'
 

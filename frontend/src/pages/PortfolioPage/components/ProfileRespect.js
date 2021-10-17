@@ -60,10 +60,10 @@ const ProfileRespect = () =>{
     }, []);
 
     const onRespectMeClick = () =>{
-        setRespectMe(true)
+        setRespectMe(prev=>!prev)
     }
     const onRespectYouClick = () =>{
-        setRespectYou(true)
+        setRespectYou(prev=>!prev)
     }
 
     
