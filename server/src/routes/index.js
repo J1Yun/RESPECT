@@ -14,6 +14,12 @@ router.post('/signUp', userController.process.signUp);
 
 // Profile
 router.get('/profile/:userId', profileController.userProfile);
+router.get('/profile/interest/:userId', profileController.userInterest);
+router.get('/profile/teckstack/:userId', profileController.userTeckStack);
+router.get('/profile/experience/:userId', profileController.userExperience);
+router.get('/profile/education/:userId', profileController.userEducation);
+router.get('/profile/projects/:userId', profileController.userProjects);
+router.get('/profile/study/:userId', profileController.userStudy);
 
 router.get('/userRepository/:userId', githubapi.getUserRepositoryList);
 router.get('/userIdList', db.retrieveUserIdList);

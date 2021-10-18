@@ -1,58 +1,95 @@
 async function getUserProfileInfo(connection, userId) {
   const getUserInfo = `
-  select U.name,
-    U.nickname,
-    U.info,
-    U.contactPhone,
-    U.email,
-    U.location,
-    U.imageUrl,
-    count(R.userId) as respectCount
+  select U.name as name,
+  U.nickname as nickname,
+  U.info as info,
+  U.contactPhone as phoneNumber,
+  U.email as email,
+  U.location as location,
+  U.imageUrl as imageUrl,
+  count(R.userId) as respectCount
 from User U
-      left join Respect R ON U.id = R.userId
-      where U.name = ?;
+    left join Respect R ON U.id = R.userId
+where U.name =?;
     `;
   const [userProfile] = await connection.query(getUserInfo, userId);
   return userProfile;
 }
 
-async function getUserInterests(connection) {
+async function getUserInterests(connection, userId) {
   const getUserInterest = `
-  select IC.name
-    from User U
-             left join Interest I on (U.id = I.userId)
-             left join InterestCateogry IC on I.interestId = IC.id;
-    
+  select IC.name as interestName
+  from InterestCateogry IC
+           left join Interest I on IC.id = I.interestId
+           left join User U on I.userId = U.id
+  where U.name = ? limit 4;
     `;
-  const [userInterest] = await connection.query(getUserInterest);
+  const [userInterest] = await connection.query(getUserInterest, userId);
   return userInterest;
 }
 
-async function getUserTeckStack(connection) {
-  const getUserStack = `
-    select SC.imageUrl, SC.name
-from User U
-         left join Stack S on (U.id = S.userId)
-         left join StackCategory SC on S.stackId = SC.id
-where S.level = 'ADVANCED';
-    `;
-  const [userTeckStack] = await connection.query(getUserStack);
+async function getUserTeckStacks(connection, userId) {
+  const getUserTeckStack = `
+  select SC.imageUrl as image, SC.name as name, S.level as level
+  from StackCategory SC
+         left join Stack S on SC.id = S.stackId
+         left join User U on S.userId = U.id;
+  `;
+  const [userTeckStack] = await connection.query(getUserTeckStack, userId);
   return userTeckStack;
 }
 
-async function getUserExperience(connection) {
+async function getUserExperienced(connection, userId) {
   const getUserCareer = `
-select C.name, C.career, C.start, C.end
-from User U
-         left join Career C on U.id = C.userId;
+  select C.name as name, C.career as career, C.start as startDate, C.end as endDate
+  from Career C
+           left join User U on C.userId = U.id
+  where U.id = ?;
     `;
-  const [userExperience] = await connection.query(getUserCareer);
+  const [userExperience] = await connection.query(getUserCareer, userId);
   return userExperience;
 }
 
-async function getUserEducation(connection) {
-  //const getUserInstitute =
+async function getUserEducations(connection, userId) {
+  const getUserInstitute = `
+  select I.start as startDate, I.end as endDate, I.name as name, I.department as department, I.type as type
+  from Institute I
+         left join User U on I.userId = U.id
+  where U.id = ?;
+  `;
+  const [userEducation] = await connection.query(getUserInstitute, userId);
+  return userEducation;
+}
+
+async function getUserProjects(connection, userId) {
+  const getProjects = `
+  select P.imageUrl as projectImage, P.name as projectName, P.about as about, P.start as startDate, P.end as endDate
+  from Project P
+         left join User U on P.userId = U.id
+  where pinned = 1 and U.id = ?
+  limit 3;
+  `;
+  const [userProjects] = await connection.query(getProjects, userId);
+  return userProjects;
+}
+
+async function getUserStudies(connection, userId) {
+  const getStudies = `
+  select S.name as studyName, S.about as about, S.readMe as readMe
+  from Study S
+         left join User U on S.userId = U.id
+  where U.id = ?
+  limit 3;
+  `;
+  const [userStudy] = await connection.query(getStudies, userId);
+  return userStudy;
 }
 module.exports = {
   getUserProfileInfo,
+  getUserInterests,
+  getUserTeckStacks,
+  getUserExperienced,
+  getUserEducations,
+  getUserProjects,
+  getUserStudies,
 };
