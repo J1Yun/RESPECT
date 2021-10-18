@@ -16,6 +16,16 @@ where U.name =?;
   return userProfile;
 }
 
+async function getProfileEditUser(connection, userId) {
+  const getUserProfile = `
+  select name, info, contactPhone as phoneNumber, email, imageUrl
+  from User u
+  where name = ?;
+  `;
+  const [originUserProfile] = await connection.query(getUserProfile, userId);
+  return originUserProfile;
+}
+
 async function getUserInterests(connection, userId) {
   const getUserInterest = `
   select IC.name as interestName
@@ -44,7 +54,7 @@ async function getUserExperienced(connection, userId) {
   select C.name as name, C.career as career, C.start as startDate, C.end as endDate
   from Career C
            left join User U on C.userId = U.id
-  where U.id = ?;
+  where U.name = ?;
     `;
   const [userExperience] = await connection.query(getUserCareer, userId);
   return userExperience;
@@ -55,7 +65,7 @@ async function getUserEducations(connection, userId) {
   select I.start as startDate, I.end as endDate, I.name as name, I.department as department, I.type as type
   from Institute I
          left join User U on I.userId = U.id
-  where U.id = ?;
+  where U.name = ?;
   `;
   const [userEducation] = await connection.query(getUserInstitute, userId);
   return userEducation;
@@ -66,7 +76,7 @@ async function getUserProjects(connection, userId) {
   select P.imageUrl as projectImage, P.name as projectName, P.about as about, P.start as startDate, P.end as endDate
   from Project P
          left join User U on P.userId = U.id
-  where pinned = 1 and U.id = ?
+  where pinned = 1 and U.name = ?
   limit 3;
   `;
   const [userProjects] = await connection.query(getProjects, userId);
@@ -78,12 +88,26 @@ async function getUserStudies(connection, userId) {
   select S.name as studyName, S.about as about, S.readMe as readMe
   from Study S
          left join User U on S.userId = U.id
-  where U.id = ?
+  where U.name = ?
   limit 3;
   `;
   const [userStudy] = await connection.query(getStudies, userId);
   return userStudy;
 }
+async function updateProfile(connection, params) {
+  const updateUserProfile = `
+  update User
+  set name         = ?,
+      info         = ?,
+      contactPhone = ?,
+      email        = ?,
+      location     = ?
+  where name = ?;
+  `;
+  const updateResult = await connection.query(updateUserProfile, params);
+  return updateResult;
+}
+
 module.exports = {
   getUserProfileInfo,
   getUserInterests,
@@ -92,4 +116,6 @@ module.exports = {
   getUserEducations,
   getUserProjects,
   getUserStudies,
+  updateProfile,
+  getProfileEditUser,
 };

@@ -21,6 +21,9 @@ router.get('/profile/education/:userId', profileController.userEducation);
 router.get('/profile/projects/:userId', profileController.userProjects);
 router.get('/profile/study/:userId', profileController.userStudy);
 
+router.get('/profile/update/:userId', profileController.userEditProfile);
+router.post('/profile/update', profileController.updateUserProfile);
+
 router.get('/userRepository/:userId', githubapi.getUserRepositoryList);
 router.get('/userIdList', db.retrieveUserIdList);
 

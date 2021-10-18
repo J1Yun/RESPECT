@@ -82,3 +82,30 @@ exports.getUserStudy = async function (userId) {
     connection.release();
   }
 };
+
+exports.userProfileUpdate = async function (userId) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  try {
+    const originUserProfile = await ProfileDao.getProfileEditUser(connection, userId);
+    return originUserProfile;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.release();
+  }
+};
+
+exports.changeUserProfile = async function (name, content, phoneNumber, email, location, name) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const params = [name, content, phoneNumber, email, location, name];
+  try {
+    const updateResult = await ProfileDao.updateProfile(connection, params);
+    if (updateResult) {
+      return baseResponse.SUCCESS;
+    } else {
+      return baseResponse.SERVER_CONNECT_ERROR;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};

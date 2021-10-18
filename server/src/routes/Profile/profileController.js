@@ -1,5 +1,6 @@
 const ProfileService = require('./profileService');
 const baseResponse = require('../../config/baseResponseStatus');
+const regexEmail = require('regex-email');
 const { response } = require('../../config/baseResponseStatus');
 
 exports.userProfile = async function (req, res) {
@@ -64,11 +65,36 @@ exports.userProjects = async function (req, res) {
     res.send(baseResponse.LOGIN_ERROR);
   }
 };
+
 exports.userStudy = async function (req, res) {
   const userId = req.params.userId;
   if (req.session.user) {
     const checkStudy = await ProfileService.getUserStudy(userId);
     res.json(checkStudy);
+  } else {
+    res.send(baseResponse.LOGIN_ERROR);
+  }
+};
+
+exports.userEditProfile = async function (req, res) {
+  if (req.session.user) {
+    //const userId = req.session.user.name;
+    const userId = req.params.userId;
+    const userProfileInfo = await ProfileService.userProfileUpdate(userId);
+    res.json(userProfileInfo);
+  } else {
+    res.send(baseResponse.LOGIN_ERROR);
+  }
+};
+
+exports.updateUserProfile = async function (req, res) {
+  console.log(req.body);
+  const { name, content, phoneNumber, email, location } = req.body;
+  if (!req.session.user) {
+    if (!regexEmail.test(email)) return res.send(baseResponse.EMAIL_ERROR_TYPE);
+    //const userId = req.session.user.username;
+    const signUpResponse = await ProfileService.changeUserProfile(name, content, phoneNumber, email, location, name);
+    return res.send(signUpResponse);
   } else {
     res.send(baseResponse.LOGIN_ERROR);
   }
