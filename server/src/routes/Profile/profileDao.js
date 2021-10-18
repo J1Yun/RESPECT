@@ -73,7 +73,7 @@ async function getUserEducations(connection, userId) {
 
 async function getUserProjects(connection, userId) {
   const getProjects = `
-  select P.imageUrl as projectImage, P.name as projectName, P.about as about, P.start as startDate, P.end as endDate
+  select P.imageUrl as projectImage, P.name as projectName, P.about as about, P.start as startDate, P.end as endDate, count(P.name) as projectCount
   from Project P
          left join User U on P.userId = U.id
   where pinned = 1 and U.name = ?

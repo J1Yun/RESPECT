@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userController = require('./User/userController');
 const profileController = require('./Profile/profileController');
+const projectController = require('./Project/projectController');
 
 const githubapi = require('./Repository/githubApi');
 const db = require('./Repository/dbConnection');
@@ -24,6 +25,10 @@ router.get('/profile/study/:userId', profileController.userStudy);
 
 router.get('/profile/update/:userId', profileController.userEditProfile);
 router.post('/profile/update', profileController.updateUserProfile);
+
+// Project
+router.get('/project/:userId', projectController.projectList);
+//router.get('/project/:userId/:projectName, projectController);
 
 router.get('/userRepository/:userId', githubapi.getUserRepositoryList);
 router.get('/userIdList', db.retrieveUserIdList);
