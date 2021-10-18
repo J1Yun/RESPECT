@@ -5,14 +5,10 @@ const { response } = require('../../config/baseResponseStatus');
 
 exports.userProfile = async function (req, res) {
   const userId = req.params.userId;
-  // 로그인이 되있을 경우
-  if (req.session.user) {
-    const checkProfile = await ProfileService.getUserProfile(userId);
-    console.log(checkProfile);
-    res.json(checkProfile);
-  } else {
-    res.send(baseResponse.LOGIN_ERROR);
-  }
+
+  const checkProfile = await ProfileService.getUserProfile(userId);
+  console.log(checkProfile);
+  res.json(checkProfile);
 };
 
 exports.userInterest = async function (req, res) {
@@ -90,8 +86,8 @@ exports.userEditProfile = async function (req, res) {
 exports.updateUserProfile = async function (req, res) {
   console.log(req.body);
   const { name, content, phoneNumber, email, location } = req.body;
-  if (!req.session.user) {
-    if (!regexEmail.test(email)) return res.send(baseResponse.EMAIL_ERROR_TYPE);
+  if (req.session.user) {
+    //if (!regexEmail.test(email)) return res.send(baseResponse.EMAIL_ERROR_TYPE);
     //const userId = req.session.user.username;
     const signUpResponse = await ProfileService.changeUserProfile(name, content, phoneNumber, email, location, name);
     return res.send(signUpResponse);

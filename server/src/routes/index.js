@@ -6,6 +6,7 @@ const profileController = require('./Profile/profileController');
 
 const githubapi = require('./Repository/githubApi');
 const db = require('./Repository/dbConnection');
+const middleWare = require('../config/middleware');
 
 // Login , SignUp
 router.get('/login', userController.output.login);
@@ -13,7 +14,7 @@ router.post('/login', userController.process.login);
 router.post('/signUp', userController.process.signUp);
 
 // Profile
-router.get('/profile/:userId', profileController.userProfile);
+router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.userProfile);
 router.get('/profile/interest/:userId', profileController.userInterest);
 router.get('/profile/teckstack/:userId', profileController.userTeckStack);
 router.get('/profile/experience/:userId', profileController.userExperience);
