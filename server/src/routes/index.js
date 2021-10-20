@@ -8,6 +8,7 @@ const projectController = require('./Project/projectController');
 const githubapi = require('./Repository/githubApi');
 const db = require('./Repository/dbConnection');
 const middleWare = require('../config/middleware');
+const commentController = require('./Comment/commentController');
 
 // Login , SignUp
 router.get('/login', userController.output.login);
@@ -29,6 +30,9 @@ router.post('/profile/update', profileController.updateUserProfile);
 // Project
 router.get('/project/:userId', projectController.projectList);
 //router.get('/project/:userId/:projectName, projectController);
+
+// Comment
+router.get('/comment/:projectId', commentController.projectComment);
 
 router.get('/userRepository/:userId', githubapi.getUserRepositoryList);
 router.get('/userIdList', db.retrieveUserIdList);
