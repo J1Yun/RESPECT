@@ -15,6 +15,15 @@ async function getProjectComments(connection, projectId) {
   const [projectComments] = await connection.query(allComments, projectId);
   return projectComments;
 }
+async function insertProjectComment(connection, params) {
+  const insertComment = `
+  insert into ProjectComment(userId, projectId, contents)
+  values (?, ?, ?)
+  `;
+  const resultComments = await connection.query(insertComment, params);
+  return resultComments;
+}
 module.exports = {
   getProjectComments,
+  insertProjectComment,
 };

@@ -5,7 +5,7 @@ const baseResponse = require('../../config/baseResponseStatus');
 const crypto = require('crypto');
 
 exports.checkUserAccount = async function (nickname, password) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
@@ -25,7 +25,7 @@ exports.checkUserAccount = async function (nickname, password) {
 };
 
 exports.createUser = async function (nickname, password, name) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
 

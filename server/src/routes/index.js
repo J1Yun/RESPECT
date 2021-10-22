@@ -16,23 +16,38 @@ router.post('/login', userController.process.login);
 router.post('/signUp', userController.process.signUp);
 
 // Profile
+// profile 정보 가져오기
 router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.userProfile);
+
+// Interest 가져오기
 router.get('/profile/interest/:userId', profileController.userInterest);
+
+// TeckStack 가져오기
 router.get('/profile/teckstack/:userId', profileController.userTeckStack);
+
+// Experience 가져오기
 router.get('/profile/experience/:userId', profileController.userExperience);
+
+// Education 가져왹
 router.get('/profile/education/:userId', profileController.userEducation);
+
+// 프로젝트 가져오기 (3개, Pinned)
 router.get('/profile/projects/:userId', profileController.userProjects);
+
+// Study 가져오기 (3개)
 router.get('/profile/study/:userId', profileController.userStudy);
 
+// Profile Update
 router.get('/profile/update/:userId', profileController.userEditProfile);
 router.post('/profile/update', profileController.updateUserProfile);
 
 // Project
 router.get('/project/:userId', projectController.projectList);
-//router.get('/project/:userId/:projectName, projectController);
+//router.get('/project/:userId/:projectId, projectController);
 
 // Comment
 router.get('/comment/:projectId', commentController.projectComment);
+router.put('/comment/:projectId', middleWare.loginMiddleWare, commentController.addComment);
 
 router.get('/userRepository/:userId', githubapi.getUserRepositoryList);
 router.get('/userIdList', db.retrieveUserIdList);
