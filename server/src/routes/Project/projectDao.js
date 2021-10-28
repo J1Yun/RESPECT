@@ -8,7 +8,14 @@ async function showProjectList(connection, userId) {
   const [getUserProjects] = await connection.query(getProjectList, userId);
   return getUserProjects;
 }
+async function retrieveProject(connection, userId, projectId) {
+  const getProjectInfo = `
+  `;
+  const [getProjectByUserIdProjectId] = await connection.query(getProjectInfo, userId, projectId);
+  return getProjectByUserIdProjectId;
+}
 
 module.exports = {
   showProjectList,
+  retrieveProject,
 };

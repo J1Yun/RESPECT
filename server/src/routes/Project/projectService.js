@@ -11,5 +11,19 @@ exports.getProjectList = async function (userId) {
   } catch (err) {
     console.log(err);
     return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};
+exports.retrieveProjectByProjectId = async function (userId, projectId) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  try {
+    const retrieveProject = await ProjectDao.retrieveProject(connection, userId, projectId);
+    return retrieveProject;
+  } catch (err) {
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
   }
 };
