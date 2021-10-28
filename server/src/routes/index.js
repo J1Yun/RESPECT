@@ -9,11 +9,14 @@ const githubapi = require('./Repository/githubApi');
 const db = require('./Repository/dbConnection');
 const middleWare = require('../config/middleware');
 const commentController = require('./Comment/commentController');
-
+const githubAccess = require('./Github/githubLogin');
 // Login , SignUp
 router.get('/login', userController.output.login);
 router.post('/login', userController.process.login);
 router.post('/signUp', userController.process.signUp);
+
+// Github Login
+router.get('/auth', githubAccess.githubLogin);
 
 // Profile
 // profile 정보 가져오기

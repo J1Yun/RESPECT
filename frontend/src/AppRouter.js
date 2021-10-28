@@ -3,13 +3,13 @@ import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-d
 
 import { useState } from 'react';
 
-import LoginPage from 'pages/LoginPage/LoginPage'
-import RegisterPage from 'pages/RegisterPage/RegisterPage'
-import AroundPage from 'pages/AroundPage/AroundPage'
-import PoolPage from 'pages/PoolPage/PoolPage'
-import PortfolioPage from 'pages/PortfolioPage/PortfolioPage'
-const AppRouter = () => {
+import LoginPage from 'pages/LoginPage/LoginPage';
+import RegisterPage from 'pages/RegisterPage/RegisterPage';
+import AroundPage from 'pages/AroundPage/AroundPage';
+import PoolPage from 'pages/PoolPage/PoolPage';
+import PortfolioPage from 'pages/PortfolioPage/PortfolioPage';
 
+const AppRouter = () => {
   return (
     <Router>
       <Switch>
@@ -26,7 +26,7 @@ const AppRouter = () => {
           <PoolPage />
         </Route>
         <Route exact path="/:nickname">
-          <PortfolioPage/>
+          <PortfolioPage />
         </Route>
         <Redirect to="/" />
       </Switch>
