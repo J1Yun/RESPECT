@@ -8,6 +8,7 @@ import RegisterPage from 'pages/RegisterPage/RegisterPage';
 import AroundPage from 'pages/AroundPage/AroundPage';
 import PoolPage from 'pages/PoolPage/PoolPage';
 import PortfolioPage from 'pages/PortfolioPage/PortfolioPage';
+import RepositoryPage from 'pages/ProjectPage/RepositoryPage';
 
 const AppRouter = () => {
   return (
@@ -27,6 +28,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/:nickname">
           <PortfolioPage />
+        </Route>
+        <Route exact path="/repository">
+          <RepositoryPage />
         </Route>
         <Redirect to="/" />
       </Switch>
