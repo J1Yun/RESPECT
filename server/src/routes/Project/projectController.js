@@ -4,7 +4,7 @@ const { response } = require('../../config/baseResponseStatus');
 
 exports.projectList = async function (req, res) {
   // github 연동이 되있을 경우
-  if (req.session.currentUser.githubId) {
+  if (req.session.githubUser.githubId) {
     const userId = req.params.userId;
     const githubId = req.session.currentUser.githubId;
     const projectResult = await ProjectService.getProjectList(userId);
@@ -16,6 +16,6 @@ exports.projectList = async function (req, res) {
 exports.getProjectByUserProjectId = async function (req, res) {
   const userId = req.params.userId;
   const projectId = req.params.projectId;
-  const myProject = await ProjectService.retrieveProjectByProjectId(userId, projectId);
-  res.json(myProject);
+  const projectResult = await ProjectService.retrieveProjectByProjectId(userId, projectId);
+  res.json(projectResult);
 };
