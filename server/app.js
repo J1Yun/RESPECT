@@ -7,7 +7,8 @@ const expressSession = require('express-session');
 dotenv.config();
 const home = require('./src/routes/index');
 const repository = require('./src/routes/index');
-
+const cors = require('cors');
+const corsOptions = { origin: 'http://localhost:3000', credentials: true };
 class App {
   constructor() {
     this.app = express();
@@ -48,6 +49,8 @@ class App {
       else res.locals.user = undefined;
       next();
     });
+
+    this.app.use(cors(corsOptions));
   }
 
   setStatic() {

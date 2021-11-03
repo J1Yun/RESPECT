@@ -1,20 +1,24 @@
 import React from 'react';
 import axios from 'axios';
+import queryString from 'query-string';
+import { reset } from 'nodemon';
+const CallbackPage = (location) => {
+  //const url = window.location.href;
+  //const hashCode = url.split('?code=')[1];
 
-const CallbackPage = () => {
-  const getAccessToken = async (code) => {
-    const { data } = await axios.post({
-      method: 'post',
-      url: 'http://localhost:5000/auth',
-      code: code,
-    });
-    // 우리 서버로 code를 전송합니다.
-
-    const accessToken = data; // 서버로부터 받게될 데이터 (5번 과정)
-    console.log(accessToken);
-    return accessToken;
-  };
-  console.log(getAccessToken);
+  //console.log(hashCode);
+  // const getAccessToken = async function (hashCode) {
+  //   const { data } = await axios({
+  //     method: 'get',
+  //     url: 'http://localhost:5000/auth',
+  //     code: hashCode,
+  //   });
+  // };
+  // const { data } = axios({
+  //   method: 'get',
+  //   url: `http://localhost:5000/auth?code=${hashCode}`,
+  // });
+  // console.log(data);
   return <div />;
 };
 export default CallbackPage;
