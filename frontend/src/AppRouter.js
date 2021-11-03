@@ -9,6 +9,8 @@ import AroundPage from 'pages/AroundPage/AroundPage';
 import PoolPage from 'pages/PoolPage/PoolPage';
 import PortfolioPage from 'pages/PortfolioPage/PortfolioPage';
 import CallbackPage from 'pages/GithubLogin/CallbackPage';
+import RepositoryPage from 'pages/ProjectPage/RepositoryPage';
+
 const AppRouter = () => {
   return (
     <Router>
@@ -30,6 +32,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/callback">
           <CallbackPage />
+        </Route>
+        <Route exact path="/repository">
+          <RepositoryPage />
         </Route>
         <Redirect to="/" />
       </Switch>
