@@ -9,6 +9,13 @@ const loginMiddleWare = async function (req, res, next) {
   }
 };
 
+const authentication = async (req, res, next) => {
+  const { authorization: token } = req.headers;
+  const secret = process.env.SESSION_SECRET;
+  next();
+};
+
 module.exports = {
   loginMiddleWare,
+  authentication,
 };

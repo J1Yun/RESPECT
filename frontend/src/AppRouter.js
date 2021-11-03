@@ -8,6 +8,7 @@ import RegisterPage from 'pages/RegisterPage/RegisterPage';
 import AroundPage from 'pages/AroundPage/AroundPage';
 import PoolPage from 'pages/PoolPage/PoolPage';
 import PortfolioPage from 'pages/PortfolioPage/PortfolioPage';
+import CallbackPage from 'pages/GithubLogin/CallbackPage';
 import RepositoryPage from 'pages/ProjectPage/RepositoryPage';
 
 const AppRouter = () => {
@@ -26,8 +27,11 @@ const AppRouter = () => {
         <Route exact path="/pool">
           <PoolPage />
         </Route>
-        <Route exact path="/:nickname">
+        <Route exact path="/user/:nickname">
           <PortfolioPage />
+        </Route>
+        <Route exact path="/callback">
+          <CallbackPage />
         </Route>
         <Route exact path="/repository">
           <RepositoryPage />
