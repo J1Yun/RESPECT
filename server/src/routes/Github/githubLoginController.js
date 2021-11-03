@@ -1,13 +1,14 @@
 const axios = require('axios');
+const dotenv = require('dotenv');
+dotenv.config();
 
 exports.githubLogin = async function (req, res) {
-  //'/callback': 인증 정보를 바탕으로 access token을 받아올 수 있도록 도와주는 라우터이다.
   const github = {
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    code: req.query.code,
+    code: req.body.code,
   };
-  console.log(github.code);
+  var accessToken, currentGithubUser;
   try {
     const { data } = await axios({
       method: 'post',
@@ -16,10 +17,11 @@ exports.githubLogin = async function (req, res) {
         accept: 'application/json',
       },
     });
-    console.log(data.access_token);
-    const accessToken = data.access_token;
-
-    console.log('accessToken: ' + accessToken);
+    accessToken = data.access_token;
+  } catch (err) {
+    console.log(err);
+  }
+  try {
     const userInfo = await axios({
       method: 'get',
       url: `https://api.github.com/user`,
@@ -30,23 +32,28 @@ exports.githubLogin = async function (req, res) {
     req.session.githubUser = {
       githubId: userInfo.data.login,
     };
-    const currentGithubUser = req.session.githubUser.githubId;
-    // const repositoryList = await axios({
-    //   method: 'get',
-    //   url: `https://api.github.com/repos/${currentGithubUser}/api-server-final-node-js`,
-    //   headers: {
-    //     Authorization: `token ${accessToken}`,
-    //   },
-    // });
+    console.log(userInfo.data);
+    currentGithubUser = req.session.githubUser.githubId;
+  } catch (err) {
+    console.log(err);
+  }
+  // const repositoryList = await axios({
+  //   method: 'get',
+  //   url: `https://api.github.com/repos/${currentGithubUser}/api-server-final-node-js`,
+  //   headers: {
+  //     Authorization: `token ${accessToken}`,
+  //   },
+  // });
+  // console.log(repositoryList.data.name);
+  if (currentGithubUser) {
+    //res.redirect(307, 'http://localhost:3000/portfolio');
+    res.json({ accessToken: accessToken });
 
-    if (currentGithubUser) {
-      return res.send(accessToken);
-      console.log(`Current User : ${currentGithubUser}`);
-    } else {
-      return res.send('fail');
-      console.log(`Login Failed`);
-    }
-  } catch (err) {}
+    console.log(`Login Success!! Current User : ${currentGithubUser}`);
+  } else {
+    res.json({ errorMessage: 'Login Error' });
+    console.log(`Login Failed`);
+  }
 };
 
 exports.getGithubAccessToken = async function (req, res) {

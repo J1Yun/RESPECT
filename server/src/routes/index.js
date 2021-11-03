@@ -16,7 +16,7 @@ router.post('/login', userController.process.login);
 router.post('/signUp', userController.process.signUp);
 
 // Github Login
-router.get('/auth', githubLoginController.githubLogin);
+router.post('/auth', githubLoginController.githubLogin);
 
 // Profile
 // profile 정보 가져오기
