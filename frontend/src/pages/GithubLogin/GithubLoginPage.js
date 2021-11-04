@@ -13,7 +13,7 @@ const GithubLoginPage = () => {
   return (
     <div id="github-login-div">
       <h2 id="github-login">Github</h2>
-      <a id="github-login" href={url}>
+      <a id="github-login" href="http://localhost:5000/auth/login">
         GitHub 연동하기
       </a>
     </div>

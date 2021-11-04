@@ -4,7 +4,6 @@ const router = express.Router();
 const userController = require('./User/userController');
 const profileController = require('./Profile/profileController');
 const projectController = require('./Project/projectController');
-
 const githubapi = require('./Repository/githubApi');
 const db = require('./Repository/dbConnection');
 const middleWare = require('../config/middleware');
@@ -17,7 +16,7 @@ router.post('/signUp', userController.process.signUp);
 
 // Github Login
 router.post('/auth', githubLoginController.githubLogin);
-
+router.get('/auth/login', githubLoginController.githubLoginAuthRedirect);
 // Profile
 // profile 정보 가져오기
 router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.userProfile);
