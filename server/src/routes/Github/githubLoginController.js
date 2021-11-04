@@ -32,11 +32,14 @@ exports.githubLogin = async function (req, res) {
     req.session.githubUser = {
       githubId: userInfo.data.login,
     };
+
     console.log(userInfo.data);
     currentGithubUser = req.session.githubUser.githubId;
   } catch (err) {
     console.log(err);
   }
+
+  console.log(req.session.id);
   // const repositoryList = await axios({
   //   method: 'get',
   //   url: `https://api.github.com/repos/${currentGithubUser}/api-server-final-node-js`,
@@ -47,8 +50,7 @@ exports.githubLogin = async function (req, res) {
   // console.log(repositoryList.data.name);
   if (currentGithubUser) {
     //res.redirect(307, 'http://localhost:3000/portfolio');
-    res.json({ accessToken: accessToken });
-
+    res.json({ accessToken: accessToken, sessionId: req.session.id });
     console.log(`Login Success!! Current User : ${currentGithubUser}`);
   } else {
     res.json({ errorMessage: 'Login Error' });

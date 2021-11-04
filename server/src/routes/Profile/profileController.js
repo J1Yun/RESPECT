@@ -2,10 +2,9 @@ const ProfileService = require('./profileService');
 const baseResponse = require('../../config/baseResponseStatus');
 const regexEmail = require('regex-email');
 const { response } = require('../../config/baseResponseStatus');
-
+require('dotenv').config();
 exports.userProfile = async function (req, res) {
   const userId = req.params.userId;
-
   const checkProfile = await ProfileService.getUserProfile(userId);
   console.log(checkProfile);
   res.json(checkProfile);
@@ -16,6 +15,7 @@ exports.userInterest = async function (req, res) {
   if (req.session.user) {
     const checkInterest = await ProfileService.getUserInterest(userId);
     console.log(checkInterest);
+    res.cookie('_uid', req.session.id, { signed: true, maxAge: 86400000 });
     res.json(checkInterest);
   } else {
     res.send(baseResponse.LOGIN_ERROR);
