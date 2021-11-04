@@ -58,16 +58,6 @@ exports.githubLogin = async function (req, res) {
   }
 };
 
-exports.githubLoginAuthRedirect = async function (req, res) {
-  const github = {
-    clientId: process.env.CLIENT_ID,
-    callbackURL: process.env.REDIRECT_ID,
-    scope: 'repo,user,gist',
-  };
-  const url = `https://github.com/login/oauth/authorize?client_id=${github.clientId}&redirect_uri=${github.callbackURL}&scope=${github.scope}`;
-  res.redirect(url);
-};
-
 exports.getGithubAccessToken = async function (req, res) {
   const github = {
     clientId: process.env.CLIENT_ID,

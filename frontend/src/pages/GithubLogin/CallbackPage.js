@@ -11,9 +11,9 @@ const CallbackPage = () => {
     try {
       const { token } = await axios
         .post('http://localhost:5000/auth', { code })
-        .then((response) => {
-          console.log(response.data.accessToken);
-          return response.data.accessToken;
+        .then((res) => {
+          console.log(res.data.accessToken);
+          return res.data.accessToken;
         })
         .catch((err) => {
           console.log(err);
@@ -22,6 +22,7 @@ const CallbackPage = () => {
       console.log(err);
     }
   }
+
   const accessToken = getAccessToken(code);
   if (accessToken) {
     return <div id="githubLogin"> Github Login User </div>;
