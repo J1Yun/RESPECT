@@ -38,8 +38,8 @@ exports.githubLogin = async function (req, res) {
   } catch (err) {
     console.log(err);
   }
+
   console.log(req.session.id);
-  res.cookie('_uid', req.session.id, { signed: true, maxAge: 86400000 });
   // const repositoryList = await axios({
   //   method: 'get',
   //   url: `https://api.github.com/repos/${currentGithubUser}/api-server-final-node-js`,
@@ -50,7 +50,7 @@ exports.githubLogin = async function (req, res) {
   // console.log(repositoryList.data.name);
   if (currentGithubUser) {
     //res.redirect(307, 'http://localhost:3000/portfolio');
-    res.json({ accessToken: accessToken });
+    res.json({ accessToken: accessToken, sessionId: req.session.id });
     console.log(`Login Success!! Current User : ${currentGithubUser}`);
   } else {
     res.json({ errorMessage: 'Login Error' });

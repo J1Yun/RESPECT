@@ -12,6 +12,7 @@ const CallbackPage = () => {
       const { token } = await axios
         .post('http://localhost:5000/auth', { code })
         .then((res) => {
+          console.log(res);
           console.log(res.data.accessToken);
           return res.data.accessToken;
         })

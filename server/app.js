@@ -57,6 +57,11 @@ class App {
       next();
     });
 
+    this.app.use(function (req, res, next) {
+      if (req.session.githubUser) res.locals.githubUser = req.session.githubUser;
+      else res.locals.githubUser = undefined;
+      next();
+    });
     this.app.use(cors(corsOption));
   }
 

@@ -5,7 +5,6 @@ const { response } = require('../../config/baseResponseStatus');
 require('dotenv').config();
 exports.userProfile = async function (req, res) {
   const userId = req.params.userId;
-
   const checkProfile = await ProfileService.getUserProfile(userId);
   console.log(checkProfile);
   res.json(checkProfile);
@@ -13,7 +12,7 @@ exports.userProfile = async function (req, res) {
 
 exports.userInterest = async function (req, res) {
   const userId = req.params.userId;
-  if (!req.session.user) {
+  if (req.session.user) {
     const checkInterest = await ProfileService.getUserInterest(userId);
     console.log(checkInterest);
     res.cookie('_uid', req.session.id, { signed: true, maxAge: 86400000 });
