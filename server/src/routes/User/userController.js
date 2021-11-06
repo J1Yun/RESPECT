@@ -28,9 +28,6 @@ const process = {
         username: checkUser.username,
         authorized: true,
       };
-      console.log(req.session.user);
-      console.log(req.session.id);
-      res.cookie('asdf', req.session.id, { signed: true, maxAge: 86400000 });
     }
     return res.send(checkUser);
   },

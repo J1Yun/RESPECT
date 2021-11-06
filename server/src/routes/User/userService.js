@@ -5,7 +5,7 @@ const baseResponse = require('../../config/baseResponseStatus');
 const crypto = require('crypto');
 
 exports.checkUserAccount = async function (nickname, password) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
@@ -25,10 +25,9 @@ exports.checkUserAccount = async function (nickname, password) {
 };
 
 exports.createUser = async function (nickname, password, name) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
-
     if (userIdRows.length > 0) return baseResponse.SIGNUP_REDUNDANT_EMAIL;
 
     const hashedPassword = crypto.createHash('sha512').update(password).digest('hex');
@@ -36,6 +35,33 @@ exports.createUser = async function (nickname, password, name) {
 
     const signUpResult = await UserDao.createUserAccount(connection, params);
     console.log(`회원가입 계정 : ${signUpResult[0].insertId}`);
+    return baseResponse.SUCCESS;
+  } catch (err) {
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};
+
+exports.checkUserExist = async function (nickname) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
+    if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
+    return userIdRows;
+  } catch (err) {
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};
+
+exports.updateSocailLogin = async function (userId) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    await UserDao.updateSocialLoginByGithubId(connection, userId);
     return baseResponse.SUCCESS;
   } catch (err) {
     console.log(err);

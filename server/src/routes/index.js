@@ -14,7 +14,7 @@ router.get('/login', middleWare.loginMiddleWare, userController.output.login);
 router.post('/login', userController.process.login);
 router.post('/signUp', userController.process.signUp);
 
-// Github Login
+// Github Social Login
 router.post('/auth', githubLoginController.githubLogin);
 
 // Profile
