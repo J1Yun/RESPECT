@@ -1,3 +1,5 @@
+const { pool } = require('../../config/database');
+
 async function getUserProfileInfo(connection, userId) {
   const getUserInfo = `
   select U.name as name,
@@ -44,6 +46,7 @@ async function getUserTeckStacks(connection, userId) {
   from StackCategory SC
          left join Stack S on SC.id = S.stackId
          left join User U on S.userId = U.id;
+         where u.id = ?
   `;
   const [userTeckStack] = await connection.query(getUserTeckStack, userId);
   return userTeckStack;
@@ -135,6 +138,25 @@ async function insertExperienceContent(connection, userId, content) {
   return insertResult;
 }
 
+async function getStackId(connection, teckStack) {
+  const getStackIdByTechStack = `
+  select id
+  from StackCategory
+  where name = ?;
+  `;
+  const [stackId] = await connection.query(getStackIdByTechStack, teckStack);
+  return stackId;
+}
+
+async function insertExperiencedTeckStack(connection, params) {
+  const insertExperiencedTeckStackContens = `
+  insert into Stack(stackId, userId, level)
+  values (?, ?, ?);
+  `;
+  const [insertExperienceContentResult] = await connection.query(insertExperiencedTeckStackContens, params);
+  return insertExperienceContentResult;
+}
+
 module.exports = {
   getUserProfileInfo,
   getUserInterests,
@@ -148,4 +170,6 @@ module.exports = {
   checkExperienceContent,
   insertExperienceContent,
   updateExperienceContent,
+  getStackId,
+  insertExperiencedTeckStack,
 };

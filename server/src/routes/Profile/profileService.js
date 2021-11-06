@@ -139,3 +139,24 @@ exports.editExperienceContent = async function (userId, content) {
     connection.release();
   }
 };
+
+exports.editAdvancedTechStackContent = async function (userId, advancedTechStack) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const checkLength = advancedTechStack.length;
+  const checkAdvancedTechStack = await ProfileDao.checkTeckStack(connection, advancedTechStack);
+  try {
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.editExperiencedTechStackContent = async function (userId, experiencedTeckStack) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const checkExperiencedTechStack = await ProfileDao.checkTeckStack(connection, experiencedTeckStack);
+  for (i = 0; i < experiencedTeckStack.length; i++) {
+    const stackId = await ProfileDao.getStackId(connection, experiencedTeckStack[i]);
+    const params = [stackId, userId, experiencedTeckStack[i]];
+    const insertExperiencedTeckStackResult = await ProfileDao.insertExperiencedTeckStack(connection, params);
+    return insertExperiencedTeckStackResult;
+  }
+};

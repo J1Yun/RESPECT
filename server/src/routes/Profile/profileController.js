@@ -101,3 +101,25 @@ exports.editExperience = async function (req, res) {
   const editExperienceResult = await ProfileService.editExperienceContent(userId, content);
   return res.send(editExperienceResult);
 };
+
+exports.editTechStack = async function (req, res) {
+  //const { advancedTechStack, experiencedTechStack } = req.body;
+  // const techStack = {
+  //   advancedTeckStack: ['c++', 'c', 'java', 'javascript'],
+  //   experiencedTechStack: ['python'],
+  // };
+  const { techStack } = req.body;
+
+  const userId = req.params.userId;
+  if (techStack.advancedTechStack && techStack.experiencedTechStack == null) {
+    const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, techStack.advancedTechStack);
+    return res.send(editAdvancedTechStackResult);
+  } else if (techStack.experiencedTechStack && techStack.advancedTechStack == null) {
+    const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, techStack.experiencedTechStack);
+    return res.send(editExperiencedTechStackResult);
+  } else {
+    const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, techStack.advancedTechStack);
+    const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, techStack.experiencedTechStack);
+  }
+  return;
+};
