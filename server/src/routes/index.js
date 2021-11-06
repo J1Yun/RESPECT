@@ -29,8 +29,9 @@ router.get('/profile/teckstack/:userId', profileController.userTeckStack);
 
 // Experience 가져오기
 router.get('/profile/experience/:userId', profileController.userExperience);
+router.post('/profile/experience/:userId', profileController.editExperience);
 
-// Education 가져왹
+// Education 가져오기
 router.get('/profile/education/:userId', profileController.userEducation);
 
 // 프로젝트 가져오기 (3개, Pinned)
@@ -41,7 +42,7 @@ router.get('/profile/study/:userId', profileController.userStudy);
 
 // Profile Update
 router.get('/profile/update/:userId', profileController.userEditProfile);
-router.post('/profile/update', profileController.updateUserProfile);
+router.put('/profile/update', profileController.updateUserProfile);
 
 // Project
 router.get('/:userId/project', projectController.projectList);
@@ -50,7 +51,7 @@ router.get('/:userId/project/:projectId', projectController.getProjectByUserProj
 
 // Comment
 router.get('/comment/:projectId', commentController.projectComment);
-router.put('/comment/:projectId', middleWare.loginMiddleWare, commentController.addComment);
+router.post('/comment/:projectId', middleWare.loginMiddleWare, commentController.addComment);
 
 router.get('/userRepository/:userId', githubapi.getUserRepositoryList);
 router.get('/userIdList', db.retrieveUserIdList);

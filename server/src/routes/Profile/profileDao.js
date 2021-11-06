@@ -107,6 +107,33 @@ async function updateProfile(connection, params) {
   const updateResult = await connection.query(updateUserProfile, params);
   return updateResult;
 }
+async function checkExperienceContent(connection, userId) {
+  const checkExperience = `
+  select career
+  from Career
+  where userId = ?;
+  `;
+  const [checkResult] = await connection.query(checkExperience, userId);
+  return checkResult;
+}
+async function updateExperienceContent(connection, content, userId) {
+  const updateExperienceContents = `
+  update Career 
+  set career = ?
+  where userId = ?
+  `;
+  const updateResult = await connection.query(updateExperienceContents, [content, userId]);
+  return updateResult;
+}
+
+async function insertExperienceContent(connection, userId, content) {
+  const insertExperienceContents = `
+  insert into Career(userId, career)
+  values (?, ?);
+`;
+  const [insertResult] = await connection.query(insertExperienceContents, [userId, content]);
+  return insertResult;
+}
 
 module.exports = {
   getUserProfileInfo,
@@ -118,4 +145,7 @@ module.exports = {
   getUserStudies,
   updateProfile,
   getProfileEditUser,
+  checkExperienceContent,
+  insertExperienceContent,
+  updateExperienceContent,
 };

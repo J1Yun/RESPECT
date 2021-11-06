@@ -14,8 +14,8 @@ exports.userInterest = async function (req, res) {
   const userId = req.params.userId;
   if (req.session.user) {
     const checkInterest = await ProfileService.getUserInterest(userId);
+    //res.cookie('interest', 'asdf', { signed: true, maxAge: 86400000 });
     console.log(checkInterest);
-    res.cookie('_uid', req.session.id, { signed: true, maxAge: 86400000 });
     res.json(checkInterest);
   } else {
     res.send(baseResponse.LOGIN_ERROR);
@@ -84,7 +84,6 @@ exports.userEditProfile = async function (req, res) {
 };
 
 exports.updateUserProfile = async function (req, res) {
-  console.log(req.body);
   const { name, content, phoneNumber, email, location } = req.body;
   if (req.session.user) {
     //if (!regexEmail.test(email)) return res.send(baseResponse.EMAIL_ERROR_TYPE);
@@ -94,4 +93,11 @@ exports.updateUserProfile = async function (req, res) {
   } else {
     res.send(baseResponse.LOGIN_ERROR);
   }
+};
+
+exports.editExperience = async function (req, res) {
+  const { content } = req.body;
+  const userId = req.params.userId;
+  const editExperienceResult = await ProfileService.editExperienceContent(userId, content);
+  return res.send(editExperienceResult);
 };

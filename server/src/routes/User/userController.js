@@ -30,8 +30,7 @@ const process = {
       };
       console.log(req.session.user);
       console.log(req.session.id);
-      res.cookie('_uid', req.session.id, { signed: true, maxAge: 86400000 });
-      //console.log(res.cookie());
+      res.cookie('asdf', req.session.id, { signed: true, maxAge: 86400000 });
     }
     return res.send(checkUser);
   },

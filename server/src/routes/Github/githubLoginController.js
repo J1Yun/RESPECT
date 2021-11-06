@@ -18,10 +18,7 @@ exports.githubLogin = async function (req, res) {
       },
     });
     accessToken = data.access_token;
-  } catch (err) {
-    console.log(err);
-  }
-  try {
+
     const userInfo = await axios({
       method: 'get',
       url: `https://api.github.com/user`,
@@ -36,10 +33,10 @@ exports.githubLogin = async function (req, res) {
     console.log(userInfo.data);
     currentGithubUser = req.session.githubUser.githubId;
   } catch (err) {
-    console.log(err);
+    console.log('err');
   }
 
-  console.log(req.session.id);
+  //console.log(req.session.id);
   // const repositoryList = await axios({
   //   method: 'get',
   //   url: `https://api.github.com/repos/${currentGithubUser}/api-server-final-node-js`,
@@ -49,7 +46,6 @@ exports.githubLogin = async function (req, res) {
   // });
   // console.log(repositoryList.data.name);
   if (currentGithubUser) {
-    //res.redirect(307, 'http://localhost:3000/portfolio');
     res.json({ accessToken: accessToken, sessionId: req.session.id });
     console.log(`Login Success!! Current User : ${currentGithubUser}`);
   } else {

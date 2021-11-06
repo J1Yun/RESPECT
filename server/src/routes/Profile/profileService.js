@@ -109,3 +109,33 @@ exports.changeUserProfile = async function (name, content, phoneNumber, email, l
     console.log(err);
   }
 };
+
+exports.editExperienceContent = async function (userId, content) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  try {
+    const checkResult = await ProfileDao.checkExperienceContent(connection, userId);
+    console.log(checkResult[0]);
+    if (checkResult[0] == null) {
+      const insertResult = await ProfileDao.insertExperienceContent(connection, userId, content);
+      console.log('insert');
+      if (insertResult) {
+        return baseResponse.SUCCESS;
+      } else {
+        return baseResponse.SERVER_CONNECT_ERROR;
+      }
+    } else {
+      //const params = [content, userId]
+      const updateResult = await ProfileDao.updateExperienceContent(connection, content, userId);
+      console.log('upadte');
+      if (updateResult) {
+        return baseResponse.SUCCESS;
+      } else {
+        return baseResponse.SERVER_CONNECT_ERROR;
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.release();
+  }
+};
