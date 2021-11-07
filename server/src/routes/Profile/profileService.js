@@ -27,11 +27,11 @@ exports.getUserInterest = async function (userId) {
   }
 };
 
-exports.getUserTeckStack = async function (userId) {
+exports.getUserTechStack = async function (userId) {
   const connection = await pool.getConnection(async (conn) => conn);
   try {
-    const userTeckStack = await ProfileDao.getUserTeckStacks(connection, userId);
-    return userTeckStack;
+    const userTechStack = await ProfileDao.getUserTechStacks(connection, userId);
+    return userTechStack;
   } catch (err) {
     console.log(err);
   } finally {
@@ -140,23 +140,44 @@ exports.editExperienceContent = async function (userId, content) {
   }
 };
 
-exports.editAdvancedTechStackContent = async function (userId, advancedTechStack) {
+exports.editAdvancedTechStackContent = async function (userId, advanced) {
   const connection = await pool.getConnection(async (conn) => conn);
   const checkLength = advancedTechStack.length;
-  const checkAdvancedTechStack = await ProfileDao.checkTeckStack(connection, advancedTechStack);
+  const checkAdvancedTechStack = await ProfileDao.checkTechStack(connection, advancedTechStack);
   try {
   } catch (err) {
     console.log(err);
   }
 };
 
-exports.editExperiencedTechStackContent = async function (userId, experiencedTeckStack) {
+exports.editExperiencedTechStackContent = async function (userId, experienced) {
   const connection = await pool.getConnection(async (conn) => conn);
-  const checkExperiencedTechStack = await ProfileDao.checkTeckStack(connection, experiencedTeckStack);
-  for (i = 0; i < experiencedTeckStack.length; i++) {
-    const stackId = await ProfileDao.getStackId(connection, experiencedTeckStack[i]);
-    const params = [stackId, userId, experiencedTeckStack[i]];
-    const insertExperiencedTeckStackResult = await ProfileDao.insertExperiencedTeckStack(connection, params);
-    return insertExperiencedTeckStackResult;
+
+  try {
+    const checkExperiencedTechStack = await ProfileDao.checkTechStack(connection, userId);
+    experienced.forEach(async (experiencedTechStack) => {
+      const experiencedTechStackName = experiencedTechStack.name;
+      const stackId = await ProfileDao.getStackId(connection, experiencedTechStackName);
+      //const level = 'experienced';
+      const params = [stackId, userId, experiencedTechStackName];
+      const updateParams = [stackId, userId];
+      console.log(stackId);
+      checkExperiencedTechStack.forEach(async (stack) => {
+        // stackId가 같고 isDeleted = 0 일 때 이미 등록되어 있으므로 update
+        if (stack.stackId == stackId && stack.isDeleted == 0) {
+          return;
+        } else if (stack.isDeleted == 0) {
+          const insertExperiencedTechStackResult = await ProfileDao.insertTechStack(connection, params);
+          return insertExperiencedTechStackResult;
+        } else if (stack.isDeleted == 1) {
+          const updateExperiencedTechStackResult = await ProfileDao.updateTechStack(connection, updateParams);
+          return updateExperiencedTechStackResult;
+        }
+      });
+    });
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.release();
   }
 };

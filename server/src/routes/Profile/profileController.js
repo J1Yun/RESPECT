@@ -22,11 +22,11 @@ exports.userInterest = async function (req, res) {
   }
 };
 
-exports.userTeckStack = async function (req, res) {
+exports.userTechStack = async function (req, res) {
   const userId = req.params.userId;
   if (req.session.user) {
-    const checkTeckStack = await ProfileService.getUserTeckStack(userId);
-    res.json(checkTeckStack);
+    const checkTechStack = await ProfileService.getUserTechStack(userId);
+    res.json(checkTechStack);
   } else {
     res.send(baseResponse.LOGIN_ERROR);
   }
@@ -96,30 +96,33 @@ exports.updateUserProfile = async function (req, res) {
 };
 
 exports.editExperience = async function (req, res) {
-  const { content } = req.body;
+  const content = req.body;
   const userId = req.params.userId;
   const editExperienceResult = await ProfileService.editExperienceContent(userId, content);
   return res.send(editExperienceResult);
 };
 
 exports.editTechStack = async function (req, res) {
-  //const { advancedTechStack, experiencedTechStack } = req.body;
-  // const techStack = {
-  //   advancedTeckStack: ['c++', 'c', 'java', 'javascript'],
-  //   experiencedTechStack: ['python'],
-  // };
-  const { techStack } = req.body;
-
   const userId = req.params.userId;
-  if (techStack.advancedTechStack && techStack.experiencedTechStack == null) {
-    const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, techStack.advancedTechStack);
-    return res.send(editAdvancedTechStackResult);
-  } else if (techStack.experiencedTechStack && techStack.advancedTechStack == null) {
-    const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, techStack.experiencedTechStack);
-    return res.send(editExperiencedTechStackResult);
-  } else {
-    const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, techStack.advancedTechStack);
-    const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, techStack.experiencedTechStack);
-  }
-  return;
+  const { advanced, experienced } = req.body;
+
+  const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
+  //console.log(editExperiencedTechStackResult);
+  return res.send(baseResponse.SUCCESS);
+
+  // if (advanced && experienced[0] == undefined) {
+  //   const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, advanced);
+  //   return res.send(editAdvancedTechStackResult);
+  // } else if (experienced && advanced[0] == undefined) {
+  //   const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
+  //   return res.send(editExperiencedTechStackResult);
+  // } else {
+  //   const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, advanced);
+  //   const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
+  //   if (editAdvancedTechStackResult && editExperiencedTechStackResult) {
+  //     return res.send(baseResponse.SUCCESS);
+  //   } else {
+  //     return res.json({ Error: 'ERROR' });
+  //   }
+  // }
 };

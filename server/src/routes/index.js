@@ -25,7 +25,7 @@ router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.use
 router.get('/profile/interest/:userId', profileController.userInterest);
 
 // TeckStack 가져오기
-router.get('/profile/teckstack/:userId', profileController.userTeckStack);
+router.get('/profile/teckstack/:userId', profileController.userTechStack);
 router.put('/profile/techstack/:userId', profileController.editTechStack);
 
 // Experience 가져오기
@@ -43,7 +43,7 @@ router.get('/profile/study/:userId', profileController.userStudy);
 
 // Profile Update
 router.get('/profile/update/:userId', profileController.userEditProfile);
-router.put('/profile', profileController.updateUserProfile);
+router.put('/profile/update', profileController.updateUserProfile);
 
 // Project
 router.get('/:userId/project', projectController.projectList);
