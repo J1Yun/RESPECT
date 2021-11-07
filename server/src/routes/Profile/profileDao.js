@@ -137,16 +137,24 @@ async function insertExperienceContent(connection, userId, content) {
   const [insertResult] = await connection.query(insertExperienceContents, [userId, content]);
   return insertResult;
 }
-async function checkTechStack(connection, userId) {
+async function checkTechStack(connection, userId, level) {
   const isTechStack = `
   select stackId, userId, level, isDeleted
   from Stack
-  where userId = ? 
-   ;
+  where userId = ? and level = ?;
   `;
-  const [checkTechStackResult] = await connection.query(isTechStack, userId);
-  console.log(checkTechStackResult);
+  const [checkTechStackResult] = await connection.query(isTechStack, [userId, level]);
   return checkTechStackResult;
+}
+
+async function checkStackId(connection, userId, stackId) {
+  const isStackId = `
+  select stackId
+  from Stack
+  where exists(select * from Stack where userId = ? and stackId = ?)
+  `;
+  const [checkStackIdResult] = await connection.query(isStackId, [userId, stackId]);
+  return checkStackIdResult[0];
 }
 
 async function getStackId(connection, TechStack) {
@@ -192,6 +200,7 @@ module.exports = {
   insertExperienceContent,
   updateExperienceContent,
   checkTechStack,
+  checkStackId,
   getStackId,
   insertTechStack,
   updateTechStack,

@@ -107,8 +107,7 @@ exports.editTechStack = async function (req, res) {
   const { advanced, experienced } = req.body;
 
   const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
-  //console.log(editExperiencedTechStackResult);
-  return res.send(baseResponse.SUCCESS);
+  return res.send(editExperiencedTechStackResult);
 
   // if (advanced && experienced[0] == undefined) {
   //   const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, advanced);
@@ -116,6 +115,8 @@ exports.editTechStack = async function (req, res) {
   // } else if (experienced && advanced[0] == undefined) {
   //   const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
   //   return res.send(editExperiencedTechStackResult);
+  // } else if (advanced[0] == undefined && experienced == undefined) {
+  //   return res.send(baseResponse.SUCCESS);
   // } else {
   //   const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, advanced);
   //   const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);

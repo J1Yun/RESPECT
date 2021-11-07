@@ -55,21 +55,21 @@ exports.githubLogin = async function (req, res) {
     console.log(`Login Failed`);
 
     //res.redirect(307, 'http://localhost:3000/portfolio');
-    const checkUser = await UserService.checkUserExist(currentGithubUser);
-    if (checkUser.length == 1) {
-      const response = await UserService.updateSocailLogin(checkUser[0].id);
-      if (response.isSuccess) {
-        console.log(`Login Success!! Current User : ${currentGithubUser}`);
-        return res.json({ accessToken: accessToken, sessionId: req.session.id });
-      } else {
-        return res.json(response);
-      }
-    }
+    //   const checkUser = await UserService.checkUserExist(currentGithubUser);
+    //   if (checkUser.length == 1) {
+    //     const response = await UserService.updateSocailLogin(checkUser[0].id);
+    //     if (response.isSuccess) {
+    //       console.log(`Login Success!! Current User : ${currentGithubUser}`);
+    //       return res.json({ accessToken: accessToken, sessionId: req.session.id });
+    //     } else {
+    //       return res.json(response);
+    //     }
+    //   }
+    // }
+    // console.log(`Login Failed`);
+    // return res.json({ errorMessage: 'Login Error' });
   }
-  console.log(`Login Failed`);
-  return res.json({ errorMessage: 'Login Error' });
 };
-
 exports.getGithubAccessToken = async function (req, res) {
   const github = {
     clientId: process.env.CLIENT_ID,
