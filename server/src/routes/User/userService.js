@@ -23,6 +23,19 @@ exports.checkUserAccount = async function (nickname, password) {
     connection.release();
   }
 };
+exports.checkGithubUserAccount = async function (nickname) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
+    if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
+
+    return { id: userIdRows[0].id, username: userIdRows[0].name, nickname: userIdRows[0].nickname, isSuccess: 'True' };
+  } catch (err) {
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};
 
 exports.createUser = async function (nickname, password, name) {
   const connection = await pool.getConnection(async conn => conn);
