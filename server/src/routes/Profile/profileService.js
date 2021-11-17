@@ -40,7 +40,7 @@ exports.getUserTechStack = async function (userId) {
 };
 
 exports.getUserExperience = async function (userId) {
-  const connection = await pool.getConnection(async (coon) => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userExperience = await ProfileDao.getUserExperienced(connection, userId);
     return userExperience;
@@ -152,10 +152,11 @@ exports.editAdvancedTechStackContent = async function (userId, advanced) {
 
 exports.editExperiencedTechStackContent = async function (userId, experienced) {
   const connection = await pool.getConnection(async (conn) => conn);
-
+  // findindex, find
   try {
     experienced.forEach(async (experiencedTechStack) => {
       const experiencedTechStackName = experiencedTechStack.name;
+      const isDeleted = experiencedTechStack.isDeleted; // isDeleted = 0 존재 , = 1 삭제됨
       const stackId = await ProfileDao.getStackId(connection, experiencedTechStackName);
       const level = 'experienced';
       const params = [stackId, userId, level];
@@ -163,31 +164,34 @@ exports.editExperiencedTechStackContent = async function (userId, experienced) {
       const checkExperiencedTechStack = await ProfileDao.checkTechStack(connection, userId, level);
       if (checkExperiencedTechStack[0] == undefined) {
         //insert
-        console.log('hello');
+        console.log('insert');
       } else {
+        //update
+        console.log('update');
       }
-      checkExperiencedTechStack.forEach(async (stack) => {
-        const checkStackIdResult = await ProfileDao.checkStackId(connection, userId, stackId);
-        // 유저의 stackId가 존재하고 isDeleted = 0 일 때 이미 등록되어 있다.
-        if (checkStackIdResult && stack.isDeleted == 0) {
-          console.log('already exists');
-          return;
-        } else if (checkStackIdResult && stack.isDeleted == 1) {
-          // 존재했었다가 삭제되었을 경우
-          console.log('update');
-          const updateExperiencedTechStackResult = await ProfileDao.updateTechStack(connection, updateParams);
-          return updateExperiencedTechStackResult;
-        } else if (checkStackIdResult == undefined && stack.isDeleted == 0) {
-          console.log('insert');
-          const insertExperiencedTechStackResult = await ProfileDao.insertTechStack(connection, params);
-          return insertExperiencedTechStackResult;
-        } else {
-          console.log('test');
-          return baseResponse.EMAIL_ERROR_TYPE;
-        }
-      });
+      //   checkExperiencedTechStack.forEach(async (stack) => {
+      //     const checkStackIdResult = await ProfileDao.checkStackId(connection, userId, stackId);
+      //     // 유저의 stackId가 존재하고 isDeleted = 0 일 때 이미 등록되어 있다.
+      //     if (checkStackIdResult && stack.isDeleted == 0) {
+      //       console.log('already exists');
+      //       return;
+      //     } else if (checkStackIdResult && stack.isDeleted == 1) {
+      //       // 존재했었다가 삭제되었을 경우
+      //       console.log('update');
+      //       const updateExperiencedTechStackResult = await ProfileDao.updateTechStack(connection, updateParams);
+      //       return updateExperiencedTechStackResult;
+      //     } else if (checkStackIdResult == undefined && stack.isDeleted == 0) {
+      //       console.log('insert');
+      //       const insertExperiencedTechStackResult = await ProfileDao.insertTechStack(connection, params);
+      //       return insertExperiencedTechStackResult;
+      //     } else {
+      //       console.log('test');
+      //       return baseResponse.EMAIL_ERROR_TYPE;
+      //     }
+      //   });
+      // });
+      // return baseResponse.SUCCESS;
     });
-    return baseResponse.SUCCESS;
   } catch (err) {
     console.log(err);
   } finally {

@@ -62,6 +62,7 @@ class App {
       else res.locals.githubUser = undefined;
       next();
     });
+
     this.app.use(cors(corsOption));
   }
 
