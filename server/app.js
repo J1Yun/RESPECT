@@ -63,6 +63,7 @@ class App {
       else res.locals.githubUser = undefined;
       next();
     });
+
     this.app.use(cors(corsOption));
     require('passport');
     this.app.use(passport.initialize()); //user 정보가 req.user로 들어가게 된다.

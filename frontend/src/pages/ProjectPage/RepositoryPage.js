@@ -21,13 +21,11 @@ const RepositoryPage = () => {
       setUserName(userName);
       setAccessToken(accessToken);
     });
-    setLoading(true);
     axios({
       method: 'get',
       url: `https://api.github.com/users/${userName}/repos`,
       header: `token ${accessToken}`,
     }).then((res) => {
-      setLoading(false);
       setRepos(res.data);
     });
   }
