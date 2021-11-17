@@ -18,8 +18,9 @@ router.post('/signUp', userController.process.signUp);
 // Github Social Login
 router.post('/auth', githubLoginController.githubLogin);
 
-router.get('/github', passport.authenticate('github'));
+router.post('/github', passport.authenticate('github')); //Github Login Request
 router.get(
+  //After Login, Github User Info Call Back Function
   '/github/portfolio',
   passport.authenticate('github', {
     failureRedirect: '/login',
