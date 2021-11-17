@@ -1,7 +1,7 @@
 const passport = require('passport');
 const githubStrategy = require('passport-github').Strategy;
 
-const userDao = require('../../routes/User/userDao');
+const userDao = require('../routes/User/userDao');
 
 module.exports = () => {
   passport.use(
