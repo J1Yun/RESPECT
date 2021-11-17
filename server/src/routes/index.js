@@ -9,6 +9,7 @@ const db = require('./Repository/dbConnection');
 const middleWare = require('../config/middleware');
 const commentController = require('./Comment/commentController');
 const githubLoginController = require('./Github/githubLoginController');
+const passport = require('passport');
 // Login , SignUp
 router.get('/login', middleWare.loginMiddleWare, userController.output.login);
 router.post('/login', userController.process.login);
@@ -16,6 +17,17 @@ router.post('/signUp', userController.process.signUp);
 
 // Github Social Login
 router.post('/auth', githubLoginController.githubLogin);
+
+router.get('/github', passport.authenticate('github'));
+router.get(
+  '/github/portfolio',
+  passport.authenticate('github', {
+    failureRedirect: '/login',
+  }),
+  (req, res) => {
+    res.redirect('/');
+  },
+);
 
 // Profile
 // profile 정보 가져오기
@@ -37,6 +49,7 @@ router.get('/profile/education/:userId', profileController.userEducation);
 
 // 프로젝트 가져오기 (3개, Pinned)
 router.get('/profile/projects/:userId', profileController.userProjects);
+router.post('/profile/projects/:userId', profileController.githubUserProjects);
 
 // Study 가져오기 (3개)
 router.get('/profile/study/:userId', profileController.userStudy);

@@ -31,7 +31,7 @@ exports.githubLogin = async function (req, res) {
     req.session.githubUser = {
       githubId: userInfo.data.login,
     };
-    console.log(userInfo.data);
+
     currentGithubUser = req.session.githubUser.githubId;
     const checkUser = UserService.checkGithubUserAccount(currentGithubUser);
     if (checkUser) {
@@ -85,5 +85,6 @@ exports.getGithubAccessToken = async function (req, res) {
     },
   });
   const accessToken = data.access_token;
+  console.log(accessToken);
   res.send(accessToken);
 };

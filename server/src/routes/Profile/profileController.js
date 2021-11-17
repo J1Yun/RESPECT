@@ -62,6 +62,16 @@ exports.userProjects = async function (req, res) {
   }
 };
 
+exports.githubUserProjects = async function (req, res) {
+  const userId = req.params.userId;
+  if (req.session.user) {
+    const checkProjects = await ProfileService.getUserProject(userId);
+    res.json(checkProjects);
+  } else {
+    res.send(baseResponse.LOGIN_ERROR);
+  }
+};
+
 exports.userStudy = async function (req, res) {
   const userId = req.params.userId;
   if (req.session.user) {

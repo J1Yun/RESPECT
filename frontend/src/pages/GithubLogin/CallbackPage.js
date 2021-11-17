@@ -11,12 +11,12 @@ const CallbackPage = () => {
     try {
       const { token } = await axios
         .post('http://localhost:5000/auth', { code })
-        .then((res) => {
+        .then(res => {
           console.log(res);
           console.log(res.data.accessToken);
           return res.data.accessToken;
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     } catch (err) {

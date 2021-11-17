@@ -3,7 +3,7 @@ module.exports = {
     const { session, query } = req;
     const { code } = query;
 
-    console.log(session, code);
+    console.log(session, query);
 
     const url = `https://github.com/login/oauth/access_token?client_id=${github.clientID}&client_secret=${github.clientSecret}&code=${code}`;
     try {
