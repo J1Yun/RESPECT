@@ -1,20 +1,35 @@
-import React from 'react';
 import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const CallbackPage = () => {
-  const getAccessToken = async (code) => {
-    const { data } = await axios.post({
-      method: 'post',
-      url: 'http://localhost:5000/auth',
-      code: code,
-    });
-    // 우리 서버로 code를 전송합니다.
+  const searchParams = new URLSearchParams(useLocation().search);
+  const code = searchParams.get('code');
 
-    const accessToken = data; // 서버로부터 받게될 데이터 (5번 과정)
-    console.log(accessToken);
-    return accessToken;
-  };
-  console.log(getAccessToken);
-  return <div />;
+  console.log(code);
+  async function getAccessToken(code) {
+    try {
+      const { token } = await axios
+        .post('http://localhost:5000/auth', { code })
+        .then((res) => {
+          console.log(res);
+          console.log(res.data.accessToken);
+          return res.data.accessToken;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const accessToken = getAccessToken(code);
+  if (accessToken) {
+    return <div id="githubLogin"> Github Login User </div>;
+  } else {
+    return <div id="githubLogin"> Github Login Failed</div>;
+  }
 };
+
 export default CallbackPage;

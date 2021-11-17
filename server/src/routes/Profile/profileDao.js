@@ -1,3 +1,5 @@
+const { pool } = require('../../config/database');
+
 async function getUserProfileInfo(connection, userId) {
   const getUserInfo = `
   select U.name as name,
@@ -38,15 +40,16 @@ async function getUserInterests(connection, userId) {
   return userInterest;
 }
 
-async function getUserTeckStacks(connection, userId) {
-  const getUserTeckStack = `
-  select SC.imageUrl as image, SC.name as name, S.level as level
+async function getUserTechStacks(connection, userId) {
+  const getUserTechStack = `
+  select SC.imageUrl as image, SC.name as name, S.level as level, S.isDeleted
   from StackCategory SC
          left join Stack S on SC.id = S.stackId
          left join User U on S.userId = U.id;
+         where u.id = ?
   `;
-  const [userTeckStack] = await connection.query(getUserTeckStack, userId);
-  return userTeckStack;
+  const [userTechStack] = await connection.query(getUserTechStack, userId);
+  return userTechStack;
 }
 
 async function getUserExperienced(connection, userId) {
@@ -107,15 +110,98 @@ async function updateProfile(connection, params) {
   const updateResult = await connection.query(updateUserProfile, params);
   return updateResult;
 }
+async function checkExperienceContent(connection, userId) {
+  const checkExperience = `
+  select career
+  from Career
+  where userId = ?;
+  `;
+  const [checkResult] = await connection.query(checkExperience, userId);
+  return checkResult;
+}
+async function updateExperienceContent(connection, content, userId) {
+  const updateExperienceContents = `
+  update Career 
+  set career = ?
+  where userId = ?
+  `;
+  const updateResult = await connection.query(updateExperienceContents, [content, userId]);
+  return updateResult;
+}
+
+async function insertExperienceContent(connection, userId, content) {
+  const insertExperienceContents = `
+  insert into Career(userId, career)
+  values (?, ?);
+  `;
+  const [insertResult] = await connection.query(insertExperienceContents, [userId, content]);
+  return insertResult;
+}
+async function checkTechStack(connection, userId, level) {
+  const isTechStack = `
+  select stackId, userId, level, isDeleted
+  from Stack
+  where userId = ? and level = ?;
+  `;
+  const [checkTechStackResult] = await connection.query(isTechStack, [userId, level]);
+  return checkTechStackResult;
+}
+
+async function checkStackId(connection, userId, stackId) {
+  const isStackId = `
+  select stackId
+  from Stack
+  where exists(select * from Stack where userId = ? and stackId = ?)
+  `;
+  const [checkStackIdResult] = await connection.query(isStackId, [userId, stackId]);
+  return checkStackIdResult[0];
+}
+
+async function getStackId(connection, TechStack) {
+  const getStackIdByTechStack = `
+  select id
+  from StackCategory
+  where name = ?;
+  `;
+  const [stackId] = await connection.query(getStackIdByTechStack, TechStack);
+  return stackId[0].id;
+}
+
+async function insertTechStack(connection, params) {
+  const insertTechStackContents = `
+  insert into Stack(stackId, userId, level)
+  values (?, ?, ?);
+  `;
+  const [insertTechStackResult] = await connection.query(insertTechStackContents, params);
+  return insertTechStackResult;
+}
+async function updateTechStack(connection, updateParams) {
+  const updateTechStackContents = `
+  update Stack
+  set isDeleted = 0
+  where stackId = ?,
+        userId = ?,
+  `;
+  const [updateTechStackResult] = await connection.query(updateTechStackContents, updateParams);
+  return updateTechStackResult;
+}
 
 module.exports = {
   getUserProfileInfo,
   getUserInterests,
-  getUserTeckStacks,
+  getUserTechStacks,
   getUserExperienced,
   getUserEducations,
   getUserProjects,
   getUserStudies,
   updateProfile,
   getProfileEditUser,
+  checkExperienceContent,
+  insertExperienceContent,
+  updateExperienceContent,
+  checkTechStack,
+  checkStackId,
+  getStackId,
+  insertTechStack,
+  updateTechStack,
 };

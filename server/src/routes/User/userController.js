@@ -1,7 +1,10 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const UserService = require('./userService.js');
 const baseResponse = require('../../config/baseResponseStatus');
 const regexEmail = require('regex-email');
 const { response } = require('../../config/baseResponseStatus');
+const session = require('express-session');
 
 const output = {
   login: (req, res) => {
@@ -13,7 +16,6 @@ const output = {
 const process = {
   login: async (req, res) => {
     const { nickname, password } = req.body;
-
     if (!nickname) return res.send(baseResponse.NICKNAME_EMPTY);
     if (!password) return res.send(baseResponse.PASSWORD_EMPTY);
     if (!regexEmail.test(nickname)) return res.send(baseResponse.EMAIL_ERROR_TYPE);
@@ -26,7 +28,6 @@ const process = {
         username: checkUser.username,
         authorized: true,
       };
-      console.log(req.session.user);
     }
     return res.send(checkUser);
   },

@@ -16,21 +16,21 @@ const LoginPage = () => {
     transform: 'translateX(-50%)',
   };
 
-  const onEmailChange = (event) => {
+  const onEmailChange = event => {
     const {
       target: { value },
     } = event;
     setEmail(value);
   };
 
-  const onPasswordChange = (event) => {
+  const onPasswordChange = event => {
     const {
       target: { value },
     } = event;
     setPassword(value);
   };
 
-  const onLoginSubmit = (event) => {
+  const onLoginSubmit = event => {
     event.preventDefault();
     console.log(email, password);
   };
@@ -44,7 +44,7 @@ const LoginPage = () => {
           <div id="email-icon">
             <BsFillPersonFill style={icon} color="#747474" size={30} />
           </div>
-          <input id="email-input" type="email" value={email} onChange={onEmailChange} />
+          <input id="email-input" type="text" value={email} onChange={onEmailChange} />
 
           <div id="password-icon">
             <BiKey style={icon} color="#747474" size={30} />

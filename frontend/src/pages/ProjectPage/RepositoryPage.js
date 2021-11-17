@@ -4,6 +4,7 @@ import CreateProjectPage from './CreateProjectPage';
 
 const RepositoryPage = () => {
   const [userName, setUserName] = useState('');
+  const [loading, setLoading] = useState(false);
   const [repos, setRepos] = useState([]);
   const [details, setDetails] = useState({});
   const [detailsLoading, setDetailsLoading] = useState(false);

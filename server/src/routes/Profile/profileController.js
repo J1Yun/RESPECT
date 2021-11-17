@@ -2,10 +2,9 @@ const ProfileService = require('./profileService');
 const baseResponse = require('../../config/baseResponseStatus');
 const regexEmail = require('regex-email');
 const { response } = require('../../config/baseResponseStatus');
-
+require('dotenv').config();
 exports.userProfile = async function (req, res) {
   const userId = req.params.userId;
-
   const checkProfile = await ProfileService.getUserProfile(userId);
   console.log(checkProfile);
   res.json(checkProfile);
@@ -15,6 +14,7 @@ exports.userInterest = async function (req, res) {
   const userId = req.params.userId;
   if (req.session.user) {
     const checkInterest = await ProfileService.getUserInterest(userId);
+    //res.cookie('interest', 'asdf', { signed: true, maxAge: 86400000 });
     console.log(checkInterest);
     res.json(checkInterest);
   } else {
@@ -22,11 +22,11 @@ exports.userInterest = async function (req, res) {
   }
 };
 
-exports.userTeckStack = async function (req, res) {
+exports.userTechStack = async function (req, res) {
   const userId = req.params.userId;
   if (req.session.user) {
-    const checkTeckStack = await ProfileService.getUserTeckStack(userId);
-    res.json(checkTeckStack);
+    const checkTechStack = await ProfileService.getUserTechStack(userId);
+    res.json(checkTechStack);
   } else {
     res.send(baseResponse.LOGIN_ERROR);
   }
@@ -84,7 +84,6 @@ exports.userEditProfile = async function (req, res) {
 };
 
 exports.updateUserProfile = async function (req, res) {
-  console.log(req.body);
   const { name, content, phoneNumber, email, location } = req.body;
   if (req.session.user) {
     //if (!regexEmail.test(email)) return res.send(baseResponse.EMAIL_ERROR_TYPE);
@@ -94,4 +93,37 @@ exports.updateUserProfile = async function (req, res) {
   } else {
     res.send(baseResponse.LOGIN_ERROR);
   }
+};
+
+exports.editExperience = async function (req, res) {
+  const content = req.body;
+  const userId = req.params.userId;
+  const editExperienceResult = await ProfileService.editExperienceContent(userId, content);
+  return res.send(editExperienceResult);
+};
+
+exports.editTechStack = async function (req, res) {
+  const userId = req.params.userId;
+  const { advanced, experienced } = req.body;
+
+  const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
+  return res.send(editExperiencedTechStackResult);
+
+  // if (advanced && experienced[0] == undefined) {
+  //   const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, advanced);
+  //   return res.send(editAdvancedTechStackResult);
+  // } else if (experienced && advanced[0] == undefined) {
+  //   const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
+  //   return res.send(editExperiencedTechStackResult);
+  // } else if (advanced[0] == undefined && experienced == undefined) {
+  //   return res.send(baseResponse.SUCCESS);
+  // } else {
+  //   const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, advanced);
+  //   const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
+  //   if (editAdvancedTechStackResult && editExperiencedTechStackResult) {
+  //     return res.send(baseResponse.SUCCESS);
+  //   } else {
+  //     return res.json({ Error: 'ERROR' });
+  //   }
+  // }
 };
