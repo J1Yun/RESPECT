@@ -30,9 +30,9 @@ const AppRouter = () => {
         <Route exact path="/user/:nickname">
           <PortfolioPage />
         </Route>
-        <Route exact path="/portfolio">
+        {/* <Route exact path="/portfolio">
           <CallbackPage />
-        </Route>
+        </Route> */}
         <Route exact path="/repository">
           <RepositoryPage />
         </Route>

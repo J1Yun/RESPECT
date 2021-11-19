@@ -43,7 +43,7 @@ exports.githubLogin = async function (req, res) {
       console.log(`Login Failed`);
     }
   } catch (err) {
-    console.log('err');
+    console.log(err);
   }
 
   //console.log(req.session.id);
