@@ -14,11 +14,11 @@ const passport = require('passport');
 router.get('/login', middleWare.loginMiddleWare, userController.output.login);
 router.post('/login', userController.process.login);
 router.post('/signUp', userController.process.signUp);
-
+router.post('/logout', userController.process.logout);
 // Github Social Login
 router.post('/auth', githubLoginController.githubLogin);
 
-router.post('/github', passport.authenticate('github')); //Github Login Request
+router.get('/github', passport.authenticate('github')); //Github Login Request
 router.get(
   //After Login, Github User Info Call Back Function
   '/github/portfolio',

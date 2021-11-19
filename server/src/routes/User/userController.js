@@ -44,6 +44,10 @@ const process = {
 
     return res.send(signUpResponse);
   },
+  logout: async (req, res) => {
+    req.logout();
+    res.redirect('/login');
+  },
 };
 
 module.exports = {
