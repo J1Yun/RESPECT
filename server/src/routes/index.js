@@ -11,24 +11,14 @@ const commentController = require('./Comment/commentController');
 const githubLoginController = require('./Github/githubLoginController');
 const passport = require('passport');
 // Login , SignUp
-router.get('/login', middleWare.loginMiddleWare, userController.output.login);
+router.get('/login', userController.output.login);
 router.post('/login', userController.process.login);
 router.post('/signUp', userController.process.signUp);
-router.post('/logout', userController.process.logout);
-// Github Social Login
-router.post('/auth', githubLoginController.githubLogin);
+router.post('/logout', middleWare.isAuthenticated, userController.process.logout);
 
+// Github Social Login through passport
 router.get('/github', passport.authenticate('github')); //Github Login Request
-router.get(
-  //After Login, Github User Info Call Back Function
-  '/github/portfolio',
-  passport.authenticate('github', {
-    failureRedirect: '/login',
-  }),
-  (req, res) => {
-    res.redirect('/');
-  },
-);
+router.get('/portfolio', passport.authenticate('github'), userController.output.githubCallback); //Github call back 함수
 
 // Profile
 // profile 정보 가져오기

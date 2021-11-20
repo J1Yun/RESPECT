@@ -11,6 +11,13 @@ const output = {
     console.log('hihi');
     res.send('hi');
   },
+  githubCallback: (req, res) => {
+    console.log('User 정보:', req.user);
+    if (req.uer) res.redirect('/');
+    // github ID가 DB에 존재하면 메인화면으로 redirect
+    else res.redirect('/signUp');
+    //github ID가 DB에 존재하지 않으면 회원가입 화면으로 redirect
+  },
 };
 
 const process = {
@@ -47,6 +54,9 @@ const process = {
   logout: async (req, res) => {
     req.logout();
     res.redirect('/login');
+  },
+  githubCallbackFunction: async (req, res) => {
+    console.log('hi', accessToken, refreshToken, profile, cb);
   },
 };
 
