@@ -13,8 +13,9 @@ const output = {
   },
   githubCallback: (req, res) => {
     console.log('User 정보:', req.user);
-    if (req.uer) res.redirect('/');
-    // github ID가 DB에 존재하면 메인화면으로 redirect
+    console.log(req.isAuthenticated()); //session에 정보가 저장되어 있는지 확인
+    if (req.user) res.redirect('/');
+    //github ID가 DB에 존재하면 메인화면으로 redirect
     else res.redirect('/signUp');
     //github ID가 DB에 존재하지 않으면 회원가입 화면으로 redirect
   },
