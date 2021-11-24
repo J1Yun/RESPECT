@@ -20,9 +20,17 @@ async function createUserAccount(connection, params) {
   const UserAccountResult = await connection.query(insertUserAccount, params);
   return UserAccountResult;
 }
+async function updateSocialLoginByGithubId(connection, userId) {
+  const updateUserSocialLogin = `
+        UPDATE User SET isSocialLogin = 1 WHERE id = ?;
+`;
+  const UserSocialLoginResult = await connection.query(updateUserSocialLogin, userId);
+  return UserSocialLoginResult;
+}
 
 module.exports = {
   getUserIdByNickname,
   checkPasswordByUserId,
   createUserAccount,
+  updateSocialLoginByGithubId,
 };
