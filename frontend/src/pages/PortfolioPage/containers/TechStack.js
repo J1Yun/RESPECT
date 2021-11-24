@@ -1,6 +1,6 @@
 import 'pages/PortfolioPage/styles/TechStack.css'
-const advancedStack = [{stack:'python', color:'#3776AB'}, {stack:'react', color:'#61DAFB'},]
-const experiencedStack = [{stack:'nodedotjs', color:'#339933'}, {stack:'cplusplus', color:'#00599C'}, {stack:'django', color:'#092E20'}]
+const advancedStack = [{'stack':'python', 'color':'#3776AB'}, {'stack':'react', 'color':'#61DAFB'},]
+const experiencedStack = [{'stack':'nodedotjs', 'color':'#339933'}, {'stack':'cplusplus', 'color':'#00599C'}, {'stack':'django', 'color':'#092E20'}]
 const TechStack = () =>{
     
     return(<div className="techstack-container">

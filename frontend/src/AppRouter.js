@@ -27,10 +27,6 @@ const AppRouter = () => {
         <Route exact path="/pool">
           <PoolPage />
         </Route>
-<<<<<<< HEAD
-        <Route exact path="/profile">
-          <PortfolioPage/>
-=======
         <Route exact path="/user/:nickname">
           <PortfolioPage />
         </Route>
@@ -39,7 +35,6 @@ const AppRouter = () => {
         </Route> */}
         <Route exact path="/repository">
           <RepositoryPage />
->>>>>>> dac3956e079dd6a634a4b334e37bb98677415ef3
         </Route>
         <Redirect to="/" />
       </Switch>
