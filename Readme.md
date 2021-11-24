@@ -1,4 +1,4 @@
--# 👊 RESPECT
+# 👊 RESPECT
 ### 네 스펙을 리스펙 - Respect your spec
 - [캡스톤 프로젝트 계획서](./.github/report.pdf)
 
