@@ -3,7 +3,7 @@ import ProfileContents from "pages/PortfolioPage/components/ProfileComponents/Pr
 import ProfileImg from "pages/PortfolioPage/components/ProfileComponents/ProfileImg";
 import ProfileRespect from "pages/PortfolioPage/components/ProfileComponents/ProfileRespect";
 
-import 'pages/PortfolioPage/styles/Profile.css'
+import 'pages/PortfolioPage/styles/Profile/Profile.css'
 
 const Profile=()=>{
     return (

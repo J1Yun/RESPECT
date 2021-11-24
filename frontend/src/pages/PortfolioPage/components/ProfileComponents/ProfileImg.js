@@ -1,4 +1,4 @@
-import 'pages/PortfolioPage/styles/ProfileImg.css'
+import 'pages/PortfolioPage/styles/Profile/ProfileImg.css'
 
 
 const ProfileImg = () =>{

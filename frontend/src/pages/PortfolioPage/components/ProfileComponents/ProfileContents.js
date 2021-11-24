@@ -1,4 +1,4 @@
-import 'pages/PortfolioPage/styles/ProfileContents.css'
+import 'pages/PortfolioPage/styles/Profile/ProfileContents.css'
 
 import {FaLocationArrow, FaPhoneAlt} from 'react-icons/fa'
 import {HiMail} from 'react-icons/hi'

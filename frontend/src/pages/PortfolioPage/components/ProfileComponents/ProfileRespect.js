@@ -1,4 +1,4 @@
-import 'pages/PortfolioPage/styles/ProfileRespect.css'
+import 'pages/PortfolioPage/styles/Profile/ProfileRespect.css'
 
 import respectBtn from 'pages/PortfolioPage/styles/img/respect.png'
 

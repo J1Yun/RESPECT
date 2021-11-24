@@ -1,4 +1,4 @@
-import 'pages/PortfolioPage/styles/ProfileRespectModal.css'
+import 'pages/PortfolioPage/styles/Profile/ProfileRespectModal.css'
 
 const ProfileRespectModal = ({title, list}) =>{
     return(

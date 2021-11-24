@@ -1,4 +1,4 @@
-import 'pages/PortfolioPage/styles/ProfileBtns.css'
+import 'pages/PortfolioPage/styles/Profile/ProfileBtns.css'
 
 import {FiEdit} from 'react-icons/fi'
 import {RiSettings4Fill} from 'react-icons/ri'
