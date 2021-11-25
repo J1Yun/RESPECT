@@ -33,6 +33,27 @@ const output = {
       res.send(baseResponse.SERVER_CONNECT_ERROR);
     }
   },
+  githubRepository: async (req, res) => {
+    try {
+      const accessToken = req.session.passport.user[0];
+      const currentGithubUser = req.session.passport.user[1].login;
+      const repositoryList = await axios({
+        method: 'get',
+        url: `https://api.github.com/users/${currentGithubUser}/repos`,
+        headers: {
+          Authorization: `token ${accessToken}`,
+        },
+        withCredentials: true,
+      });
+      let reposList = {};
+      for (let data of repositoryList.data) {
+        reposList[data.id] = data.name;
+      }
+      res.send(reposList);
+    } catch (err) {
+      res.send(baseResponse.SERVER_CONNECT_ERROR);
+    }
+  },
 };
 
 const process = {

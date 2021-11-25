@@ -18,7 +18,15 @@ router.post('/logout', middleWare.isAuthenticated, userController.process.logout
 
 // Github Social Login through passport
 router.get('/github', passport.authenticate('github')); //Github Request
-router.get('/portfolio', passport.authenticate('github'), userController.output.githubRepositoryList); //github repository list 가져오기
+router.get(
+  '/portfolio',
+  passport.authenticate('github', {
+    failureRedirect: '/github',
+    successRedirect: '/', //Todo(지윤): 깃허브 로그인 성공시 이동할 redirect page
+  }),
+);
+router.get('/github/projectList', middleWare.isAuthenticated, userController.output.githubRepository); //github repository list 가져오기
+
 // Profile
 // profile 정보 가져오기
 router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.userProfile);
