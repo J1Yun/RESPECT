@@ -5,12 +5,7 @@
     "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn frontend\""
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@toast-ui/react-editor": "^3.1.1",
-    "axios": "^0.23.0",
-=======
     "axios": "^0.24.0",
->>>>>>> dac3956e079dd6a634a4b334e37bb98677415ef3
     "concurrently": "^6.2.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -36,6 +31,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
+    "@babel/types": "^7.16.0",
     "nodemon": "^2.0.13"
   }
 }

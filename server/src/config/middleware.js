@@ -46,7 +46,7 @@ const authentication = async (req, res, next) => {
 
 const isAuthenticated = async (req, res, next) => {
   //session에 user 정보가 있는지 확인하는 MiddleWare
-  if (req.user) {
+  if (req.isAuthenticated()) {
     next();
   } else {
     res.redirect('/login');
