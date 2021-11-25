@@ -17,9 +17,8 @@ router.post('/signUp', userController.process.signUp);
 router.post('/logout', middleWare.isAuthenticated, userController.process.logout);
 
 // Github Social Login through passport
-router.get('/github', passport.authenticate('github')); //Github Login Request
-router.get('/portfolio', passport.authenticate('github'), userController.output.githubCallback); //Github call back 함수
-
+router.get('/github', passport.authenticate('github')); //Github Request
+router.get('/portfolio', passport.authenticate('github'), userController.output.githubRepositoryList); //github repository list 가져오기
 // Profile
 // profile 정보 가져오기
 router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.userProfile);

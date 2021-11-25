@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import 'pages/RegisterPage/styles/RegisterPage.css';
 import axios from 'axios';
-import { response } from 'express';
-import { assertDeclareTypeAlias } from 'babel-types';
+// import { response } from 'express';
+// import { assertDeclareTypeAlias } from 'babel-types';
 
 const RegisterPage = () => {
   const [userInput, setUserInput] = useState({
@@ -17,7 +17,7 @@ const RegisterPage = () => {
   // const [passwordConfirm, setPasswordConfirm] = useState();
   // const [name, setName] = useState();
 
-  const onPasswordChange = (event) => {
+  const onPasswordChange = event => {
     const {
       target: { value },
     } = event;
@@ -25,7 +25,7 @@ const RegisterPage = () => {
     console.log(userInput);
   };
 
-  const onPasswordConfirmChange = (event) => {
+  const onPasswordConfirmChange = event => {
     const {
       target: { value },
     } = event;
@@ -33,7 +33,7 @@ const RegisterPage = () => {
     console.log(userInput);
   };
 
-  const onNameChange = (event) => {
+  const onNameChange = event => {
     const {
       target: { value },
     } = event;
@@ -41,7 +41,7 @@ const RegisterPage = () => {
     console.log(userInput);
   };
 
-  const onNicknameChange = (event) => {
+  const onNicknameChange = event => {
     let {
       target: { value },
     } = event;
@@ -52,14 +52,14 @@ const RegisterPage = () => {
     console.log(userInput);
   };
 
-  const onRegisterSubmit = (event) => {
+  const onRegisterSubmit = event => {
     event.preventDefault();
     console.log(userInput.nickname, userInput.password);
-    axios.post('dev/login', { userInput }).then(response=> {
-      if(response.data.isSuccess) {
-        location.href = '/login';
+    axios.post('dev/login', { userInput }).then(response => {
+      if (response.data.isSuccess) {
+        // location.href = '/login';
       } else {
-        alert(response.data.message)
+        alert(response.data.message);
       }
     });
   };

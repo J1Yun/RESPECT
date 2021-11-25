@@ -5,9 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const { Strategy: GithubStrategy } = require('passport-github');
 
-require('dotenv').config();
-
-const githubConfig = {
+const githubLoginConfig = {
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: process.env.CLIENT_CALLBACK_URL,
@@ -16,10 +14,7 @@ const githubConfig = {
 const githubLoginVerify = async (accessToken, refreshToken, profile, cb) => {
   const connection = await pool.getConnection(async conn => conn);
   try {
-    console.log(profile._json);
-    const { login: githubID } = profile._json;
-    const user = await userDao.getUserIdByNickname(connection, githubID); //로그인한 github ID가 DB ID에 존재하는지 확인
-    return cb(null, user);
+    return cb(null, [accessToken, profile._json]);
   } catch (err) {
     return cb(err);
   } finally {
@@ -35,5 +30,5 @@ passport.deserializeUser((user, done) => {
 });
 
 module.exports = () => {
-  passport.use('github', new GithubStrategy(githubConfig, githubLoginVerify));
+  passport.use('github', new GithubStrategy(githubLoginConfig, githubLoginVerify));
 };
