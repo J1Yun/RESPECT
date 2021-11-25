@@ -1,0 +1,56 @@
+.study-container {
+  position: relative;
+  width: 900px;
+  height: max-content;
+  left: 100px;
+  top: 215px;
+  background: #ffffff;
+  box-shadow: 0px 20px 60px rgba(241, 244, 248, 0.5);
+  border-radius: 4px;
+}
+
+.study-title {
+  position: relative;
+  width: 900px;
+  height: 50px;
+}
+.study-title span:first-child {
+  position: relative;
+  left: 2%;
+  top: 50%;
+}
+.study-title span:last-child {
+  position: relative;
+  left: 3%;
+  top: 50%;
+  font-weight: bold;
+  font-style: italic;
+}
+.study-div {
+  position: relative;
+  left: 40px;
+  top: 15px;
+  padding-bottom: 40px;
+}
+.study-titles {
+  display: inline-grid;
+  width: 200px;
+}
+.study-titles:hover {
+  filter: drop-shadow(0px 1px 5px rgba(0, 0, 0, 0.4));
+  cursor: pointer;
+}
+.study-titles span:first-child {
+  font-weight: bold;
+  font-size: 13pt;
+  font-style: italic;
+}
+.study-titles span:last-child {
+  font-style: italic;
+}
+.study-div div ol {
+  display: inline-grid;
+  position: relative;
+  width: 500px;
+  margin: 10px;
+}
