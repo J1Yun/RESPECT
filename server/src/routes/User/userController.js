@@ -5,19 +5,54 @@ const baseResponse = require('../../config/baseResponseStatus');
 const regexEmail = require('regex-email');
 const { response } = require('../../config/baseResponseStatus');
 const session = require('express-session');
+const axios = require('axios');
 
 const output = {
   login: (req, res) => {
     console.log('hihi');
     res.send('hi');
   },
-  githubCallback: (req, res) => {
-    console.log('User 정보:', req.user);
-    console.log(req.isAuthenticated()); //session에 정보가 저장되어 있는지 확인
-    if (req.user) res.redirect('/');
-    //github ID가 DB에 존재하면 메인화면으로 redirect
-    else res.redirect('/signUp');
-    //github ID가 DB에 존재하지 않으면 회원가입 화면으로 redirect
+  githubRepositoryList: async (req, res) => {
+    try {
+      const accessToken = req.user[0];
+      const currentGithubUser = req.user[1].login;
+      const repositoryList = await axios({
+        method: 'get',
+        url: `https://api.github.com/users/${currentGithubUser}/repos`,
+        headers: {
+          Authorization: `token ${accessToken}`,
+        },
+        withCredentials: true,
+      });
+      let reposList = {};
+      for (let data of repositoryList.data) {
+        reposList[data.id] = data.name;
+      }
+      res.send(reposList);
+    } catch (err) {
+      res.send(baseResponse.SERVER_CONNECT_ERROR);
+    }
+  },
+  githubRepository: async (req, res) => {
+    try {
+      const accessToken = req.session.passport.user[0];
+      const currentGithubUser = req.session.passport.user[1].login;
+      const repositoryList = await axios({
+        method: 'get',
+        url: `https://api.github.com/users/${currentGithubUser}/repos`,
+        headers: {
+          Authorization: `token ${accessToken}`,
+        },
+        withCredentials: true,
+      });
+      let reposList = {};
+      for (let data of repositoryList.data) {
+        reposList[data.id] = data.name;
+      }
+      res.send(reposList);
+    } catch (err) {
+      res.send(baseResponse.SERVER_CONNECT_ERROR);
+    }
   },
 };
 
