@@ -27,10 +27,19 @@ async function updateSocialLoginByGithubId(connection, userId) {
   const UserSocialLoginResult = await connection.query(updateUserSocialLogin, userId);
   return UserSocialLoginResult;
 }
+async function createTechStackByUserId(connection, userId, stack) {
+  const createTechStack = `
+        INSERT INTO User(userId, stack)
+        VALUES (?, ?);
+`;
+  const CreateTechStackResult = await connection.query(createTechStack, [userId, stack]);
+  return CreateTechStackResult;
+}
 
 module.exports = {
   getUserIdByNickname,
   checkPasswordByUserId,
   createUserAccount,
   updateSocialLoginByGithubId,
+  createTechStackByUserId,
 };

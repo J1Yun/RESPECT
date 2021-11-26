@@ -26,7 +26,8 @@ router.get(
   }),
 );
 router.get('/github/projectList', middleWare.isAuthenticated, userController.output.githubRepository); //github repository list 가져오기
-
+router.get('/github/stack', middleWare.isAuthenticated, userController.output.githubStack); //github tech stack list 가져오기
+router.post('/profile/:userId/github/stack', userController.process.githubStack); //github tech stack list에서 선택 등록하기
 // Profile
 // profile 정보 가져오기
 router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.userProfile);

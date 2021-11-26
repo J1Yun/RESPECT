@@ -14,6 +14,7 @@ const githubLoginConfig = {
 const githubLoginVerify = async (accessToken, refreshToken, profile, cb) => {
   const connection = await pool.getConnection(async conn => conn);
   try {
+    console.log(profile._json);
     return cb(null, [accessToken, profile._json]);
   } catch (err) {
     return cb(err);

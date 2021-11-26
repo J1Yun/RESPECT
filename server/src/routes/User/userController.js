@@ -12,7 +12,7 @@ const output = {
     console.log('hihi');
     res.send('hi');
   },
-  githubRepositoryList: async (req, res) => {
+  githubRepository: async (req, res) => {
     try {
       const accessToken = req.user[0];
       const currentGithubUser = req.user[1].login;
@@ -33,7 +33,7 @@ const output = {
       res.send(baseResponse.SERVER_CONNECT_ERROR);
     }
   },
-  githubRepository: async (req, res) => {
+  githubStack: async (req, res) => {
     try {
       const accessToken = req.session.passport.user[0];
       const currentGithubUser = req.session.passport.user[1].login;
@@ -45,13 +45,34 @@ const output = {
         },
         withCredentials: true,
       });
-      let reposList = {};
+      let techStackList = new Set();
+      let arr = [];
       for (let data of repositoryList.data) {
-        reposList[data.id] = data.name;
+        const stackList = await axios({
+          method: 'get',
+          url: `https://api.github.com/repos/${currentGithubUser}/${data.name}/languages`,
+          headers: {
+            Authorization: `token ${accessToken}`,
+          },
+          withCredentials: true,
+        });
+        var str = JSON.stringify(stackList.data);
+        str = str.match(/\"([\w+]{1,})\"/g);
+        if (str) {
+          for (let temp of str) {
+            techStackList.add(temp.substring(1, temp.length - 1));
+          }
+        }
       }
-      res.send(reposList);
+      techStackList.forEach(element => {
+        arr.push(element);
+      });
+      arr = JSON.stringify(arr);
+      arr = arr.replace(/[\"\[\]]/g, '');
+      res.send(arr);
     } catch (err) {
       res.send(baseResponse.SERVER_CONNECT_ERROR);
+      console.log(err);
     }
   },
 };
@@ -91,8 +112,19 @@ const process = {
     req.logout();
     res.redirect('/login');
   },
-  githubCallbackFunction: async (req, res) => {
-    console.log('hi', accessToken, refreshToken, profile, cb);
+  githubStack: async (req, res) => {
+    const userId = req.params.userId;
+    const stack = req.body.stack;
+    let techStack = [];
+    for (let st of stack) {
+      techStack.push(st);
+    }
+    techStack = JSON.stringify(techStack);
+    techStack = arr.replace(/[\"\[\]]/g, '');
+
+    const stackResponse = await UserService.createTechStack(userId, techStack);
+
+    return res.send(stackResponse);
   },
 };
 

@@ -5,7 +5,7 @@ const baseResponse = require('../../config/baseResponseStatus');
 const crypto = require('crypto');
 
 exports.checkUserAccount = async function (nickname, password) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
@@ -20,11 +20,11 @@ exports.checkUserAccount = async function (nickname, password) {
   } catch (err) {
     return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
-    connection.release(); 
+    connection.release();
   }
 };
 exports.checkGithubUserAccount = async function (nickname) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
@@ -38,7 +38,7 @@ exports.checkGithubUserAccount = async function (nickname) {
 };
 
 exports.createUser = async function (nickname, password, name) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length > 0) return baseResponse.SIGNUP_REDUNDANT_EMAIL;
@@ -58,7 +58,7 @@ exports.createUser = async function (nickname, password, name) {
 };
 
 exports.checkUserExist = async function (nickname) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
@@ -72,9 +72,22 @@ exports.checkUserExist = async function (nickname) {
 };
 
 exports.updateSocailLogin = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     await UserDao.updateSocialLoginByGithubId(connection, userId);
+    return baseResponse.SUCCESS;
+  } catch (err) {
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};
+
+exports.createTechStack = async function (userId, stack) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    await UserDao.createTechStackByUserId(connection, userId, stack);
     return baseResponse.SUCCESS;
   } catch (err) {
     console.log(err);
