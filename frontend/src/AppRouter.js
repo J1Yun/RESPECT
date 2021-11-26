@@ -1,15 +1,21 @@
-import React from 'react';
-import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import React from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import LoginPage from 'pages/LoginPage/LoginPage';
-import RegisterPage from 'pages/RegisterPage/RegisterPage';
-import AroundPage from 'pages/AroundPage/AroundPage';
-import PoolPage from 'pages/PoolPage/PoolPage';
-import PortfolioPage from 'pages/PortfolioPage/PortfolioPage';
-import CallbackPage from 'pages/GithubLogin/CallbackPage';
-import RepositoryPage from 'pages/ProjectPage/RepositoryPage';
+import LoginPage from "pages/LoginPage/LoginPage";
+import RegisterPage from "pages/RegisterPage/RegisterPage";
+import AroundPage from "pages/AroundPage/AroundPage";
+import PoolPage from "pages/PoolPage/PoolPage";
+import PortfolioPage from "pages/PortfolioPage/PortfolioPage";
+import CallbackPage from "pages/GithubLogin/CallbackPage";
+import RepositoryPage from "pages/ProjectPage/RepositoryPage";
+import ProjectPage from "pages/ProjectPage/ProjectPage";
 
 const AppRouter = () => {
   return (
@@ -35,6 +41,9 @@ const AppRouter = () => {
         </Route> */}
         <Route exact path="/repository">
           <RepositoryPage />
+        </Route>
+        <Route exact path="/project">
+          <ProjectPage />
         </Route>
         <Redirect to="/" />
       </Switch>
