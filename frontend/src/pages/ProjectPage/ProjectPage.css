@@ -1,0 +1,70 @@
+.project-container {
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: fit-content;
+  background-color: white;
+}
+.project-header {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 820px;
+  min-height: 150px;
+  border-bottom: solid 1px;
+}
+.project-header-category {
+  position: absolute;
+  top: 15%;
+}
+.project-header-github {
+  position: absolute;
+  width: 150px;
+  height: 30px;
+  top: 15%;
+  left: 77%;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.project-header-github svg {
+  position: relative;
+  left: -4px;
+}
+.project-header-bookmark {
+  border: none;
+  background: none;
+  top: 15%;
+  left: 95%;
+  position: absolute;
+  cursor: pointer;
+}
+.project-header-title {
+  position: absolute;
+  font-size: 18pt;
+  font-weight: bold;
+  top: 33%;
+}
+.project-header-profile {
+  position: absolute;
+  top: 60%;
+}
+.project-header-profile img {
+  position: absolute;
+  top: 10%;
+  border-radius: 100%;
+}
+.project-header-profile span {
+  position: relative;
+  left: 50%;
+  top: 3px;
+  display: block;
+}
+.project-header-profile span:last-child {
+  position: relative;
+  left: 50%;
+}
