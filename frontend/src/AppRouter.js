@@ -31,8 +31,8 @@ const AppRouter = () => {
           <PortfolioPage />
         </Route>
         {/* <Route exact path="/portfolio">
-           <CallbackPage />
-         </Route> */}
+          <CallbackPage />
+        </Route> */}
         <Route exact path="/repository">
           <RepositoryPage />
         </Route>
