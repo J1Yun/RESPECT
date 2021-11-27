@@ -1,0 +1,28 @@
+.project-outline-container {
+  width: 820px;
+  max-height: 300px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.project-outline-container img {
+  width: 350px;
+  height: 250px;
+  object-fit: cover;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  display: inline-block;
+}
+.project-outline-container div {
+  position: relative;
+  left: 25px;
+  top: -105px;
+  display: inline-grid;
+}
+.project-outline-titles {
+  font-weight: bold;
+  color: #023577;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
