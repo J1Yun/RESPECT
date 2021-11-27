@@ -82,6 +82,8 @@
 }
 .project-comment div {
   position: relative;
+  width: 745px;
+
   left: 50px;
   top: -5px;
 }
