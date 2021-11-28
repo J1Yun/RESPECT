@@ -30,6 +30,7 @@ const output = {
       }
       res.send(reposList);
     } catch (err) {
+      //console.log(err);
       res.send(baseResponse.SERVER_CONNECT_ERROR);
     }
   },
@@ -64,7 +65,7 @@ const output = {
           }
         }
       }
-      techStackList.forEach(element => {
+      techStackList.forEach((element) => {
         arr.push(element);
       });
       arr = JSON.stringify(arr);
