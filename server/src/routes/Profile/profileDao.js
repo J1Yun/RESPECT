@@ -65,7 +65,7 @@ async function getUserExperienced(connection, userId) {
 
 async function getUserEducations(connection, userId) {
   const getUserInstitute = `
-  select I.start as startDate, I.end as endDate, I.name as name, I.department as department, I.type as type
+  select I.id as instituteId, I.start as startDate, I.end as endDate, I.name as name, I.department as department, I.type as type
   from Institute I
          left join User U on I.userId = U.id
   where U.name = ?;
@@ -185,6 +185,24 @@ async function updateTechStack(connection, updateParams) {
   const [updateTechStackResult] = await connection.query(updateTechStackContents, updateParams);
   return updateTechStackResult;
 }
+async function updateEducation(connection, updateParams) {
+  const updateEducationContents = `
+  update Institude
+  set userId = ?, name = ?, department = ?, type = ?, start = ?, end = ?
+  where userId = ?;
+  `;
+  const [updateEducationResult] = await connection.query(updateEducationContents, updateParams);
+  return updateEducationResult;
+}
+async function deleteEducation(connection, deleteParams) {
+  const deleteEducationContents = `
+  update Institude
+  set isDeleted = 1
+  where userId = ? and id = ?;
+  `;
+  const [deleteEducationResult] = await connection.query(deleteEducationContents, deleteParams);
+  return deleteEducationResult;
+}
 
 module.exports = {
   getUserProfileInfo,
@@ -204,4 +222,6 @@ module.exports = {
   getStackId,
   insertTechStack,
   updateTechStack,
+  updateEducation,
+  deleteEducation,
 };

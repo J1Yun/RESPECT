@@ -17,7 +17,12 @@ router.post('/signUp', userController.process.signUp);
 router.post('/logout', middleWare.isAuthenticated, userController.process.logout);
 
 // Github Social Login through passport
-router.get('/github', passport.authenticate('github')); //Github Request
+router.get(
+  '/github',
+  passport.authenticate('github', {
+    scope: ['repo'],
+  }),
+); //Github Request
 router.get(
   '/portfolio',
   passport.authenticate('github', {
@@ -29,28 +34,30 @@ router.get('/github/projectList', middleWare.isAuthenticated, userController.out
 router.get('/github/stack', middleWare.isAuthenticated, userController.output.githubStack); //github tech stack list 가져오기
 router.post('/profile/:userId/github/stack', userController.process.githubStack); //github tech stack list에서 선택 등록하기
 // Profile
-// profile 정보 가져오기
+// profile 정보
 router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.userProfile);
 
-// Interest 가져오기
+// Interest
 router.get('/profile/interest/:userId', profileController.userInterest);
 
-// TeckStack 가져오기
+// TeckStack
 router.get('/profile/teckstack/:userId', profileController.userTechStack);
 router.put('/profile/techstack/:userId', profileController.editTechStack);
 
-// Experience 가져오기
+// Experience
 router.get('/profile/experience/:userId', profileController.userExperience);
 router.post('/profile/experience/:userId', profileController.editExperience);
 
-// Education 가져오기
-router.get('/profile/education/:userId', profileController.userEducation);
+// Education
+router.get('/profile/education/:userId', profileController.userEducation); // 가져오기
+router.post('/profile/education/:userId', profileController.editUserEducation); // 등록
+router.patch('/profile/education/:userId', profileController.deleteUserEducation); // 삭제
 
-// 프로젝트 가져오기 (3개, Pinned)
+// 프로젝트 (3개, Pinned)
 router.get('/profile/projects/:userId', profileController.userProjects);
 router.post('/profile/projects/:userId', profileController.githubUserProjects);
 
-// Study 가져오기 (3개)
+// Study (3개)
 router.get('/profile/study/:userId', profileController.userStudy);
 
 // Profile Update

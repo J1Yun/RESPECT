@@ -4,7 +4,7 @@ const baseResponse = require('../../config/baseResponseStatus');
 const { response } = require('../../config/baseResponseStatus');
 
 exports.getUserProfile = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userProfile = await ProfileDao.getUserProfileInfo(connection, userId);
     return userProfile;
@@ -16,7 +16,7 @@ exports.getUserProfile = async function (userId) {
 };
 
 exports.getUserInterest = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userInterest = await ProfileDao.getUserInterests(connection, userId);
     return userInterest;
@@ -28,7 +28,7 @@ exports.getUserInterest = async function (userId) {
 };
 
 exports.getUserTechStack = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userTechStack = await ProfileDao.getUserTechStacks(connection, userId);
     return userTechStack;
@@ -40,7 +40,7 @@ exports.getUserTechStack = async function (userId) {
 };
 
 exports.getUserExperience = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userExperience = await ProfileDao.getUserExperienced(connection, userId);
     return userExperience;
@@ -51,7 +51,7 @@ exports.getUserExperience = async function (userId) {
   }
 };
 exports.getUserEducation = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userEducation = await ProfileDao.getUserEducations(connection, userId);
     return userEducation;
@@ -61,7 +61,7 @@ exports.getUserEducation = async function (userId) {
   }
 };
 exports.getUserProject = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userProjects = await ProfileDao.getUserProjects(connection, userId);
     return userProjects;
@@ -72,7 +72,7 @@ exports.getUserProject = async function (userId) {
   }
 };
 exports.getUserStudy = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const userStudy = await ProfileDao.getUserStudies(connection, userId);
     return userStudy;
@@ -84,7 +84,7 @@ exports.getUserStudy = async function (userId) {
 };
 
 exports.userProfileUpdate = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const originUserProfile = await ProfileDao.getProfileEditUser(connection, userId);
     return originUserProfile;
@@ -96,7 +96,7 @@ exports.userProfileUpdate = async function (userId) {
 };
 
 exports.changeUserProfile = async function (name, content, phoneNumber, email, location, name) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   const params = [name, content, phoneNumber, email, location, name];
   try {
     const updateResult = await ProfileDao.updateProfile(connection, params);
@@ -111,7 +111,7 @@ exports.changeUserProfile = async function (name, content, phoneNumber, email, l
 };
 
 exports.editExperienceContent = async function (userId, content) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   try {
     const checkResult = await ProfileDao.checkExperienceContent(connection, userId);
 
@@ -141,7 +141,7 @@ exports.editExperienceContent = async function (userId, content) {
 };
 
 exports.editAdvancedTechStackContent = async function (userId, advanced) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   const checkLength = advancedTechStack.length;
   const checkAdvancedTechStack = await ProfileDao.checkTechStack(connection, advancedTechStack);
   try {
@@ -151,10 +151,10 @@ exports.editAdvancedTechStackContent = async function (userId, advanced) {
 };
 
 exports.editExperiencedTechStackContent = async function (userId, experienced) {
-  const connection = await pool.getConnection(async (conn) => conn);
+  const connection = await pool.getConnection(async conn => conn);
   // findindex, find
   try {
-    experienced.forEach(async (experiencedTechStack) => {
+    experienced.forEach(async experiencedTechStack => {
       const experiencedTechStackName = experiencedTechStack.name;
       const isDeleted = experiencedTechStack.isDeleted; // isDeleted = 0 존재 , = 1 삭제됨
       const stackId = await ProfileDao.getStackId(connection, experiencedTechStackName);
@@ -196,5 +196,35 @@ exports.editExperiencedTechStackContent = async function (userId, experienced) {
     console.log(err);
   } finally {
     connection.release();
+  }
+};
+
+exports.editEducationContent = async function (userId, name, department, type, start, end) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    const params = [userId, name, department, type, start, end, userId];
+    const updateResult = await ProfileDao.updateEducation(connection, params);
+    if (updateResult) {
+      return baseResponse.SUCCESS;
+    } else {
+      return baseResponse.SERVER_CONNECT_ERROR;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.deleteEducationContent = async function (userId, instituteId) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    const params = [userId, instituteId];
+    const deleteResult = await ProfileDao.deleteEducation(connection, params);
+    if (deleteResult) {
+      return baseResponse.SUCCESS;
+    } else {
+      return baseResponse.SERVER_CONNECT_ERROR;
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
