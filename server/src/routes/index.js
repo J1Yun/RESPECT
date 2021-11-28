@@ -17,12 +17,7 @@ router.post('/signUp', userController.process.signUp);
 router.post('/logout', middleWare.isAuthenticated, userController.process.logout);
 
 // Github Social Login through passport
-router.get(
-  '/github',
-  passport.authenticate('github', {
-    scope: ['repo'],
-  }),
-); //Github Request
+router.get('/github', passport.authenticate('github', { scope: 'repo,user,gist' })); //Github Request
 router.get(
   '/portfolio',
   passport.authenticate('github', {
@@ -30,6 +25,7 @@ router.get(
     successRedirect: '/', //Todo(지윤): 깃허브 로그인 성공시 이동할 redirect page
   }),
 );
+
 router.get('/github/projectList', middleWare.isAuthenticated, userController.output.githubRepository); //github repository list 가져오기
 router.get('/github/stack', middleWare.isAuthenticated, userController.output.githubStack); //github tech stack list 가져오기
 router.post('/profile/:userId/github/stack', userController.process.githubStack); //github tech stack list에서 선택 등록하기

@@ -50,6 +50,7 @@ exports.getUserExperience = async function (userId) {
     connection.release();
   }
 };
+
 exports.getUserEducation = async function (userId) {
   const connection = await pool.getConnection(async conn => conn);
   try {
@@ -60,6 +61,7 @@ exports.getUserEducation = async function (userId) {
     connection.release();
   }
 };
+
 exports.getUserProject = async function (userId) {
   const connection = await pool.getConnection(async conn => conn);
   try {
@@ -71,6 +73,7 @@ exports.getUserProject = async function (userId) {
     connection.release();
   }
 };
+
 exports.getUserStudy = async function (userId) {
   const connection = await pool.getConnection(async conn => conn);
   try {
