@@ -46,6 +46,7 @@ const output = {
         },
         withCredentials: true,
       });
+      console.log(repositoryList.headers.vary.Authorization);
       let techStackList = new Set();
       let arr = [];
       for (let data of repositoryList.data) {

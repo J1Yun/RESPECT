@@ -31,12 +31,20 @@ router.get('/github/stack', middleWare.isAuthenticated, userController.output.gi
 router.post('/profile/:userId/github/stack', userController.process.githubStack); //github tech stack list에서 선택 등록하기
 
 // Profile
+
 // profile 정보 가져오기
 router.get('/profile/:userId', profileController.userProfile);
 
 router.put('/profile/techstack/:userId', profileController.editTechStack);
 
 router.post('/profile/experience/:userId', profileController.editExperience);
+router.post('/profile/projects/:userId', profileController.githubUserProjects);
+
+router.post('/profile/education/:userId', profileController.editUserEducation); // 등록
+router.patch('/profile/education/:userId', profileController.deleteUserEducation); // 삭제
+
+// 프로젝트 (3개, Pinned)
+
 router.post('/profile/projects/:userId', profileController.githubUserProjects);
 
 // Profile Update

@@ -88,3 +88,17 @@ exports.editTechStack = async function (req, res) {
   //   }
   // }
 };
+
+exports.editUserEducation = async function (req, res) {
+  const { name, department, type, start, end } = req.body;
+  const userId = req.params.userId;
+  const editExperienceResult = await ProfileService.editEducationContent(userId, name, department, type, start, end);
+  return res.send(editExperienceResult);
+};
+
+exports.deleteUserEducation = async function (req, res) {
+  const { instituteId } = req.body;
+  const userId = req.params.userId;
+  const editExperienceResult = await ProfileService.deleteEducationContent(userId, instituteId);
+  return res.send(editExperienceResult);
+};
