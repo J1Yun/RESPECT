@@ -40,8 +40,10 @@ router.put('/profile/techstack/:userId', profileController.editTechStack);
 router.post('/profile/experience/:userId', profileController.editExperience);
 router.post('/profile/projects/:userId', profileController.githubUserProjects);
 
-router.post('/profile/education/:userId', profileController.editUserEducation); // 등록
-router.patch('/profile/education/:userId', profileController.deleteUserEducation); // 삭제
+router.post('/profile/education/:userId', profileController.addEducation);
+router.patch('/profile/education/:userId', profileController.editEducation);
+
+router.post('/profile/interest/:userId', profileController.editInterest);
 
 // 프로젝트 (3개, Pinned)
 

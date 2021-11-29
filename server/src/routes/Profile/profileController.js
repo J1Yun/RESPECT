@@ -57,7 +57,7 @@ exports.updateUserProfile = async function (req, res) {
 };
 
 exports.editExperience = async function (req, res) {
-  const content = req.body;
+  const { content } = req.body;
   const userId = req.params.userId;
   const editExperienceResult = await ProfileService.editExperienceContent(userId, content);
   return res.send(editExperienceResult);
@@ -89,16 +89,22 @@ exports.editTechStack = async function (req, res) {
   // }
 };
 
-exports.editUserEducation = async function (req, res) {
+exports.addEducation = async function (req, res) {
   const { name, department, type, start, end } = req.body;
   const userId = req.params.userId;
-  const editExperienceResult = await ProfileService.editEducationContent(userId, name, department, type, start, end);
-  return res.send(editExperienceResult);
+  const addEducationREsult = await ProfileService.addEducationContent(userId, name, department, type, start, end);
+  return res.send(addEducationREsult);
+};
+exports.editEducation = async function (req, res) {
+  const { instituteId, start, end, isDeleted } = req.body;
+  const userId = req.params.userId;
+  const editEducationResult = await ProfileService.editEducationContent(userId, instituteId, start, end, isDeleted);
+  return res.send(editEducationResult);
 };
 
-exports.deleteUserEducation = async function (req, res) {
-  const { instituteId } = req.body;
+exports.editInterest = async function (req, res) {
+  const { deleteInterest, insertInterest } = req.body;
   const userId = req.params.userId;
-  const editExperienceResult = await ProfileService.deleteEducationContent(userId, instituteId);
-  return res.send(editExperienceResult);
+  const editInterestResult = await ProfileService.editInterestContent(userId, deleteInterest, insertInterest);
+  return res.send(editInterestResult);
 };

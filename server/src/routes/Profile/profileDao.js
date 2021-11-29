@@ -132,22 +132,22 @@ async function checkExperienceContent(connection, userId) {
   const [checkResult] = await connection.query(checkExperience, userId);
   return checkResult;
 }
-async function updateExperienceContent(connection, content, userId) {
+async function updateExperienceContent(connection, params) {
   const updateExperienceContents = `
   update Career 
   set career = ?
   where userId = ?
   `;
-  const updateResult = await connection.query(updateExperienceContents, [content, userId]);
+  const updateResult = await connection.query(updateExperienceContents, params);
   return updateResult;
 }
 
-async function insertExperienceContent(connection, userId, content) {
+async function insertExperienceContent(connection, params) {
   const insertExperienceContents = `
   insert into Career(userId, career)
-  values (?, ?);
+  values (?);
   `;
-  const [insertResult] = await connection.query(insertExperienceContents, [userId, content]);
+  const [insertResult] = await connection.query(insertExperienceContents, [params]);
   return insertResult;
 }
 async function checkTechStack(connection, userId, level) {
@@ -183,11 +183,12 @@ async function getStackId(connection, TechStack) {
 async function insertTechStack(connection, params) {
   const insertTechStackContents = `
   insert into Stack(stackId, userId, level)
-  values (?, ?, ?);
+  values (?);
   `;
-  const [insertTechStackResult] = await connection.query(insertTechStackContents, params);
+  const [insertTechStackResult] = await connection.query(insertTechStackContents, [params]);
   return insertTechStackResult;
 }
+
 async function updateTechStack(connection, updateParams) {
   const updateTechStackContents = `
   update Stack
@@ -198,25 +199,52 @@ async function updateTechStack(connection, updateParams) {
   const [updateTechStackResult] = await connection.query(updateTechStackContents, updateParams);
   return updateTechStackResult;
 }
+
+async function insertEducation(connection, insertParams) {
+  const insertEducationContents = `
+  insert into Institute(userId, name, department, type, start, end) values (?);
+  `;
+  const [insertEducationResult] = await connection.query(insertEducationContents, [insertParams]);
+  return insertEducationResult;
+}
+
 async function updateEducation(connection, updateParams) {
   const updateEducationContents = `
   update Institude
-  set userId = ?, name = ?, department = ?, type = ?, start = ?, end = ?
-  where userId = ?;
+  set start = ?, end = ?
+  where userId = ? and id = ?;
   `;
   const [updateEducationResult] = await connection.query(updateEducationContents, updateParams);
   return updateEducationResult;
 }
-async function deleteEducation(connection, deleteParams) {
+
+async function deleteEducation(connection, deleteId) {
   const deleteEducationContents = `
   update Institude
   set isDeleted = 1
-  where userId = ? and id = ?;
+  where id = ?;
   `;
-  const [deleteEducationResult] = await connection.query(deleteEducationContents, deleteParams);
+  const [deleteEducationResult] = await connection.query(deleteEducationContents, deleteId);
   return deleteEducationResult;
 }
 
+async function insertInterest(connection, params) {
+  const insertInterestContents = `
+  insert into Interest(userId, interestId)
+  values ?;
+  `;
+  const [insertInterestResult] = await connection.query(insertInterestContents, [params]);
+  return insertInterestResult;
+}
+
+async function deleteInterest(connection, userId, params) {
+  const deleteInterestContents = `
+  update Interest set isDeleted = 1
+  where userId = ? and interestId in ?;
+  `;
+  const [deleteInterestResult] = await connection.query(deleteInterestContents, [userId, [params]]);
+  return deleteInterestResult;
+}
 module.exports = {
   getUserProfileInfo,
   getUserInterests,
@@ -237,4 +265,7 @@ module.exports = {
   updateTechStack,
   updateEducation,
   deleteEducation,
+  insertInterest,
+  deleteInterest,
+  insertEducation,
 };
