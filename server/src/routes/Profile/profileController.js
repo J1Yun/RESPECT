@@ -4,62 +4,26 @@ const regexEmail = require('regex-email');
 const { response } = require('../../config/baseResponseStatus');
 require('dotenv').config();
 exports.userProfile = async function (req, res) {
-  const userId = req.params.userId;
-  const checkProfile = await ProfileService.getUserProfile(userId);
-  console.log(checkProfile);
-  res.json(checkProfile);
-};
+  const userId = parseInt(req.params.userId);
+  const userProfileInfo = await ProfileService.getUserProfile(userId);
+  // const checkInterest = await ProfileService.getUserInterest(userId);
+  // const checkTechStack = await ProfileService.getUserTechStack(userId);
+  // const checkExperience = await ProfileService.getUserExperience(userId);
+  // const checkEducation = await ProfileService.getUserEducation(userId);
+  // const checkProjects = await ProfileService.getUserProject(userId); // Project 가져오기 (3개)
+  // const checkStudy = await ProfileService.getUserStudy(userId); // Study 가져오기 (3개)
 
-exports.userInterest = async function (req, res) {
-  const userId = req.params.userId;
-  if (req.session.user) {
-    const checkInterest = await ProfileService.getUserInterest(userId);
-    //res.cookie('interest', 'asdf', { signed: true, maxAge: 86400000 });
-    console.log(checkInterest);
-    res.json(checkInterest);
-  } else {
-    res.send(baseResponse.LOGIN_ERROR);
-  }
-};
-
-exports.userTechStack = async function (req, res) {
-  const userId = req.params.userId;
-  if (req.session.user) {
-    const checkTechStack = await ProfileService.getUserTechStack(userId);
-    res.json(checkTechStack);
-  } else {
-    res.send(baseResponse.LOGIN_ERROR);
-  }
-};
-
-exports.userExperience = async function (req, res) {
-  const userId = req.params.userId;
-  if (req.session.user) {
-    const checkExperience = await ProfileService.getUserExperience(userId);
-    res.json(checkExperience);
-  } else {
-    res.send(baseResponse.LOGIN_ERROR);
-  }
-};
-
-exports.userEducation = async function (req, res) {
-  const userId = req.params.userId;
-  if (req.session.user) {
-    const ckeckEducation = await ProfileService.getUserEducation(userId);
-    res.json(ckeckEducation);
-  } else {
-    res.send(baseResponse.LOGIN_ERROR);
-  }
-};
-
-exports.userProjects = async function (req, res) {
-  const userId = req.params.userId;
-  if (req.session.user) {
-    const checkProjects = await ProfileService.getUserProject(userId);
-    res.json(checkProjects);
-  } else {
-    res.send(baseResponse.LOGIN_ERROR);
-  }
+  // const userProfileInfo = {
+  //   UserProfile: checkProfile,
+  //   UserInterest: checkInterest,
+  //   UserTechStack: checkTechStack,
+  //   UserExperience: checkExperience,
+  //   UserEducation: checkEducation,
+  //   UserProjects: checkProjects,
+  //   UserStudy: checkStudy,
+  // };
+  // console.log(userProfileInfo);
+  res.json(userProfileInfo);
 };
 
 exports.githubUserProjects = async function (req, res) {
@@ -72,36 +36,23 @@ exports.githubUserProjects = async function (req, res) {
   }
 };
 
-exports.userStudy = async function (req, res) {
-  const userId = req.params.userId;
-  if (req.session.user) {
-    const checkStudy = await ProfileService.getUserStudy(userId);
-    res.json(checkStudy);
-  } else {
-    res.send(baseResponse.LOGIN_ERROR);
-  }
-};
-
 exports.userEditProfile = async function (req, res) {
   if (req.session.user) {
-    //const userId = req.session.user.name;
     const userId = req.params.userId;
     const userProfileInfo = await ProfileService.userProfileUpdate(userId);
     res.json(userProfileInfo);
   } else {
-    res.send(baseResponse.LOGIN_ERROR);
+    res.send(baseResponse.SERVER_CONNECT_ERROR);
   }
 };
 
 exports.updateUserProfile = async function (req, res) {
   const { name, content, phoneNumber, email, location } = req.body;
   if (req.session.user) {
-    //if (!regexEmail.test(email)) return res.send(baseResponse.EMAIL_ERROR_TYPE);
-    //const userId = req.session.user.username;
     const signUpResponse = await ProfileService.changeUserProfile(name, content, phoneNumber, email, location, name);
     return res.send(signUpResponse);
   } else {
-    res.send(baseResponse.LOGIN_ERROR);
+    res.send(baseResponse.UPDATE_ERROR_TYPE);
   }
 };
 

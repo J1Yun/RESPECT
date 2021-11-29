@@ -7,78 +7,24 @@ exports.getUserProfile = async function (userId) {
   const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userProfile = await ProfileDao.getUserProfileInfo(connection, userId);
-    return userProfile;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserInterest = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  try {
     const userInterest = await ProfileDao.getUserInterests(connection, userId);
-    return userInterest;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserTechStack = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  try {
     const userTechStack = await ProfileDao.getUserTechStacks(connection, userId);
-    return userTechStack;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserExperience = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  try {
     const userExperience = await ProfileDao.getUserExperienced(connection, userId);
-    return userExperience;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserEducation = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  try {
     const userEducation = await ProfileDao.getUserEducations(connection, userId);
-    return userEducation;
-  } catch (err) {
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserProject = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  try {
     const userProjects = await ProfileDao.getUserProjects(connection, userId);
-    return userProjects;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserStudy = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  try {
     const userStudy = await ProfileDao.getUserStudies(connection, userId);
-    return userStudy;
+
+    const userProfileInfo = {
+      UserProfile: userProfile,
+      UserInterest: userInterest,
+      UserTechStack: userTechStack,
+      UserExperience: userExperience,
+      UserEducation: userEducation,
+      UserProjects: userProjects,
+      UserStudy: userStudy,
+    };
+    //console.log(userProfileInfo.UserProjects[1][0].projectCount);
+    return userProfileInfo;
   } catch (err) {
     console.log(err);
   } finally {

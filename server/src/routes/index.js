@@ -29,30 +29,15 @@ router.get(
 router.get('/github/projectList', middleWare.isAuthenticated, userController.output.githubRepository); //github repository list 가져오기
 router.get('/github/stack', middleWare.isAuthenticated, userController.output.githubStack); //github tech stack list 가져오기
 router.post('/profile/:userId/github/stack', userController.process.githubStack); //github tech stack list에서 선택 등록하기
+
 // Profile
 // profile 정보 가져오기
-router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.userProfile);
+router.get('/profile/:userId', profileController.userProfile);
 
-// Interest 가져오기
-router.get('/profile/interest/:userId', profileController.userInterest);
-
-// TeckStack 가져오기
-router.get('/profile/teckstack/:userId', profileController.userTechStack);
 router.put('/profile/techstack/:userId', profileController.editTechStack);
 
-// Experience 가져오기
-router.get('/profile/experience/:userId', profileController.userExperience);
 router.post('/profile/experience/:userId', profileController.editExperience);
-
-// Education 가져오기
-router.get('/profile/education/:userId', profileController.userEducation);
-
-// 프로젝트 가져오기 (3개, Pinned)
-router.get('/profile/projects/:userId', profileController.userProjects);
 router.post('/profile/projects/:userId', profileController.githubUserProjects);
-
-// Study 가져오기 (3개)
-router.get('/profile/study/:userId', profileController.userStudy);
 
 // Profile Update
 router.get('/profile/update/:userId', profileController.userEditProfile);
