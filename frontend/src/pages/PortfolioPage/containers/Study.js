@@ -24,7 +24,7 @@ const Study = () => {
   return (
     <div className="study-container">
       <div className="study-title">
-        <span>✏</span>
+        <span>📝</span>
         <span>Study</span>
       </div>
       <div className="study-div">

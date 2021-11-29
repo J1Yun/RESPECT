@@ -16,6 +16,7 @@ import PortfolioPage from "pages/PortfolioPage/PortfolioPage";
 import CallbackPage from "pages/GithubLogin/CallbackPage";
 import RepositoryPage from "pages/ProjectPage/RepositoryPage";
 import ProjectPage from "pages/ProjectPage/ProjectPage";
+import ProjectRegisterPage from "pages/ProjectPage/ProjectRegisterPage";
 
 const AppRouter = () => {
   return (
@@ -44,6 +45,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/project">
           <ProjectPage />
+        </Route>
+        <Route exact path="/project/register/:id">
+          <ProjectRegisterPage />
         </Route>
         <Redirect to="/" />
       </Switch>

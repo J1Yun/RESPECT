@@ -1,5 +1,6 @@
 import "pages/PortfolioPage/styles/Projects.css";
-
+import { useState, useEffect, useRef } from "react";
+import ProjectAdd from "../components/Project/ProjectAdd";
 const projects = [
   {
     title: "To do list Service",
@@ -16,6 +17,24 @@ const projects = [
 ];
 
 const Projects = () => {
+  const [add, setAdd] = useState(false);
+  const modal = useRef();
+  const btn = useRef();
+  const handleClickOutside = (e) => {
+    if (modal.current && !modal.current.contains(e.target)) {
+      if (btn.current && !btn.current.contains(e.target)) setAdd(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+  const onAddClick = () => {
+    setAdd(true);
+  };
+
   return (
     <div className="projects-container">
       <div className="projects-title">
@@ -24,6 +43,14 @@ const Projects = () => {
 
         <span>3 of {projects.length}</span>
       </div>
+      <button ref={btn} onClick={onAddClick} className="project-add">
+        Add
+      </button>
+      {add && (
+        <div ref={modal}>
+          <ProjectAdd />
+        </div>
+      )}
       <div className="projects-div">
         {projects &&
           projects.map((item) => (
