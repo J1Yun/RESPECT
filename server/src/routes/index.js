@@ -41,7 +41,7 @@ router.post('/profile/experience/:userId', profileController.editExperience);
 router.post('/profile/projects/:userId', profileController.githubUserProjects);
 
 router.post('/profile/education/:userId', profileController.addEducation);
-router.patch('/profile/education/:userId', profileController.editEducation);
+router.put('/profile/education/:userId', profileController.editEducation);
 
 router.post('/profile/interest/:userId', profileController.editInterest);
 

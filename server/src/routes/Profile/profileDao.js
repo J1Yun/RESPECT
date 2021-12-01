@@ -41,17 +41,9 @@ async function getUserInterests(connection, userId) {
 }
 
 async function getUserTechStacks(connection, userId) {
-  // const getUserTechStack = `
-  // select SC.imageUrl as image, SC.name as name, S.level as level, S.isDeleted
-  // from StackCategory SC
-  //        left join Stack S on SC.id = S.stackId
-  //        left join User U on S.userId = U.id;
-  //        where u.id = ?
-  // `;
   const getUserTechStack = `
-  select s.stack stackName, s.userId userId, s.level stackLevel, s.createdAt, s.updateAt
-  from Stack s
-         left join User u on u.id = s.userId
+  select s.id stackId, s.stack stackName, s.userId userId, s.level stackLevel, s.createdAt, s.updateAt
+  from Stack s left join User u on u.id = s.userId
   where u.id = ?
   `;
   const [userTechStack] = await connection.query(getUserTechStack, userId);
@@ -182,19 +174,18 @@ async function getStackId(connection, TechStack) {
 
 async function insertTechStack(connection, params) {
   const insertTechStackContents = `
-  insert into Stack(stackId, userId, level)
+  insert into Stack(stack, userId, level)
   values (?);
   `;
   const [insertTechStackResult] = await connection.query(insertTechStackContents, [params]);
   return insertTechStackResult;
 }
 
-async function updateTechStack(connection, updateParams) {
+async function updateTechStacks(connection, updateParams) {
   const updateTechStackContents = `
   update Stack
-  set isDeleted = 0
-  where stackId = ?,
-        userId = ?,
+  set stack = ?
+  where id = ? and userId = ?;
   `;
   const [updateTechStackResult] = await connection.query(updateTechStackContents, updateParams);
   return updateTechStackResult;
@@ -262,7 +253,7 @@ module.exports = {
   checkStackId,
   getStackId,
   insertTechStack,
-  updateTechStack,
+  updateTechStacks,
   updateEducation,
   deleteEducation,
   insertInterest,

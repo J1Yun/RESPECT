@@ -66,27 +66,8 @@ exports.editExperience = async function (req, res) {
 exports.editTechStack = async function (req, res) {
   const userId = req.params.userId;
   const { advanced, experienced } = req.body;
-
-  const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
+  const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, advanced, experienced);
   return res.send(editExperiencedTechStackResult);
-
-  // if (advanced && experienced[0] == undefined) {
-  //   const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, advanced);
-  //   return res.send(editAdvancedTechStackResult);
-  // } else if (experienced && advanced[0] == undefined) {
-  //   const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
-  //   return res.send(editExperiencedTechStackResult);
-  // } else if (advanced[0] == undefined && experienced == undefined) {
-  //   return res.send(baseResponse.SUCCESS);
-  // } else {
-  //   const editAdvancedTechStackResult = await ProfileService.editAdvancedTechStackContent(userId, advanced);
-  //   const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, experienced);
-  //   if (editAdvancedTechStackResult && editExperiencedTechStackResult) {
-  //     return res.send(baseResponse.SUCCESS);
-  //   } else {
-  //     return res.json({ Error: 'ERROR' });
-  //   }
-  // }
 };
 
 exports.addEducation = async function (req, res) {
