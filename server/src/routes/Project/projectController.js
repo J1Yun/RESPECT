@@ -13,9 +13,15 @@ exports.projectList = async function (req, res) {
     res.redirect('http://localhost:3000/githubLogin');
   }
 };
+
 exports.getProjectByUserProjectId = async function (req, res) {
   const userId = req.params.userId;
   const projectId = req.params.projectId;
-  const projectResult = await ProjectService.retrieveProjectByProjectId(userId, projectId);
-  res.json(projectResult);
+  const projectInfo = await ProjectService.retrieveProjectByProjectId(userId, projectId);
+  const commentList = await ProjectService.getProjectComment(userId, projectId);
+
+  const projectPage = { projectInfo, commentList };
+  //console.log(projectPage.projectResult[0].userNickname);
+  //console.log(projectPage.commentList[i].userId);
+  return res.json(projectPage);
 };

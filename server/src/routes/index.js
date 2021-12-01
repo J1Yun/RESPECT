@@ -55,8 +55,9 @@ router.put('/profile/update', profileController.updateUserProfile);
 
 // Project
 router.get('/:userId/project', projectController.projectList);
+
+// 프로젝트 상세 보기
 router.get('/:userId/project/:projectId', projectController.getProjectByUserProjectId);
-//router.get('/project/:userId/:projectId, projectController);
 
 // Comment
 router.get('/comment/:projectId', commentController.projectComment);

@@ -4,7 +4,7 @@ const baseResponse = require('../../config/baseResponseStatus');
 const { response } = require('../../config/baseResponseStatus');
 
 exports.getUserProfile = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userProfile = await ProfileDao.getUserProfileInfo(connection, userId);
 
@@ -13,79 +13,7 @@ exports.getUserProfile = async function (userId) {
     const userExperience = await ProfileDao.getUserExperienced(connection, userId);
     const userEducation = await ProfileDao.getUserEducations(connection, userId);
     const userProjects = await ProfileDao.getUserProjects(connection, userId);
-
-    return userProfile;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserInterest = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
-    const userInterest = await ProfileDao.getUserInterests(connection, userId);
-    return userInterest;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserTechStack = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
-    const userTechStack = await ProfileDao.getUserTechStacks(connection, userId);
-    return userTechStack;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserExperience = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
-    const userExperience = await ProfileDao.getUserExperienced(connection, userId);
-    return userExperience;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserEducation = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
-    const userEducation = await ProfileDao.getUserEducations(connection, userId);
-    return userEducation;
-  } catch (err) {
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserProject = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
-    const userProjects = await ProfileDao.getUserProjects(connection, userId);
-    return userProjects;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserStudy = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
     const userStudy = await ProfileDao.getUserStudies(connection, userId);
-
     const userProfileInfo = {
       UserProfile: userProfile,
       UserInterest: userInterest,
@@ -95,7 +23,7 @@ exports.getUserStudy = async function (userId) {
       UserProjects: userProjects,
       UserStudy: userStudy,
     };
-    //console.log(userProfileInfo.UserProjects[1][0].projectCount);
+    console.log(userProfileInfo.UserProjects[1][0].projectCount);
     return userProfileInfo;
   } catch (err) {
     console.log(err);
@@ -105,7 +33,7 @@ exports.getUserStudy = async function (userId) {
 };
 
 exports.userProfileUpdate = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const originUserProfile = await ProfileDao.getProfileEditUser(connection, userId);
     return originUserProfile;
@@ -117,7 +45,7 @@ exports.userProfileUpdate = async function (userId) {
 };
 
 exports.changeUserProfile = async function (name, content, phoneNumber, email, location, name) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   const params = [name, content, phoneNumber, email, location, name];
   try {
     const updateResult = await ProfileDao.updateProfile(connection, params);
@@ -132,7 +60,7 @@ exports.changeUserProfile = async function (name, content, phoneNumber, email, l
 };
 
 exports.editExperienceContent = async function (userId, content) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const checkResult = await ProfileDao.checkExperienceContent(connection, userId);
     if (checkResult[0] == null) {
@@ -153,7 +81,7 @@ exports.editExperienceContent = async function (userId, content) {
 };
 
 exports.editAdvancedTechStackContent = async function (userId, advanced) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   const checkLength = advancedTechStack.length;
   const checkAdvancedTechStack = await ProfileDao.checkTechStack(connection, advancedTechStack);
   try {
@@ -163,10 +91,10 @@ exports.editAdvancedTechStackContent = async function (userId, advanced) {
 };
 
 exports.editExperiencedTechStackContent = async function (userId, experienced) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   // findindex, find
   try {
-    experienced.forEach(async experiencedTechStack => {
+    experienced.forEach(async (experiencedTechStack) => {
       const experiencedTechStackName = experiencedTechStack.name;
       const isDeleted = experiencedTechStack.isDeleted; // isDeleted = 0 존재 , = 1 삭제됨
       const stackId = await ProfileDao.getStackId(connection, experiencedTechStackName);
@@ -212,7 +140,7 @@ exports.editExperiencedTechStackContent = async function (userId, experienced) {
 };
 
 exports.addEducationContent = async function (userId, name, department, type, start, end) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const params = [userId, name, department, type, start, end];
     await ProfileDao.insertEducation(connection, params);
@@ -226,7 +154,7 @@ exports.addEducationContent = async function (userId, name, department, type, st
   }
 };
 exports.editEducationContent = async function (userId, instituteId, start, end, isDeleted) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     if (isDeleted) await ProfileDao.deleteEducation(connection, instituteId);
     else {
@@ -244,20 +172,20 @@ exports.editEducationContent = async function (userId, instituteId, start, end, 
 };
 
 exports.editInterestContent = async function (userId, deleteInterest, insertInterest) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const insertParams = [];
     const deleteParams = [];
     if (
       insertInterest
-        ? insertInterest.forEach(element => {
+        ? insertInterest.forEach((element) => {
             insertParams.push([userId, element]);
           })
         : null
     );
     if (
       deleteInterest
-        ? deleteInterest.forEach(element => {
+        ? deleteInterest.forEach((element) => {
             deleteParams.push([element]);
           })
         : null
