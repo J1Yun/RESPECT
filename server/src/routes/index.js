@@ -4,11 +4,12 @@ const router = express.Router();
 const userController = require('./User/userController');
 const profileController = require('./Profile/profileController');
 const projectController = require('./Project/projectController');
+const commentController = require('./Comment/commentController');
+const githubLoginController = require('./Github/githubLoginController');
+const poolController = require('./Pool/poolController');
 const githubapi = require('./Repository/githubApi');
 const db = require('./Repository/dbConnection');
 const middleWare = require('../config/middleware');
-const commentController = require('./Comment/commentController');
-const githubLoginController = require('./Github/githubLoginController');
 const passport = require('passport');
 // Login , SignUp
 router.get('/login', userController.output.login);
@@ -30,28 +31,27 @@ router.get('/github/projectList', middleWare.isAuthenticated, userController.out
 router.get('/github/stack', middleWare.isAuthenticated, userController.output.githubStack); //github tech stack list 가져오기
 router.post('/profile/:userId/github/stack', userController.process.githubStack); //github tech stack list에서 선택 등록하기
 
-// Profile
-
 // profile 정보 가져오기
 router.get('/profile/:userId', profileController.userProfile);
 
+// TechStack 수정
 router.put('/profile/techstack/:userId', profileController.editTechStack);
 
+// Experience 수정
 router.post('/profile/experience/:userId', profileController.editExperience);
 router.post('/profile/projects/:userId', profileController.githubUserProjects);
 
+// Education 수정
 router.post('/profile/education/:userId', profileController.addEducation);
 router.put('/profile/education/:userId', profileController.editEducation);
 
+// Interest 수정
 router.post('/profile/interest/:userId', profileController.editInterest);
-
-// 프로젝트 (3개, Pinned)
-
-router.post('/profile/projects/:userId', profileController.githubUserProjects);
 
 // Profile Update
 router.get('/profile/update/:userId', profileController.userEditProfile);
 router.put('/profile/update', profileController.updateUserProfile);
+router.post('/profile/projects/:userId', profileController.githubUserProjects);
 
 // Project
 router.get('/:userId/project', projectController.projectList);
