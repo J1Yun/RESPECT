@@ -19,11 +19,11 @@ const jwtMiddleware = (req, res, next) => {
   });
 
   // if it has failed to verify, it will return an error message
-  const onError = error => {
+  const onError = (error) => {
     return res.send(errResponse(baseResponse.TOKEN_VERIFICATION_FAILURE));
   };
   // process the promise
-  p.then(verifiedToken => {
+  p.then((verifiedToken) => {
     //비밀 번호 바뀌었을 때 검증 부분 추가 할 곳
     req.verifiedToken = verifiedToken;
     next();
@@ -49,6 +49,8 @@ const isAuthenticated = async (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
+    res.status(401);
+    // res.json({});
     res.redirect('/login');
   }
 };

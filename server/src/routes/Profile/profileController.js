@@ -3,27 +3,12 @@ const baseResponse = require('../../config/baseResponseStatus');
 const regexEmail = require('regex-email');
 const { response } = require('../../config/baseResponseStatus');
 require('dotenv').config();
+
 exports.userProfile = async function (req, res) {
   const userId = parseInt(req.params.userId);
   const userProfileInfo = await ProfileService.getUserProfile(userId);
-  // const checkInterest = await ProfileService.getUserInterest(userId);
-  // const checkTechStack = await ProfileService.getUserTechStack(userId);
-  // const checkExperience = await ProfileService.getUserExperience(userId);
-  // const checkEducation = await ProfileService.getUserEducation(userId);
-  // const checkProjects = await ProfileService.getUserProject(userId); // Project 가져오기 (3개)
-  // const checkStudy = await ProfileService.getUserStudy(userId); // Study 가져오기 (3개)
 
-  // const userProfileInfo = {
-  //   UserProfile: checkProfile,
-  //   UserInterest: checkInterest,
-  //   UserTechStack: checkTechStack,
-  //   UserExperience: checkExperience,
-  //   UserEducation: checkEducation,
-  //   UserProjects: checkProjects,
-  //   UserStudy: checkStudy,
-  // };
-  // console.log(userProfileInfo);
-  res.json(userProfileInfo);
+  return res.json(userProfileInfo);
 };
 
 exports.githubUserProjects = async function (req, res) {

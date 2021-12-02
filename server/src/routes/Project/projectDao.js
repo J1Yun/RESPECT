@@ -3,7 +3,7 @@ async function showProjectList(connection, userId) {
     select P.imageUrl as projectImage, P.name as projectName, P.about as about, P.start as startDate, P.end as endDate
     from Project P
          left join User U on P.userId = U.id
-    where U.name = ?; 
+    where U.id = ?; 
     `;
   const [getUserProjects] = await connection.query(getProjectList, userId);
   return getUserProjects;
@@ -30,7 +30,19 @@ async function retrieveProject(connection, userId, projectId) {
   return getProjectByUserIdProjectId;
 }
 
+async function projectCommentList(connection, userId, projectId) {
+  const getProjectComment = `
+  select pc.userId, pc.projectId, pc.contents, pc.createdAt, pc.updateAt
+  from ProjectComment pc
+           left join User u on u.id = pc.userId
+           left join Project p on p.id = pc.projectId;
+  `;
+  const [getProjectCommentResult] = await connection.query(getProjectComment, userId, projectId);
+  return getProjectCommentResult;
+}
+
 module.exports = {
   showProjectList,
   retrieveProject,
+  projectCommentList,
 };
