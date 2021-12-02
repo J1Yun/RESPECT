@@ -76,6 +76,11 @@ const output = {
       console.log(err);
     }
   },
+  lookAround: async (req, res) => {
+    const userId = req.params.userId;
+    const lookAroundResult = await UserService.getLookAroundByUserId(userId);
+    res.send(lookAroundResult);
+  },
 };
 
 const process = {

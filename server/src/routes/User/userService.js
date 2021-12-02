@@ -96,3 +96,22 @@ exports.createTechStack = async function (userId, stack) {
     connection.release();
   }
 };
+
+exports.getLookAroundByUserId = async function (userId) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    const userInterest = await UserDao.getUserInterestByUserId(connection, userId);
+    const interestList = [];
+    userInterest.forEach(element => {
+      interestList.push(element.interestId);
+    });
+    const interestParams = [interestList, userId];
+    const aroundUserList = userInterest.length ? await UserDao.getUserListByInterestId(connection, interestParams) : null;
+    return aroundUserList;
+  } catch (err) {
+    connection.rollback(() => {});
+    console.log(err);
+  } finally {
+    connection.release();
+  }
+};

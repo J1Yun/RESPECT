@@ -35,11 +35,31 @@ async function createTechStackByUserId(connection, userId, stack) {
   const CreateTechStackResult = await connection.query(createTechStack, [userId, stack]);
   return CreateTechStackResult;
 }
-
+async function getUserInterestByUserId(connection, userId) {
+  const getUserInterest = `
+          SELECT interestId
+          FROM Interest
+          WHERE userId = ? and isDeleted = 0;
+          `;
+  const [userInterestRows] = await connection.query(getUserInterest, userId);
+  return userInterestRows;
+}
+async function getUserListByInterestId(connection, params) {
+  const getUserInterest = `
+          SELECT u.id userId, u.nickname, u.name, u.email, u.contactPhone, u.imageUrl, u.location
+          FROM User u JOIN Interest i ON u.id = i.userId
+          WHERE i.interestId in (?) and u.isDeleted = 0 and u.id != ?
+          GROUP BY u.id;
+          `;
+  const [userInterestRows] = await connection.query(getUserInterest, params);
+  return userInterestRows;
+}
 module.exports = {
   getUserIdByNickname,
   checkPasswordByUserId,
   createUserAccount,
   updateSocialLoginByGithubId,
   createTechStackByUserId,
+  getUserInterestByUserId,
+  getUserListByInterestId,
 };

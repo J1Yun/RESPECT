@@ -35,8 +35,7 @@ router.post('/profile/:userId/github/stack', userController.process.githubStack)
 // profile 정보 가져오기
 router.get('/profile/:userId', profileController.userProfile);
 
-router.put('/profile/techstack/:userId', profileController.editTechStack);
-
+router.post('/profile/techstack/:userId', profileController.editTechStack);
 router.post('/profile/experience/:userId', profileController.editExperience);
 router.post('/profile/projects/:userId', profileController.githubUserProjects);
 
@@ -54,8 +53,8 @@ router.get('/profile/update/:userId', profileController.userEditProfile);
 router.put('/profile/update', profileController.updateUserProfile);
 
 // Project
-router.get('/:userId/project', projectController.projectList);
-router.get('/:userId/project/:projectId', projectController.getProjectByUserProjectId);
+router.get('/project/:userId', projectController.projectList);
+router.get('/project/:userId/:projectId', projectController.getProjectByUserProjectId);
 //router.get('/project/:userId/:projectId, projectController);
 
 // Comment
@@ -65,4 +64,6 @@ router.post('/comment/:projectId', middleWare.loginMiddleWare, commentController
 router.get('/userRepository/:userId', githubapi.getUserRepositoryList);
 router.get('/userIdList', db.retrieveUserIdList);
 
+// Look Around
+router.get('/lookAround/:userId', userController.output.lookAround);
 module.exports = router;
