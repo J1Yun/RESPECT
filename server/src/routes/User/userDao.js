@@ -102,6 +102,34 @@ async function getUserListByRespectDESC(connection, userId) {
   const [userInterestRows] = await connection.query(getUserInterest, userId);
   return userInterestRows;
 }
+async function checkUserRespectByUserId(connection, params) {
+  const getUserRespect = `
+          SELECT userId, isDeleted FROM Respect WHERE userId = ? and respectUserId = ?;
+          `;
+  const [userRespectRows] = await connection.query(getUserRespect, params);
+  return userRespectRows;
+}
+async function updateUserRespectByUserId(connection, params) {
+  const updateUserRespect = `
+          UPDATE Respect SET isDeleted = 0 WHERE userId = ? and respectUserID = ?;
+          `;
+  const [userRespectRows] = await connection.query(updateUserRespect, params);
+  return userRespectRows;
+}
+async function deleteUserRespectByUserId(connection, params) {
+  const deleteUserRespect = `
+          UPDATE Respect SET isDeleted = 1 WHERE userId = ? and respectUserId = ?;
+          `;
+  const [userRespectRows] = await connection.query(deleteUserRespect, params);
+  return userRespectRows;
+}
+async function createUserRespectByUserId(connection, params) {
+  const deleteUserRespect = `
+          INSERT INTO Respect(userId, respectUserId) VALUES (?,?);
+          `;
+  const [userRespectRows] = await connection.query(deleteUserRespect, params);
+  return userRespectRows;
+}
 module.exports = {
   getUserIdByNickname,
   checkPasswordByUserId,
@@ -113,4 +141,8 @@ module.exports = {
   getUserEducationByUserId,
   getUserListByEducation,
   getUserListByRespectDESC,
+  checkUserRespectByUserId,
+  updateUserRespectByUserId,
+  deleteUserRespectByUserId,
+  createUserRespectByUserId,
 };

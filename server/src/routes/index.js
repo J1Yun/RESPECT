@@ -68,4 +68,7 @@ router.get('/userIdList', db.retrieveUserIdList);
 
 // Look Around
 router.get('/:userId/lookAround', userController.output.lookAround);
+
+// Respect
+router.post('/profile/:respectUserId/:userId', userController.process.respect);
 module.exports = router;

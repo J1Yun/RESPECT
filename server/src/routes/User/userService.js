@@ -18,6 +18,7 @@ exports.checkUserAccount = async function (nickname, password) {
       return { id: userIdRows[0].id, username: userIdRows[0].name, nickname: userIdRows[0].nickname, isSuccess: 'True' };
     else return baseResponse.PASSWORD_WRONG;
   } catch (err) {
+    connection.rollback(() => {});
     return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
@@ -31,6 +32,7 @@ exports.checkGithubUserAccount = async function (nickname) {
 
     return { id: userIdRows[0].id, username: userIdRows[0].name, nickname: userIdRows[0].nickname, isSuccess: 'True' };
   } catch (err) {
+    connection.rollback(() => {});
     return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
@@ -51,6 +53,7 @@ exports.createUser = async function (nickname, password, name) {
     return baseResponse.SUCCESS;
   } catch (err) {
     console.log(err);
+    connection.rollback(() => {});
     return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
@@ -64,6 +67,7 @@ exports.checkUserExist = async function (nickname) {
     if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
     return userIdRows;
   } catch (err) {
+    connection.rollback(() => {});
     console.log(err);
     return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
@@ -78,6 +82,7 @@ exports.updateSocailLogin = async function (userId) {
     return baseResponse.SUCCESS;
   } catch (err) {
     console.log(err);
+    connection.rollback(() => {});
     return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
@@ -91,6 +96,7 @@ exports.createTechStack = async function (userId, stack) {
     return baseResponse.SUCCESS;
   } catch (err) {
     console.log(err);
+    connection.rollback(() => {});
     return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
@@ -135,6 +141,25 @@ exports.getLookAroundByUserId = async function (userId, interest, filter) {
   } catch (err) {
     connection.rollback(() => {});
     console.log(err);
+  } finally {
+    connection.release();
+  }
+};
+
+exports.createUserRespect = async function (userId, respectUserId) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    const params = [userId, respectUserId];
+    const respectCheck = await UserDao.checkUserRespectByUserId(connection, params);
+    if (respectCheck.length > 0) {
+      if (respectCheck[0].isDeleted == 1) await UserDao.updateUserRespectByUserId(connection, params);
+      else await UserDao.deleteUserRespectByUserId(connection, params);
+    } else await UserDao.createUserRespectByUserId(connection, params);
+    return baseResponse.SUCCESS;
+  } catch (err) {
+    connection.rollback(() => {});
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
   }

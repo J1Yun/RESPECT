@@ -134,6 +134,13 @@ const process = {
 
     return res.send(stackResponse);
   },
+  respect: async (req, res) => {
+    const userId = req.params.userId;
+    const respectUserId = req.params.respectUserId;
+    const respectResponse = await UserService.createUserRespect(userId, respectUserId);
+
+    return res.send(respectResponse);
+  },
 };
 
 module.exports = {
