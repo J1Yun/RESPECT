@@ -78,7 +78,9 @@ const output = {
   },
   lookAround: async (req, res) => {
     const userId = req.params.userId;
-    const lookAroundResult = await UserService.getLookAroundByUserId(userId);
+    const { interestList } = req.body;
+    const { filter } = req.query;
+    const lookAroundResult = await UserService.getLookAroundByUserId(userId, interestList, filter);
     res.send(lookAroundResult);
   },
 };

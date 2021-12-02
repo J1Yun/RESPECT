@@ -54,6 +54,54 @@ async function getUserListByInterestId(connection, params) {
   const [userInterestRows] = await connection.query(getUserInterest, params);
   return userInterestRows;
 }
+async function getUserEducationByUserId(connection, params) {
+  const getUserInterest = `
+          SELECT userId, name, type
+          FROM Institute
+          WHERE userId = ? and isDeleted = 0;
+          `;
+  const [userInterestRows] = await connection.query(getUserInterest, params);
+  return userInterestRows;
+}
+async function getUserListByEducation(connection, params) {
+  const getUserList = `
+          SELECT u.id, u.name userName,u.nickname,
+	               case when resp.cnt is null then 0 else resp.cnt end as respect, 
+                 case when it.name is null then '-' else it.name end as instituteName,
+                 case when u.location is null then '-' else u.location end as userAddress,
+                 case when ic.interest is null then '-' else ic.interest end as userInterest,
+                 case when s.stack is null then '-' else s.stack end as userStack
+          FROM User u Left Join Institute it On u.id = it.userId
+                      Left Join ( Select userId, group_concat(name) interest, group_concat(ic.id) interestId
+				                          From Interest i Join InterestCategory ic On ic.id = i.interestId
+				                          Group By userId) ic On ic.userId = u.id
+                      Left Join ( Select stack, userId From Stack s Where s.level = ?) s on s.userId = u.id
+	                    Left Join ( Select respectUserId, count(respectUserId) cnt From Respect Group By respectUserId ) resp On resp.respectUserId = u.id
+          WHERE it.name in (?) and u.id != ? and u.isDeleted = 0 and ic.interestId in (?);
+          `;
+  const [userListRows] = await connection.query(getUserList, params);
+  return userListRows;
+}
+async function getUserListByRespectDESC(connection, userId) {
+  const getUserInterest = `
+          SELECT u.id, u.name userName,u.nickname,
+	               case when resp.cnt is null then 0 else resp.cnt end as respect, 
+                 case when it.name is null then '-' else it.name end as instituteName,
+                 case when u.location is null then '-' else u.location end as userAddress,
+                 case when ic.interest is null then '-' else ic.interest end as userInterest,
+                 case when s.stack is null then '-' else s.stack end as userStack
+          FROM User u Left Join Institute it On u.id = it.userId
+                      Left Join ( Select userId, group_concat(name) interest, group_concat(ic.id) interestId
+				                          From Interest i Join InterestCategory ic On ic.id = i.interestId
+				                          Group By userId) ic On ic.userId = u.id
+                      Left Join ( Select stack, userId From Stack s Where s.level = 0) s on s.userId = u.id
+	                    Left Join ( Select respectUserId, count(respectUserId) cnt From Respect Group By respectUserId ) resp On resp.respectUserId = u.id
+          WHERE u.id != ? and u.isDeleted = 0 and ic.interestId in (?)
+          ORDER BY respect DESC;
+          `;
+  const [userInterestRows] = await connection.query(getUserInterest, userId);
+  return userInterestRows;
+}
 module.exports = {
   getUserIdByNickname,
   checkPasswordByUserId,
@@ -62,4 +110,7 @@ module.exports = {
   createTechStackByUserId,
   getUserInterestByUserId,
   getUserListByInterestId,
+  getUserEducationByUserId,
+  getUserListByEducation,
+  getUserListByRespectDESC,
 };

@@ -97,17 +97,41 @@ exports.createTechStack = async function (userId, stack) {
   }
 };
 
-exports.getLookAroundByUserId = async function (userId) {
+exports.getLookAroundByUserId = async function (userId, interest, filter) {
   const connection = await pool.getConnection(async conn => conn);
   try {
-    const userInterest = await UserDao.getUserInterestByUserId(connection, userId);
-    const interestList = [];
-    userInterest.forEach(element => {
-      interestList.push(element.interestId);
-    });
-    const interestParams = [interestList, userId];
-    const aroundUserList = userInterest.length ? await UserDao.getUserListByInterestId(connection, interestParams) : null;
-    return aroundUserList;
+    const userEducation = await UserDao.getUserEducationByUserId(connection, userId);
+    let interestList = true;
+    if (interest) {
+      interestList = JSON.stringify(interest);
+      interestList = interestList.replace(/[\[\]\"]/g, '');
+    }
+    if (filter) {
+      if (filter == 'school') {
+        if (userEducation) {
+          const instituteList = [];
+          userEducation.forEach(element => {
+            if (element.type == 'I') instituteList.push(element.name);
+          });
+          const params = [0, instituteList, userId, interestList];
+          const userList = await UserDao.getUserListByEducation(connection, params);
+          return userList;
+        } else return null;
+      } else if (filter == 'company') {
+        if (userEducation) {
+          const companyList = [];
+          userEducation.forEach(element => {
+            if (element.type == 'C') companyList.push(element.name);
+          });
+          const params = [1, companyList, userId, interestList];
+          const userList = await UserDao.getUserListByEducation(connection, params);
+          return userList;
+        } else return null;
+      } else {
+        const userList = await UserDao.getUserListByRespectDESC(connection, userId);
+        return userList;
+      }
+    }
   } catch (err) {
     connection.rollback(() => {});
     console.log(err);
