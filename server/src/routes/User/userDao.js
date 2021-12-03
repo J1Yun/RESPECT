@@ -130,6 +130,46 @@ async function createUserRespectByUserId(connection, params) {
   const [userRespectRows] = await connection.query(deleteUserRespect, params);
   return userRespectRows;
 }
+async function getSearchUserListByContent(connection, content) {
+  const getSearchUerList = `
+          SELECT u.id, u.name userName,u.nickname,
+	               case when resp.cnt is null then 0 else resp.cnt end as respect, 
+                 case when it.name is null then '-' else it.name end as instituteName,
+                 case when u.location is null then '-' else u.location end as userAddress,
+                 case when ic.interest is null then '-' else ic.interest end as userInterest,
+                 case when s.stack is null then '-' else s.stack end as userStack
+          FROM User u Left Join Institute it On u.id = it.userId
+                      Left Join ( Select userId, group_concat(name) interest, group_concat(ic.id) interestId
+				                          From Interest i Join InterestCategory ic On ic.id = i.interestId
+				                          Group By userId) ic On ic.userId = u.id
+                      Left Join ( Select stack, userId From Stack s Where s.level = 0) s on s.userId = u.id
+	                    Left Join ( Select respectUserId, count(respectUserId) cnt From Respect Group By respectUserId ) resp On resp.respectUserId = u.id
+          WHERE u.isDeleted = 0 and u.nickname LIKE concat("%",?,"%")
+          ORDER BY respect DESC;;
+          `;
+  const [userListRows] = await connection.query(getSearchUerList, content);
+  return userListRows;
+}
+async function getRespectFollowerByUserId(connection, userId) {
+  const getUserRespect = `
+          SELECT u.id userId, u.name userName, u.imageUrl, u.info
+          FROM User u LEFT JOIN Respect r ON u.id = r.userId
+          WHERE r.respectUserId = ? and r.isDeleted = 0
+          ORDER BY r.updatedAt DESC;
+          `;
+  const [userRespectRows] = await connection.query(getUserRespect, userId);
+  return userRespectRows;
+}
+async function getRespectFollowingByUserId(connection, userId) {
+  const getUserRespect = `
+          SELECT u.id userId, u.name userName, u.imageUrl, u.info
+          FROM User u LEFT JOIN Respect r ON u.id = r.respectUserId
+          WHERE r.userId = ? and r.isDeleted = 0
+          ORDER BY r.updatedAt DESC;
+          `;
+  const [userRespectRows] = await connection.query(getUserRespect, userId);
+  return userRespectRows;
+}
 module.exports = {
   getUserIdByNickname,
   checkPasswordByUserId,
@@ -145,4 +185,7 @@ module.exports = {
   updateUserRespectByUserId,
   deleteUserRespectByUserId,
   createUserRespectByUserId,
+  getSearchUserListByContent,
+  getRespectFollowerByUserId,
+  getRespectFollowingByUserId,
 };

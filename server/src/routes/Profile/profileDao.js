@@ -31,7 +31,7 @@ async function getProfileEditUser(connection, userId) {
 async function getUserInterests(connection, userId) {
   const getUserInterest = `
   select IC.name as interestName
-  from InterestCateogry IC
+  from InterestCategory IC
            left join Interest I on IC.id = I.interestId
            left join User U on I.userId = U.id
   where U.id = ? limit 4;
@@ -236,6 +236,19 @@ async function deleteInterest(connection, userId, params) {
   const [deleteInterestResult] = await connection.query(deleteInterestContents, [userId, [params]]);
   return deleteInterestResult;
 }
+
+async function getUserRespect(connection, userId) {
+  const getRespect = `
+  select count(respectUserId) respectMe
+  from Respect
+  where isDeleted = 0 and respectUserId = ?;
+  select count(userId) myRespect
+  from Respect
+  where isDeleted = 0 and userId = ?;
+  `;
+  const [getUserRespectMe] = await connection.query(getRespect, [userId, userId]);
+  return getUserRespectMe;
+}
 module.exports = {
   getUserProfileInfo,
   getUserInterests,
@@ -259,4 +272,5 @@ module.exports = {
   insertInterest,
   deleteInterest,
   insertEducation,
+  getUserRespect,
 };

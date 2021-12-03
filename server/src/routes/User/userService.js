@@ -164,3 +164,45 @@ exports.createUserRespect = async function (userId, respectUserId) {
     connection.release();
   }
 };
+
+exports.getSearchUserByContent = async function (content) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    const searchUserResult = await UserDao.getSearchUserListByContent(connection, content);
+    return searchUserResult;
+  } catch (err) {
+    connection.rollback(() => {});
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};
+
+exports.getRespectFollower = async function (userId) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    const getFollowerResult = await UserDao.getRespectFollowerByUserId(connection, userId);
+    return getFollowerResult;
+  } catch (err) {
+    connection.rollback(() => {});
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};
+
+exports.getRespectFollowing = async function (userId) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    const getFollowingResult = await UserDao.getRespectFollowingByUserId(connection, userId);
+    return getFollowingResult;
+  } catch (err) {
+    connection.rollback(() => {});
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};

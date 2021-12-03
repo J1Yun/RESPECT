@@ -83,6 +83,23 @@ const output = {
     const lookAroundResult = await UserService.getLookAroundByUserId(userId, interestList, filter);
     res.send(lookAroundResult);
   },
+  searchUser: async (req, res) => {
+    const { content } = req.query;
+    const searchUser = await UserService.getSearchUserByContent(content);
+    res.send(searchUser);
+  },
+  respectFollower: async (req, res) => {
+    const userId = req.params.userId;
+    const followerResponse = await UserService.getRespectFollower(userId);
+
+    return res.send(followerResponse);
+  },
+  respectFollowing: async (req, res) => {
+    const userId = req.params.userId;
+    const followingResponse = await UserService.getRespectFollowing(userId);
+
+    return res.send(followingResponse);
+  },
 };
 
 const process = {
@@ -142,7 +159,6 @@ const process = {
     return res.send(respectResponse);
   },
 };
-
 module.exports = {
   output,
   process,
