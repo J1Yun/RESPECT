@@ -27,6 +27,7 @@ exports.getUserProfile = async function (userId) {
     };
     return userProfileInfo;
   } catch (err) {
+    connection.rollback(() => {});
     console.log(err);
   } finally {
     connection.release();
@@ -40,6 +41,8 @@ exports.userProfileUpdate = async function (userId) {
     return originUserProfile;
   } catch (err) {
     console.log(err);
+    connection.rollback(() => {});
+    return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
   }
@@ -57,6 +60,10 @@ exports.changeUserProfile = async function (name, content, phoneNumber, email, l
     }
   } catch (err) {
     console.log(err);
+    connection.rollback(() => {});
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
   }
 };
 

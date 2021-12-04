@@ -72,6 +72,6 @@ router.get('/search', userController.output.searchUser);
 
 // Respect
 router.post('/profile/:respectUserId/:userId', userController.process.respect);
-router.get('/profile/:userId/follower', userController.output.respectFollower);
-router.get('/profile/:userId/following', userController.output.respectFollowing);
+router.get('/profile/:userId/follower', userController.output.respectMe);
+router.get('/profile/:userId/following', userController.output.myRespect);
 module.exports = router;

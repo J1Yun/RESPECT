@@ -88,13 +88,13 @@ const output = {
     const searchUser = await UserService.getSearchUserByContent(content);
     res.send(searchUser);
   },
-  respectFollower: async (req, res) => {
+  respectMe: async (req, res) => {
     const userId = req.params.userId;
     const followerResponse = await UserService.getRespectFollower(userId);
 
     return res.send(followerResponse);
   },
-  respectFollowing: async (req, res) => {
+  myRespect: async (req, res) => {
     const userId = req.params.userId;
     const followingResponse = await UserService.getRespectFollowing(userId);
 
