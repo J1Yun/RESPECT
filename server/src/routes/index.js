@@ -32,26 +32,26 @@ router.get('/github/stack', middleWare.isAuthenticated, userController.output.gi
 router.post('/profile/:userId/github/stack', userController.process.githubStack); //github tech stack list에서 선택 등록하기
 
 // profile 정보 가져오기
-router.get('/profile/:userId', profileController.userProfile);
+router.get('/profile/:userId', middleWare.isAuthenticated, profileController.userProfile);
 
 // TechStack 수정
-router.put('/profile/techstack/:userId', profileController.editTechStack);
+router.put('/profile/techstack/:userId', middleWare.isAuthenticated, profileController.editTechStack);
 
 // Experience 수정
-router.post('/profile/experience/:userId', profileController.editExperience);
-router.post('/profile/projects/:userId', profileController.githubUserProjects);
+router.post('/profile/experience/:userId', middleWare.isAuthenticated, profileController.editExperience);
+router.post('/profile/projects/:userId', middleWare.isAuthenticated, profileController.githubUserProjects);
 
 // Education 수정
-router.post('/profile/education/:userId', profileController.addEducation);
-router.put('/profile/education/:userId', profileController.editEducation);
+router.post('/profile/education/:userId', middleWare.isAuthenticated, profileController.addEducation);
+router.put('/profile/education/:userId', middleWare.isAuthenticated, profileController.editEducation);
 
 // Interest 수정
-router.post('/profile/interest/:userId', profileController.editInterest);
+router.post('/profile/interest/:userId', middleWare.isAuthenticated, profileController.editInterest);
 
 // Profile Update
-router.get('/profile/update/:userId', profileController.userEditProfile);
-router.put('/profile/update', profileController.updateUserProfile);
-router.post('/profile/projects/:userId', profileController.githubUserProjects);
+router.get('/profile/update/:userId', middleWare.isAuthenticated, profileController.userEditProfile);
+router.put('/profile/update', middleWare.isAuthenticated, profileController.updateUserProfile);
+router.post('/profile/projects/:userId', middleWare.isAuthenticated, profileController.githubUserProjects);
 
 // Project
 router.get('/:userId/project', projectController.projectList);
@@ -71,7 +71,7 @@ router.get('/:userId/lookAround', userController.output.lookAround);
 router.get('/search', userController.output.searchUser);
 
 // Respect
-router.post('/profile/:respectUserId/:userId', userController.process.respect);
+router.post('/profile/:respectUserId/:userId', middleWare.isAuthenticated, userController.process.respect);
 router.get('/profile/:userId/follower', userController.output.respectMe);
 router.get('/profile/:userId/following', userController.output.myRespect);
 
