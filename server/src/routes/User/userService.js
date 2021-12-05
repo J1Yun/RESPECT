@@ -5,7 +5,7 @@ const baseResponse = require('../../config/baseResponseStatus');
 const crypto = require('crypto');
 
 exports.checkUserAccount = async function (nickname, password) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
@@ -25,7 +25,7 @@ exports.checkUserAccount = async function (nickname, password) {
   }
 };
 exports.checkGithubUserAccount = async function (nickname) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
@@ -40,7 +40,7 @@ exports.checkGithubUserAccount = async function (nickname) {
 };
 
 exports.createUser = async function (nickname, password, name) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length > 0) return baseResponse.SIGNUP_REDUNDANT_EMAIL;
@@ -61,7 +61,7 @@ exports.createUser = async function (nickname, password, name) {
 };
 
 exports.checkUserExist = async function (nickname) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userIdRows = await UserDao.getUserIdByNickname(connection, nickname);
     if (userIdRows.length < 1) return baseResponse.SIGNIN_NICKNAME_WRONG;
@@ -76,7 +76,7 @@ exports.checkUserExist = async function (nickname) {
 };
 
 exports.updateSocailLogin = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     await UserDao.updateSocialLoginByGithubId(connection, userId);
     return baseResponse.SUCCESS;
@@ -90,7 +90,7 @@ exports.updateSocailLogin = async function (userId) {
 };
 
 exports.createTechStack = async function (userId, stack) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     await UserDao.createTechStackByUserId(connection, userId, stack);
     return baseResponse.SUCCESS;
@@ -104,7 +104,7 @@ exports.createTechStack = async function (userId, stack) {
 };
 
 exports.getLookAroundByUserId = async function (userId, interest, filter) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const userEducation = await UserDao.getUserEducationByUserId(connection, userId);
     let interestList = true;
@@ -116,7 +116,7 @@ exports.getLookAroundByUserId = async function (userId, interest, filter) {
       if (filter == 'school') {
         if (userEducation) {
           const instituteList = [];
-          userEducation.forEach(element => {
+          userEducation.forEach((element) => {
             if (element.type == 'I') instituteList.push(element.name);
           });
           const params = [0, instituteList, userId, interestList];
@@ -126,7 +126,7 @@ exports.getLookAroundByUserId = async function (userId, interest, filter) {
       } else if (filter == 'company') {
         if (userEducation) {
           const companyList = [];
-          userEducation.forEach(element => {
+          userEducation.forEach((element) => {
             if (element.type == 'C') companyList.push(element.name);
           });
           const params = [1, companyList, userId, interestList];
@@ -147,7 +147,7 @@ exports.getLookAroundByUserId = async function (userId, interest, filter) {
 };
 
 exports.createUserRespect = async function (userId, respectUserId) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const params = [userId, respectUserId];
     const respectCheck = await UserDao.checkUserRespectByUserId(connection, params);
@@ -166,7 +166,7 @@ exports.createUserRespect = async function (userId, respectUserId) {
 };
 
 exports.getSearchUserByContent = async function (content) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const searchUserResult = await UserDao.getSearchUserListByContent(connection, content);
     return searchUserResult;
@@ -180,7 +180,7 @@ exports.getSearchUserByContent = async function (content) {
 };
 
 exports.getRespectFollower = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const getFollowerResult = await UserDao.getRespectFollowerByUserId(connection, userId);
     return getFollowerResult;
@@ -194,7 +194,7 @@ exports.getRespectFollower = async function (userId) {
 };
 
 exports.getRespectFollowing = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
+  const connection = await pool.getConnection(async (conn) => conn);
   try {
     const getFollowingResult = await UserDao.getRespectFollowingByUserId(connection, userId);
     return getFollowingResult;

@@ -65,7 +65,7 @@ const output = {
           }
         }
       }
-      techStackList.forEach(element => {
+      techStackList.forEach((element) => {
         arr.push(element);
       });
       arr = JSON.stringify(arr);
