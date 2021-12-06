@@ -1,4 +1,6 @@
 import "pages/PortfolioPage/styles/Projects.css";
+import { useState, useEffect, useRef } from "react";
+import ProjectAdd from "../components/Project/ProjectAdd";
 
 const projects = [
   {
@@ -16,29 +18,51 @@ const projects = [
 ];
 
 const Projects = () => {
-  return (
-    <div className="projects-container">
-      <div className="projects-title">
-        <span>🔥</span>
-        <span className="project-title-text">Projects</span>
+  const [add, setAdd] = useState(true);
 
-        <span>3 of {projects.length}</span>
+  const onAddClick = () => {
+    setAdd(true);
+  };
+  const onAddCloseClick = () => {
+    setAdd(false);
+  };
+
+  return (
+    <>
+      {add && (
+        <div>
+          <button onClick={onAddCloseClick} className="project-add-close">
+            X
+          </button>
+          <ProjectAdd />
+        </div>
+      )}
+      <div className="projects-container">
+        <div className="projects-title">
+          <span>🔥</span>
+          <span className="project-title-text">Projects</span>
+
+          <span>3 of {projects.length}</span>
+        </div>
+        <button onClick={onAddClick} className="project-add-btn">
+          Add
+        </button>
+        <div className="projects-div">
+          {projects &&
+            projects.map((item) => (
+              <div className="project-box">
+                <img
+                  width="250"
+                  height="170"
+                  style={{ objectFit: "cover" }}
+                  src={item.img}
+                />
+                <div>{item.title}</div>
+              </div>
+            ))}
+        </div>
       </div>
-      <div className="projects-div">
-        {projects &&
-          projects.map((item) => (
-            <div className="project-box">
-              <img
-                width="250"
-                height="170"
-                style={{ objectFit: "cover" }}
-                src={item.img}
-              />
-              <div>{item.title}</div>
-            </div>
-          ))}
-      </div>
-    </div>
+    </>
   );
 };
 export default Projects;

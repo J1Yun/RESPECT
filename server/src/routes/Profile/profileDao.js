@@ -12,7 +12,7 @@ async function getUserProfileInfo(connection, userId) {
   count(R.userId) as respectCount
 from User U
     left join Respect R ON U.id = R.userId
-where U.name =?;
+where U.id = ?;
     `;
   const [userProfile] = await connection.query(getUserInfo, userId);
   return userProfile;
@@ -31,10 +31,10 @@ async function getProfileEditUser(connection, userId) {
 async function getUserInterests(connection, userId) {
   const getUserInterest = `
   select IC.name as interestName
-  from InterestCateogry IC
+  from InterestCategory IC
            left join Interest I on IC.id = I.interestId
            left join User U on I.userId = U.id
-  where U.name = ? limit 4;
+  where U.id = ? limit 4;
     `;
   const [userInterest] = await connection.query(getUserInterest, userId);
   return userInterest;
@@ -42,11 +42,9 @@ async function getUserInterests(connection, userId) {
 
 async function getUserTechStacks(connection, userId) {
   const getUserTechStack = `
-  select SC.imageUrl as image, SC.name as name, S.level as level, S.isDeleted
-  from StackCategory SC
-         left join Stack S on SC.id = S.stackId
-         left join User U on S.userId = U.id;
-         where u.id = ?
+  select s.id stackId, s.stack stackName, s.userId userId, s.level stackLevel, s.createdAt, s.updateAt
+  from Stack s left join User u on u.id = s.userId
+  where u.id = ?
   `;
   const [userTechStack] = await connection.query(getUserTechStack, userId);
   return userTechStack;
@@ -57,7 +55,7 @@ async function getUserExperienced(connection, userId) {
   select C.name as name, C.career as career, C.start as startDate, C.end as endDate
   from Career C
            left join User U on C.userId = U.id
-  where U.name = ?;
+  where U.id = ?;
     `;
   const [userExperience] = await connection.query(getUserCareer, userId);
   return userExperience;
@@ -68,7 +66,7 @@ async function getUserEducations(connection, userId) {
   select I.id as instituteId, I.start as startDate, I.end as endDate, I.name as name, I.department as department, I.type as type
   from Institute I
          left join User U on I.userId = U.id
-  where U.name = ?;
+  where U.id = ?;
   `;
   const [userEducation] = await connection.query(getUserInstitute, userId);
   return userEducation;
@@ -76,14 +74,21 @@ async function getUserEducations(connection, userId) {
 
 async function getUserProjects(connection, userId) {
   const getProjects = `
-  select P.imageUrl as projectImage, P.name as projectName, P.about as about, P.start as startDate, P.end as endDate, count(P.name) as projectCount
+  select P.imageUrl as projectImage, P.name as projectName, P.about as about, P.start as startDate, P.end as endDate
   from Project P
          left join User U on P.userId = U.id
-  where pinned = 1 and U.name = ?
-  limit 3;
+  where pinned = 1 and P.userId = ?
+  limit 3;`;
+  const projectCount = `
+  select count(p.name) as projectCount
+  from Project p
+         left join User u on u.id = p.userId
+  where u.id = ?
   `;
   const [userProjects] = await connection.query(getProjects, userId);
-  return userProjects;
+  const [projectCountResult] = await connection.query(projectCount, userId);
+  const userProjectList = [userProjects, projectCountResult];
+  return userProjectList;
 }
 
 async function getUserStudies(connection, userId) {
@@ -91,7 +96,7 @@ async function getUserStudies(connection, userId) {
   select S.name as studyName, S.about as about, S.readMe as readMe
   from Study S
          left join User U on S.userId = U.id
-  where U.name = ?
+  where U.id = ?
   limit 3;
   `;
   const [userStudy] = await connection.query(getStudies, userId);
@@ -119,22 +124,22 @@ async function checkExperienceContent(connection, userId) {
   const [checkResult] = await connection.query(checkExperience, userId);
   return checkResult;
 }
-async function updateExperienceContent(connection, content, userId) {
+async function updateExperienceContent(connection, params) {
   const updateExperienceContents = `
   update Career 
   set career = ?
   where userId = ?
   `;
-  const updateResult = await connection.query(updateExperienceContents, [content, userId]);
+  const updateResult = await connection.query(updateExperienceContents, params);
   return updateResult;
 }
 
-async function insertExperienceContent(connection, userId, content) {
+async function insertExperienceContent(connection, params) {
   const insertExperienceContents = `
   insert into Career(userId, career)
-  values (?, ?);
+  values (?);
   `;
-  const [insertResult] = await connection.query(insertExperienceContents, [userId, content]);
+  const [insertResult] = await connection.query(insertExperienceContents, [params]);
   return insertResult;
 }
 async function checkTechStack(connection, userId, level) {
@@ -169,41 +174,81 @@ async function getStackId(connection, TechStack) {
 
 async function insertTechStack(connection, params) {
   const insertTechStackContents = `
-  insert into Stack(stackId, userId, level)
-  values (?, ?, ?);
+  insert into Stack(stack, userId, level)
+  values (?);
   `;
-  const [insertTechStackResult] = await connection.query(insertTechStackContents, params);
+  const [insertTechStackResult] = await connection.query(insertTechStackContents, [params]);
   return insertTechStackResult;
 }
-async function updateTechStack(connection, updateParams) {
+
+async function updateTechStacks(connection, updateParams) {
   const updateTechStackContents = `
   update Stack
-  set isDeleted = 0
-  where stackId = ?,
-        userId = ?,
+  set stack = ?
+  where id = ? and userId = ?;
   `;
   const [updateTechStackResult] = await connection.query(updateTechStackContents, updateParams);
   return updateTechStackResult;
 }
+
+async function insertEducation(connection, insertParams) {
+  const insertEducationContents = `
+  insert into Institute(userId, name, department, type, start, end) values (?);
+  `;
+  const [insertEducationResult] = await connection.query(insertEducationContents, [insertParams]);
+  return insertEducationResult;
+}
+
 async function updateEducation(connection, updateParams) {
   const updateEducationContents = `
   update Institude
-  set userId = ?, name = ?, department = ?, type = ?, start = ?, end = ?
-  where userId = ?;
+  set start = ?, end = ?
+  where userId = ? and id = ?;
   `;
   const [updateEducationResult] = await connection.query(updateEducationContents, updateParams);
   return updateEducationResult;
 }
-async function deleteEducation(connection, deleteParams) {
+
+async function deleteEducation(connection, deleteId) {
   const deleteEducationContents = `
   update Institude
   set isDeleted = 1
-  where userId = ? and id = ?;
+  where id = ?;
   `;
-  const [deleteEducationResult] = await connection.query(deleteEducationContents, deleteParams);
+  const [deleteEducationResult] = await connection.query(deleteEducationContents, deleteId);
   return deleteEducationResult;
 }
 
+async function insertInterest(connection, params) {
+  const insertInterestContents = `
+  insert into Interest(userId, interestId)
+  values ?;
+  `;
+  const [insertInterestResult] = await connection.query(insertInterestContents, [params]);
+  return insertInterestResult;
+}
+
+async function deleteInterest(connection, userId, params) {
+  const deleteInterestContents = `
+  update Interest set isDeleted = 1
+  where userId = ? and interestId in ?;
+  `;
+  const [deleteInterestResult] = await connection.query(deleteInterestContents, [userId, [params]]);
+  return deleteInterestResult;
+}
+
+async function getUserRespect(connection, userId) {
+  const getRespect = `
+  select count(respectUserId) respectMe
+  from Respect
+  where isDeleted = 0 and respectUserId = ?;
+  select count(userId) myRespect
+  from Respect
+  where isDeleted = 0 and userId = ?;
+  `;
+  const [getUserRespectMe] = await connection.query(getRespect, [userId, userId]);
+  return getUserRespectMe;
+}
 module.exports = {
   getUserProfileInfo,
   getUserInterests,
@@ -221,7 +266,11 @@ module.exports = {
   checkStackId,
   getStackId,
   insertTechStack,
-  updateTechStack,
+  updateTechStacks,
   updateEducation,
   deleteEducation,
+  insertInterest,
+  deleteInterest,
+  insertEducation,
+  getUserRespect,
 };

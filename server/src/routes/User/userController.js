@@ -46,7 +46,6 @@ const output = {
         },
         withCredentials: true,
       });
-      console.log(repositoryList.headers.vary.Authorization);
       let techStackList = new Set();
       let arr = [];
       for (let data of repositoryList.data) {
@@ -76,6 +75,30 @@ const output = {
       res.send(baseResponse.SERVER_CONNECT_ERROR);
       console.log(err);
     }
+  },
+  lookAround: async (req, res) => {
+    const userId = req.params.userId;
+    const { interestList } = req.body;
+    const { filter } = req.query;
+    const lookAroundResult = await UserService.getLookAroundByUserId(userId, interestList, filter);
+    res.send(lookAroundResult);
+  },
+  searchUser: async (req, res) => {
+    const { content } = req.query;
+    const searchUser = await UserService.getSearchUserByContent(content);
+    res.send(searchUser);
+  },
+  respectMe: async (req, res) => {
+    const userId = req.params.userId;
+    const followerResponse = await UserService.getRespectFollower(userId);
+
+    return res.send(followerResponse);
+  },
+  myRespect: async (req, res) => {
+    const userId = req.params.userId;
+    const followingResponse = await UserService.getRespectFollowing(userId);
+
+    return res.send(followingResponse);
   },
 };
 
@@ -128,8 +151,14 @@ const process = {
 
     return res.send(stackResponse);
   },
-};
+  respect: async (req, res) => {
+    const userId = req.params.userId;
+    const respectUserId = req.params.respectUserId;
+    const respectResponse = await UserService.createUserRespect(userId, respectUserId);
 
+    return res.send(respectResponse);
+  },
+};
 module.exports = {
   output,
   process,

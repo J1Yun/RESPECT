@@ -1,0 +1,71 @@
+.project-register-container {
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: fit-content;
+  background-color: white;
+}
+
+.project-register-header {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 820px;
+  min-height: 150px;
+  border-bottom: solid 1px;
+}
+.project-register-category {
+  position: absolute;
+  top: 17%;
+}
+.project-header-title-input {
+}
+.project-outline-container {
+  width: 820px;
+  max-height: 300px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.project-outline-container div {
+  position: relative;
+  left: 25px;
+  top: -105px;
+  display: inline-grid;
+}
+.project-outline-titles {
+  font-weight: bold;
+  color: #023577;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.project-outline-inputs {
+}
+.project-readme-container {
+  width: 820px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom: solid 1px #90a5b9;
+}
+.project-readme-title {
+  position: relative;
+  left: 20px;
+  top: 20px;
+  color: #023577;
+  font-size: 14pt;
+  font-weight: 600;
+  width: 780px;
+  height: 30px;
+}
+.project-readme {
+  position: relative;
+  width: 750px;
+  left: 30px;
+  top: 20px;
+  padding-bottom: 100px;
+}

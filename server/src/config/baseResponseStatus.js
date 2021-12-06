@@ -14,6 +14,7 @@ module.exports = {
   SIGNUP_VERIFIEDPASSWORD_EMPTY: { isSuccess: false, code: 2004, message: '비밀번호 확인을 입력하세요.' },
   SIGNUP_NAME_EMPTY: { isSuccess: false, code: 2005, message: '이름을 입력하세요.' },
   SIGNUP_REDUNDANT_EMAIL: { isSuccess: false, code: 2006, message: '존재하는 닉네임(Id)입니다.' },
+  UPDATE_ERROR_TYPE: { isSuccess: false, code: 2007, message: '잘못된 형식 입니다.' },
 
   // DB Error
   SERVER_CONNECT_ERROR: { isSuccess: false, code: 3000, message: '서버 접속 에러입니다.' },

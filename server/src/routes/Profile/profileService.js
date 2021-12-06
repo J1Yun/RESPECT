@@ -7,79 +7,27 @@ exports.getUserProfile = async function (userId) {
   const connection = await pool.getConnection(async conn => conn);
   try {
     const userProfile = await ProfileDao.getUserProfileInfo(connection, userId);
-    return userProfile;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
 
-exports.getUserInterest = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
     const userInterest = await ProfileDao.getUserInterests(connection, userId);
-    return userInterest;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserTechStack = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
     const userTechStack = await ProfileDao.getUserTechStacks(connection, userId);
-    return userTechStack;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserExperience = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
     const userExperience = await ProfileDao.getUserExperienced(connection, userId);
-    return userExperience;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserEducation = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
     const userEducation = await ProfileDao.getUserEducations(connection, userId);
-    return userEducation;
-  } catch (err) {
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserProject = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
     const userProjects = await ProfileDao.getUserProjects(connection, userId);
-    return userProjects;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.release();
-  }
-};
-
-exports.getUserStudy = async function (userId) {
-  const connection = await pool.getConnection(async conn => conn);
-  try {
     const userStudy = await ProfileDao.getUserStudies(connection, userId);
-    return userStudy;
+    const userRespect = await ProfileDao.getUserRespect(connection, userId);
+    const userProfileInfo = {
+      UserProfile: userProfile,
+      UserInterest: userInterest,
+      UserTechStack: userTechStack,
+      UserExperience: userExperience,
+      UserEducation: userEducation,
+      UserProjects: userProjects,
+      UserStudy: userStudy,
+      UserRespect: userRespect,
+    };
+    return userProfileInfo;
   } catch (err) {
+    connection.rollback(() => {});
     console.log(err);
   } finally {
     connection.release();
@@ -93,6 +41,8 @@ exports.userProfileUpdate = async function (userId) {
     return originUserProfile;
   } catch (err) {
     console.log(err);
+    connection.rollback(() => {});
+    return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
   }
@@ -110,6 +60,10 @@ exports.changeUserProfile = async function (name, content, phoneNumber, email, l
     }
   } catch (err) {
     console.log(err);
+    connection.rollback(() => {});
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
   }
 };
 
@@ -117,27 +71,18 @@ exports.editExperienceContent = async function (userId, content) {
   const connection = await pool.getConnection(async conn => conn);
   try {
     const checkResult = await ProfileDao.checkExperienceContent(connection, userId);
-
     if (checkResult[0] == null) {
-      const insertResult = await ProfileDao.insertExperienceContent(connection, userId, content);
-      console.log('insert');
-      if (insertResult) {
-        return baseResponse.SUCCESS;
-      } else {
-        return baseResponse.SERVER_CONNECT_ERROR;
-      }
+      const params = [userId, content];
+      await ProfileDao.insertExperienceContent(connection, params);
     } else {
-      //const params = [content, userId]
-      const updateResult = await ProfileDao.updateExperienceContent(connection, content, userId);
-      console.log('upadte');
-      if (updateResult) {
-        return baseResponse.SUCCESS;
-      } else {
-        return baseResponse.SERVER_CONNECT_ERROR;
-      }
+      const params = [content, userId];
+      await ProfileDao.updateExperienceContent(connection, params);
     }
+    return baseResponse.SUCCESS;
   } catch (err) {
+    connection.rollback(() => {});
     console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
   }
@@ -153,81 +98,134 @@ exports.editAdvancedTechStackContent = async function (userId, advanced) {
   }
 };
 
-exports.editExperiencedTechStackContent = async function (userId, experienced) {
+// exports.editExperiencedTechStackContent = async function (userId, experienced) {
+//   const connection = await pool.getConnection(async (conn) => conn);
+//   // findindex, find
+//   try {
+//     experienced.forEach(async (experiencedTechStack) => {
+//       const experiencedTechStackName = experiencedTechStack.name;
+//       const isDeleted = experiencedTechStack.isDeleted; // isDeleted = 0 존재 , = 1 삭제됨
+//       const stackId = await ProfileDao.getStackId(connection, experiencedTechStackName);
+//       const level = 'experienced';
+//       const params = [stackId, userId, level];
+//       const updateParams = [stackId, userId];
+//       const checkExperiencedTechStack = await ProfileDao.checkTechStack(connection, userId, level);
+//       if (checkExperiencedTechStack[0] == undefined) {
+//         //insert
+//         console.log('insert');
+//       } else {
+//         //update
+//         console.log('update');
+//       }
+//     }
+//   }
+// }
+
+exports.editExperiencedTechStackContent = async function (userId, advanced, experienced) {
   const connection = await pool.getConnection(async conn => conn);
-  // findindex, find
   try {
-    experienced.forEach(async experiencedTechStack => {
-      const experiencedTechStackName = experiencedTechStack.name;
-      const isDeleted = experiencedTechStack.isDeleted; // isDeleted = 0 존재 , = 1 삭제됨
-      const stackId = await ProfileDao.getStackId(connection, experiencedTechStackName);
-      const level = 'experienced';
-      const params = [stackId, userId, level];
-      const updateParams = [stackId, userId];
-      const checkExperiencedTechStack = await ProfileDao.checkTechStack(connection, userId, level);
-      if (checkExperiencedTechStack[0] == undefined) {
-        //insert
-        console.log('insert');
-      } else {
-        //update
-        console.log('update');
+    const getStacks = await ProfileDao.getUserTechStacks(connection, userId);
+    let advancedStack = JSON.stringify(advanced);
+    let experiencedStack = JSON.stringify(experienced);
+    if (getStacks) {
+      getStacks.forEach(async element => {
+        if (element.stackLevel == 0) {
+          if (advanced) {
+            advancedStack = advancedStack.replace(/[\"\[\]]/g, '');
+            const updateParams = [[advancedStack], element.stackId, userId];
+            await ProfileDao.updateTechStacks(connection, updateParams);
+          }
+        } else {
+          if (experienced) {
+            experiencedStack = experiencedStack.replace(/[\"\[\]]/g, '');
+            const updateParams = [[experiencedStack], element.stackId, userId];
+            await ProfileDao.updateTechStacks(connection, updateParams);
+          }
+        }
+      });
+    } else {
+      if (advanced) {
+        advancedStack = advancedStack.replace(/[\"\[\]]/g, '');
+        const advancedParams = [[advancedStack], userId, 0];
+        await ProfileDao.insertTechStack(connection, advancedParams);
       }
-      //   checkExperiencedTechStack.forEach(async (stack) => {
-      //     const checkStackIdResult = await ProfileDao.checkStackId(connection, userId, stackId);
-      //     // 유저의 stackId가 존재하고 isDeleted = 0 일 때 이미 등록되어 있다.
-      //     if (checkStackIdResult && stack.isDeleted == 0) {
-      //       console.log('already exists');
-      //       return;
-      //     } else if (checkStackIdResult && stack.isDeleted == 1) {
-      //       // 존재했었다가 삭제되었을 경우
-      //       console.log('update');
-      //       const updateExperiencedTechStackResult = await ProfileDao.updateTechStack(connection, updateParams);
-      //       return updateExperiencedTechStackResult;
-      //     } else if (checkStackIdResult == undefined && stack.isDeleted == 0) {
-      //       console.log('insert');
-      //       const insertExperiencedTechStackResult = await ProfileDao.insertTechStack(connection, params);
-      //       return insertExperiencedTechStackResult;
-      //     } else {
-      //       console.log('test');
-      //       return baseResponse.EMAIL_ERROR_TYPE;
-      //     }
-      //   });
-      // });
-      // return baseResponse.SUCCESS;
-    });
+      if (experienced) {
+        experiencedStack = experiencedStack.replace(/[\"\[\]]/g, '');
+        const experiencedParams = [[experiencedStack], userId, 1];
+        await ProfileDao.insertTechStack(connection, experiencedParams);
+      }
+    }
+    return baseResponse.SUCCESS;
   } catch (err) {
+    connection.rollback(() => {});
     console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
   } finally {
     connection.release();
   }
 };
 
-exports.editEducationContent = async function (userId, name, department, type, start, end) {
+exports.addEducationContent = async function (userId, name, department, type, start, end) {
   const connection = await pool.getConnection(async conn => conn);
   try {
-    const params = [userId, name, department, type, start, end, userId];
-    const updateResult = await ProfileDao.updateEducation(connection, params);
-    if (updateResult) {
+    const params = [userId, name, department, type, start, end];
+    await ProfileDao.insertEducation(connection, params);
+    return baseResponse.SUCCESS;
+  } catch (err) {
+    connection.rollback(() => {});
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};
+exports.editEducationContent = async function (userId, instituteId, start, end, isDeleted) {
+  const connection = await pool.getConnection(async conn => conn);
+  try {
+    if (isDeleted) await ProfileDao.deleteEducation(connection, instituteId);
+    else {
+      const params = [start, end, userId, instituteId];
+      await ProfileDao.updateEducation(connection, params);
       return baseResponse.SUCCESS;
-    } else {
-      return baseResponse.SERVER_CONNECT_ERROR;
     }
   } catch (err) {
+    connection.rollback(() => {});
     console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
   }
 };
 
-exports.deleteEducationContent = async function (userId, instituteId) {
+exports.editInterestContent = async function (userId, deleteInterest, insertInterest) {
   const connection = await pool.getConnection(async conn => conn);
   try {
-    const params = [userId, instituteId];
-    const deleteResult = await ProfileDao.deleteEducation(connection, params);
-    if (deleteResult) {
-      return baseResponse.SUCCESS;
-    } else {
-      return baseResponse.SERVER_CONNECT_ERROR;
-    }
+    const insertParams = [];
+    const deleteParams = [];
+    if (
+      insertInterest
+        ? insertInterest.forEach(element => {
+            insertParams.push([userId, element]);
+          })
+        : null
+    );
+    if (
+      deleteInterest
+        ? deleteInterest.forEach(element => {
+            deleteParams.push([element]);
+          })
+        : null
+    );
+    console.log(insertParams);
+    console.log(deleteParams);
+    if (insertParams.length) await ProfileDao.insertInterest(connection, insertParams);
+    if (deleteParams.length) await ProfileDao.deleteInterest(connection, userId, deleteParams);
+    return baseResponse.SUCCESS;
   } catch (err) {
+    connection.rollback(() => {});
     console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
   }
 };

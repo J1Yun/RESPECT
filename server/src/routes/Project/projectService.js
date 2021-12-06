@@ -27,3 +27,16 @@ exports.retrieveProjectByProjectId = async function (userId, projectId) {
     connection.release();
   }
 };
+
+exports.getProjectComment = async function (userId, projectId) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  try {
+    const commentList = await ProjectDao.projectCommentList(connection, userId, projectId);
+    return commentList;
+  } catch (err) {
+    console.log(err);
+    return baseResponse.SERVER_CONNECT_ERROR;
+  } finally {
+    connection.release();
+  }
+};
