@@ -15,7 +15,7 @@ const passport = require('passport');
 router.get('/login', userController.output.login);
 router.post('/login', userController.process.login);
 router.post('/signUp', userController.process.signUp);
-router.post('/logout', middleWare.isAuthenticated, userController.process.logout);
+router.post('/logout', middleWare.loginMiddleWare, userController.process.logout);
 
 // Github Social Login through passport
 router.get('/github', passport.authenticate('github', { scope: 'repo,user,gist' })); //Github Request
@@ -32,26 +32,26 @@ router.get('/github/stack', middleWare.isAuthenticated, userController.output.gi
 router.post('/profile/:userId/github/stack', userController.process.githubStack); //github tech stack list에서 선택 등록하기
 
 // profile 정보 가져오기
-router.get('/profile/:userId', middleWare.isAuthenticated, profileController.userProfile);
+router.get('/profile/:userId', middleWare.loginMiddleWare, profileController.userProfile);
 
 // TechStack 수정
-router.put('/profile/techstack/:userId', middleWare.isAuthenticated, profileController.editTechStack);
+router.put('/profile/techstack/:userId', middleWare.loginMiddleWare, profileController.editTechStack);
 
 // Experience 수정
-router.post('/profile/experience/:userId', middleWare.isAuthenticated, profileController.editExperience);
-router.post('/profile/projects/:userId', middleWare.isAuthenticated, profileController.githubUserProjects);
+router.post('/profile/experience/:userId', middleWare.loginMiddleWare, profileController.editExperience);
+router.post('/profile/projects/:userId', middleWare.loginMiddleWare, profileController.githubUserProjects);
 
 // Education 수정
-router.post('/profile/education/:userId', middleWare.isAuthenticated, profileController.addEducation);
-router.put('/profile/education/:userId', middleWare.isAuthenticated, profileController.editEducation);
+router.post('/profile/education/:userId', middleWare.loginMiddleWare, profileController.addEducation);
+router.put('/profile/education/:userId', middleWare.loginMiddleWare, profileController.editEducation);
 
 // Interest 수정
-router.post('/profile/interest/:userId', middleWare.isAuthenticated, profileController.editInterest);
+router.post('/profile/interest/:userId', middleWare.loginMiddleWare, profileController.editInterest);
 
 // Profile Update
-router.get('/profile/update/:userId', middleWare.isAuthenticated, profileController.userEditProfile);
-router.put('/profile/update', middleWare.isAuthenticated, profileController.updateUserProfile);
-router.post('/profile/projects/:userId', middleWare.isAuthenticated, profileController.githubUserProjects);
+router.get('/profile/update/:userId', middleWare.loginMiddleWare, profileController.userEditProfile);
+router.put('/profile/update', middleWare.loginMiddleWare, profileController.updateUserProfile);
+router.post('/profile/projects/:userId', middleWare.loginMiddleWare, profileController.githubUserProjects);
 
 // Project
 router.get('/:userId/project', projectController.projectList);
@@ -71,7 +71,7 @@ router.get('/:userId/lookAround', userController.output.lookAround);
 router.get('/search', userController.output.searchUser);
 
 // Respect
-router.post('/profile/:respectUserId/:userId', middleWare.isAuthenticated, userController.process.respect);
+router.post('/profile/:respectUserId/:userId', middleWare.loginMiddleWare, userController.process.respect);
 router.get('/profile/:userId/follower', userController.output.respectMe);
 router.get('/profile/:userId/following', userController.output.myRespect);
 
