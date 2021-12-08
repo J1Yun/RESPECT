@@ -2,3 +2,6 @@
 body {
   font-family: "Nanum Gothic", sans-serif;
 }
+::selection {
+  background-color: rgb(231, 240, 248);
+}
