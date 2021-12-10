@@ -38,7 +38,7 @@ const process = {
       const signUpResponse = await ProfileService.changeUserProfile(name, content, phoneNumber, email, location, name);
       return res.send(signUpResponse);
     } else {
-      res.send(baseResponse.UPDATE_ERROR_TYPE);
+      return res.send(baseResponse.UPDATE_ERROR_TYPE);
     }
   },
   editExperience: async (req, res) => {
