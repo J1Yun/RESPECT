@@ -65,7 +65,7 @@ const output = {
           }
         }
       }
-      techStackList.forEach((element) => {
+      techStackList.forEach(element => {
         arr.push(element);
       });
       arr = JSON.stringify(arr);
@@ -92,13 +92,13 @@ const output = {
     const userId = req.params.userId;
     const followerResponse = await UserService.getRespectFollower(userId);
 
-    return res.send(followerResponse);
+    res.send(followerResponse);
   },
   myRespect: async (req, res) => {
     const userId = req.params.userId;
     const followingResponse = await UserService.getRespectFollowing(userId);
 
-    return res.send(followingResponse);
+    res.send(followingResponse);
   },
 };
 
