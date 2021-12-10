@@ -20,6 +20,9 @@ const output = {
       res.send(baseResponse.SERVER_CONNECT_ERROR);
     }
   },
+};
+
+const process = {
   githubUserProjects: async (req, res) => {
     const userId = req.params.userId;
     if (req.session.user) {
@@ -29,9 +32,6 @@ const output = {
       res.send(baseResponse.LOGIN_ERROR);
     }
   },
-};
-
-const process = {
   updateUserProfile: async (req, res) => {
     const { name, content, phoneNumber, email, location } = req.body;
     if (req.session.user) {
