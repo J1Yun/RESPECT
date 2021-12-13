@@ -1,0 +1,75 @@
+.pool-card {
+  position: relative;
+  width: 355px;
+  height: 210px;
+  background: #ffffff;
+  box-shadow: 0px 3px 4px 2px rgb(0 0 0 / 25%);
+  border-radius: 10px;
+  display: inline-block;
+  margin: 10px;
+}
+.pool-card:hover {
+  box-shadow: 0px 3px 4px 4px rgb(0 0 0 / 25%);
+  cursor: pointer;
+}
+.pool-contents {
+  position: absolute;
+  left: 25%;
+  top: 8%;
+}
+.pool-card-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin: 0;
+  position: absolute;
+  left: 5%;
+  top: 15%;
+}
+.pool-state {
+  font-size: 0.8em;
+  color: rgb(58, 58, 58);
+}
+.pool-name {
+  position: relative;
+  top: 8px;
+}
+.pool-nickname {
+  color: rgb(58, 58, 58);
+  font-style: italic;
+  position: relative;
+  top: 8px;
+  left: 3px;
+}
+.pool-respect {
+  font-size: 0.8em;
+  position: relative;
+  top: 8px;
+  left: 10px;
+}
+.pool-univ,
+.pool-location {
+  font-size: 0.8em;
+  position: relative;
+  top: 15px;
+  padding-right: 8px;
+  color: rgb(54, 54, 54);
+}
+
+.pool-interest,
+.pool-tech {
+  font-size: 0.8em;
+  position: relative;
+  top: 28px;
+}
+.pool-tech {
+  top: 33px;
+}
+.pool-interest-list,
+.pool-tech-list {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 250px;
+}
