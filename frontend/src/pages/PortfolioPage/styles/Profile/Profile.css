@@ -1,12 +1,28 @@
+.profile-container {
+  position: relative;
+  width: 900px;
+  height: 380px;
+  left: 100px;
+  top: 120px;
 
-.profile-container{
-    position: relative;
-    width: 900px;
-    height: 380px;
-    left: 100px;
-    top: 120px;
+  background: #ffffff;
+  box-shadow: 0px 20px 60px rgba(241, 244, 248, 0.5);
+  border-radius: 4px;
+}
 
-    background: #FFFFFF;
-    box-shadow: 0px 20px 60px rgba(241, 244, 248, 0.5);
-    border-radius: 4px;
+.profile-background {
+  width: 900px;
+  height: 135px;
+  left: 100px;
+  top: 120px;
+}
+
+.profile-img {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  left: 25px;
+  top: 85px;
+  border: 10px solid #ffffff;
+  border-radius: 50%;
 }
