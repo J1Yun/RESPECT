@@ -22,6 +22,9 @@ const AppRouter = () => {
   return (
     <Router>
       <Switch>
+        <Route exact path="/">
+          <PoolPage />
+        </Route>
         <Route exact path="/login">
           <LoginPage />
         </Route>

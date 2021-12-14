@@ -1,8 +1,8 @@
-.pool-card-container {
+.around-container {
   position: relative;
   padding-top: 50px;
 }
-.pool-card {
+.around-card {
   position: relative;
   width: 355px;
   height: 210px;
@@ -12,16 +12,16 @@
   display: inline-block;
   margin: 10px;
 }
-.pool-card:hover {
+.around-card:hover {
   box-shadow: 0px 3px 4px 4px rgb(0 0 0 / 25%);
   cursor: pointer;
 }
-.pool-contents {
+.around-contents {
   position: absolute;
   left: 25%;
   top: 8%;
 }
-.pool-card-img {
+.around-card-img {
   width: 60px;
   height: 60px;
   border-radius: 100%;
@@ -31,29 +31,30 @@
   left: 5%;
   top: 15%;
 }
-.pool-state {
+.around-state {
   font-size: 0.8em;
   color: rgb(58, 58, 58);
 }
-.pool-name {
+.around-name {
   position: relative;
   top: 8px;
 }
-.pool-nickname {
+.around-nickname {
   color: rgb(58, 58, 58);
   font-style: italic;
   position: relative;
   top: 8px;
   left: 3px;
 }
-.pool-respect {
+.around-respect {
   font-size: 0.8em;
   position: relative;
   top: 8px;
   left: 10px;
 }
-.pool-univ,
-.pool-location {
+.around-univ,
+.around-location,
+.around-workplace {
   font-size: 0.8em;
   position: relative;
   top: 15px;
@@ -61,17 +62,17 @@
   color: rgb(54, 54, 54);
 }
 
-.pool-interest,
-.pool-tech {
+.around-interest,
+.around-tech {
   font-size: 0.8em;
   position: relative;
   top: 28px;
 }
-.pool-tech {
+.around-tech {
   top: 33px;
 }
-.pool-interest-list,
-.pool-tech-list {
+.around-interest-list,
+.around-tech-list {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

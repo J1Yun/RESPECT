@@ -52,7 +52,7 @@ const ProjectRegisterPage = () => {
             value={title}
           />
         </div>
-        <div className="project-outline-container">
+        <div className="project-register-outline-container">
           <div>
             <span className="project-outline-titles">Image</span>
             <input
