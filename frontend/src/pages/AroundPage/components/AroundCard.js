@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/PoolCard.css";
+import "../styles/AroundCard.css";
 const cards = [
   {
     name: "김채은",
@@ -10,6 +10,7 @@ const cards = [
     interest: "인공지능 웹풀스택 머신러닝 블록체인",
     techStack: "Python, React.JS, Java",
     state: 1,
+    workplace: null,
     img: "https://img.mimint.co.kr/bbs/2020/05/27/C2005270925264610r.jpeg",
   },
   {
@@ -21,6 +22,7 @@ const cards = [
     interest: "서버/백엔드 사물인터넷(IoT) 데이터엔지니어",
     techStack: "Node.JS, Django, MySQL",
     state: 2,
+    workplace: "Willog",
     img: "https://img.mimint.co.kr/bbs/2020/05/27/C2005270925264610r.jpeg",
   },
   {
@@ -32,6 +34,7 @@ const cards = [
     interest: "서버/백엔드 데이터엔지니어 응용프로그램",
     techStack: "Node.JS, Java, Python",
     state: 2,
+    workplace: "Line",
     img: "https://img.mimint.co.kr/bbs/2020/05/27/C2005270925264610r.jpeg",
   },
   {
@@ -43,38 +46,39 @@ const cards = [
     interest: "응용프로그램 인공지능(AI) 웹풀스택",
     techStack: "Node.JS Python Linux",
     state: 1,
+    workplace: null,
     img: "https://img.mimint.co.kr/bbs/2020/05/27/C2005270925264610r.jpeg",
   },
 ];
-const PoolCard = () => {
+const AroundCard = () => {
   return (
-    <div className="pool-card-container">
+    <div className="around-container">
       {cards &&
         cards.map((card) => (
-          <div className="pool-card">
-            <img className="pool-card-img" src={card.img} />
-            <div className="pool-contents">
+          <div className="around-card">
+            <img className="around-card-img" src={card.img} />
+            <div className="around-contents">
+              <div>
+                <span className="around-name">{card.name}</span>
+                <span className="around-nickname">@{card.nickname}</span>
+                <span className="around-respect">👊{card.respect}</span>
+              </div>
               {card.state == 1 ? (
-                <div className="pool-state">취업 준비 중📚</div>
+                <></>
               ) : (
-                <div className="pool-state">이직 준비 중💻‍</div>
+                <div className="around-workplace">🏢 {card.workplace}</div>
               )}
               <div>
-                <span className="pool-name">{card.name}</span>
-                <span className="pool-nickname">@{card.nickname}</span>
-                <span className="pool-respect">👊{card.respect}</span>
+                <div className="around-univ">🎓 {card.university}</div>
+                <div className="around-location">🗺️ {card.location}</div>
               </div>
-              <div>
-                <div className="pool-univ">🎓 {card.university}</div>
-                <div className="pool-location">🗺️ {card.location}</div>
-              </div>
-              <div className="pool-interest">
+              <div className="around-interest">
                 <div>🌟 Interest</div>
-                <div className="pool-interest-list">{card.interest}</div>
+                <div className="around-interest-list">{card.interest}</div>
               </div>
-              <div className="pool-tech">
+              <div className="around-tech">
                 <div>🛠 Tech Stack</div>
-                <div className="pool-tech-list">{card.techStack}</div>
+                <div className="around-tech-list">{card.techStack}</div>
               </div>
             </div>
           </div>
@@ -83,4 +87,4 @@ const PoolCard = () => {
   );
 };
 
-export default PoolCard;
+export default AroundCard;

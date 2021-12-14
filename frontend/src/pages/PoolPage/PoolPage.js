@@ -1,4 +1,5 @@
 import PoolCard from "./components/PoolCard";
+import PoolFilter from "./components/PoolFilter";
 import "./styles/PoolPage.css";
 const PoolPage = () => {
   const poolContainer = {
@@ -21,6 +22,7 @@ const PoolPage = () => {
     <div style={poolContainer}>
       <div style={poolCardContainer}>
         <div className="pool-header"></div>
+        <PoolFilter />
         <PoolCard />
       </div>
     </div>

@@ -31,7 +31,7 @@
 .project-header-title-input:focus {
   outline: none;
 }
-.project-outline-container {
+.project-register-outline-container {
   width: 820px;
   max-height: 300px;
   position: relative;
@@ -39,7 +39,7 @@
   transform: translateX(-50%);
 }
 
-.project-outline-container div {
+.project-register-outline-container div {
   position: relative;
   left: 25px;
   top: 0px;

@@ -1,0 +1,124 @@
+.filter-container {
+  position: relative;
+  left: 1%;
+}
+.filter-check {
+  position: relative;
+  top: 5px;
+  padding-right: 15px;
+  cursor: pointer;
+}
+.filter-check span:first-child {
+  position: relative;
+  top: 4px;
+}
+.filter-check span:last-child {
+  position: relative;
+  left: 4px;
+}
+
+.filter-sort {
+  position: relative;
+  top: 5px;
+  left: 40%;
+}
+.filter-sort-respect {
+  position: relative;
+  left: 5px;
+  background: none;
+  border: none;
+  font-size: 0.9em;
+  text-decoration: underline;
+  color: rgb(92, 92, 92);
+  cursor: pointer;
+}
+
+.filter-sort-project {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 0.9em;
+  color: rgb(92, 92, 92);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.filter-sort-respect:hover,
+.filter-sort-project:hover {
+  color: rgb(53, 53, 53);
+}
+.filter-sort-respect-click {
+  position: relative;
+  left: 5px;
+  background: none;
+  border: none;
+  font-size: 0.9em;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0275b1;
+}
+.filter-sort-project-click {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 0.9em;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0275b1;
+}
+.filter-dropdown-container {
+  position: relative;
+  top: 15px;
+}
+.filter-dropdown {
+  position: relative;
+  width: 360px;
+  height: 35px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.filter-dropdown span:first-child {
+  position: relative;
+  left: 2%;
+  top: 20%;
+}
+.filter-dropdown span:last-child {
+  position: relative;
+  left: 84%;
+  top: 25%;
+}
+.filter-dropdown:active {
+  box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+.filter-dropdown-field {
+  position: absolute;
+  width: 360px;
+  height: 200px;
+  border-radius: 4px;
+
+  background: #ffffff;
+  border: 1px solid #cbcbcb;
+  box-sizing: border-box;
+  z-index: 3;
+}
+.filter-dropdown-all {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgb(92, 92, 92);
+  position: relative;
+  left: 3%;
+  top: 13px;
+}
+.filter-dropdown-all:hover {
+  text-decoration: underline;
+  color: rgb(58, 58, 58);
+}
+
+.filter-dropdown-field ul {
+  list-style: none;
+  padding: 10px;
+  width: 335px;
+  height: 140px;
+  overflow-y: auto;
+}
