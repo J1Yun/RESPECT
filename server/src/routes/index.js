@@ -60,11 +60,11 @@ router.get('project/:userId/:projectId', projectController.output.projectDetail)
 router.get('/comment/:projectId', commentController.projectComment);
 router.post('/comment/:projectId', middleWare.loginMiddleWare, commentController.addComment);
 
-router.get('/userRepository/:userId', githubapi.getUserRepositoryList);
+router.get('/userRepository/:userId', middleWare.loginMiddleWare, githubapi.getUserRepositoryList);
 router.get('/userIdList', db.retrieveUserIdList);
 
 // Look Around
-router.get('/:userId/lookAround', userController.output.lookAround);
+router.get('/:userId/lookAround', middleWare.loginMiddleWare, userController.output.lookAround);
 router.get('/search', userController.output.searchUser);
 
 // Respect
