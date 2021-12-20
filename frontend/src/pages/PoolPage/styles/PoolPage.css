@@ -1,0 +1,12 @@
+.pool-header {
+  background-image: url("Pool.svg");
+  position: relative;
+  width: 600px;
+  height: 70px;
+  background-size: contain;
+  left: 50%;
+  top: 50px;
+  padding-top: 70px;
+  transform: translateX(-50%);
+  background-repeat: no-repeat;
+}

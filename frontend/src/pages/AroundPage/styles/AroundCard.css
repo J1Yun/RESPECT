@@ -1,0 +1,80 @@
+.around-container {
+  position: relative;
+  padding-top: 50px;
+}
+.around-card {
+  position: relative;
+  width: 355px;
+  height: 210px;
+  background: #ffffff;
+  box-shadow: 0px 3px 4px 2px rgb(0 0 0 / 25%);
+  border-radius: 10px;
+  display: inline-block;
+  margin: 10px;
+}
+.around-card:hover {
+  box-shadow: 0px 3px 4px 4px rgb(0 0 0 / 25%);
+  cursor: pointer;
+}
+.around-contents {
+  position: absolute;
+  left: 25%;
+  top: 8%;
+}
+.around-card-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin: 0;
+  position: absolute;
+  left: 5%;
+  top: 15%;
+}
+.around-state {
+  font-size: 0.8em;
+  color: rgb(58, 58, 58);
+}
+.around-name {
+  position: relative;
+  top: 8px;
+}
+.around-nickname {
+  color: rgb(58, 58, 58);
+  font-style: italic;
+  position: relative;
+  top: 8px;
+  left: 3px;
+}
+.around-respect {
+  font-size: 0.8em;
+  position: relative;
+  top: 8px;
+  left: 10px;
+}
+.around-univ,
+.around-location,
+.around-workplace {
+  font-size: 0.8em;
+  position: relative;
+  top: 15px;
+  padding-right: 8px;
+  color: rgb(54, 54, 54);
+}
+
+.around-interest,
+.around-tech {
+  font-size: 0.8em;
+  position: relative;
+  top: 28px;
+}
+.around-tech {
+  top: 33px;
+}
+.around-interest-list,
+.around-tech-list {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 250px;
+}

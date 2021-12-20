@@ -52,11 +52,11 @@ const ProjectRegisterPage = () => {
             value={title}
           />
         </div>
-        <div className="project-outline-container">
+        <div className="project-register-outline-container">
           <div>
             <span className="project-outline-titles">Image</span>
             <input
-              className="project-outline-inputs"
+              className="project-outline-img"
               type="file"
               accept="image/*"
             />
@@ -87,19 +87,22 @@ const ProjectRegisterPage = () => {
           </div>
           <div>
             <span className="project-outline-titles">Tech Stack</span>
-            <span>스택 불러오기</span>
+            <span className="project-outline-stack">스택 불러오기</span>
           </div>
         </div>
         <div className="project-readme-container">
           <div className="project-readme-title">README</div>
           <MarkdownReactEditor
+            className="project-readme-editor"
             value={markdown}
             onChange={(v) => {
               setMarkdown(v);
             }}
           />
         </div>
-        <button onClick={onUploadClick}>UPLOAD</button>
+        <button className="project-submit" onClick={onUploadClick}>
+          UPLOAD
+        </button>
       </div>
     </div>
   );

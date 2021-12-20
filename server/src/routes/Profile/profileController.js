@@ -4,73 +4,76 @@ const regexEmail = require('regex-email');
 const { response } = require('../../config/baseResponseStatus');
 require('dotenv').config();
 
-exports.userProfile = async function (req, res) {
-  const userId = parseInt(req.params.userId);
-  const userProfileInfo = await ProfileService.getUserProfile(userId);
+const output = {
+  userProfile: async (req, res) => {
+    const userId = parseInt(req.params.userId);
+    const userProfileInfo = await ProfileService.getUserProfile(userId);
 
-  return res.json(userProfileInfo);
-};
-
-exports.githubUserProjects = async function (req, res) {
-  const userId = req.params.userId;
-  if (req.session.user) {
-    const checkProjects = await ProfileService.getUserProject(userId);
-    res.json(checkProjects);
-  } else {
-    res.send(baseResponse.LOGIN_ERROR);
-  }
-};
-
-exports.userEditProfile = async function (req, res) {
-  if (req.session.user) {
-    const userId = req.params.userId;
-    const userProfileInfo = await ProfileService.userProfileUpdate(userId);
     res.json(userProfileInfo);
-  } else {
-    res.send(baseResponse.SERVER_CONNECT_ERROR);
-  }
+  },
+  userEditProfile: async (req, res) => {
+    if (req.session.user) {
+      const userId = req.params.userId;
+      const userProfileInfo = await ProfileService.userProfileUpdate(userId);
+      res.json(userProfileInfo);
+    } else {
+      res.send(baseResponse.SERVER_CONNECT_ERROR);
+    }
+  },
 };
 
-exports.updateUserProfile = async function (req, res) {
-  const { name, content, phoneNumber, email, location } = req.body;
-  if (req.session.user) {
-    const signUpResponse = await ProfileService.changeUserProfile(name, content, phoneNumber, email, location, name);
-    return res.send(signUpResponse);
-  } else {
-    res.send(baseResponse.UPDATE_ERROR_TYPE);
-  }
+const process = {
+  githubUserProjects: async (req, res) => {
+    const userId = req.params.userId;
+    if (req.session.user) {
+      const checkProjects = await ProfileService.getUserProject(userId);
+      res.json(checkProjects);
+    } else {
+      res.send(baseResponse.LOGIN_ERROR);
+    }
+  },
+  updateUserProfile: async (req, res) => {
+    const { name, content, phoneNumber, email, location } = req.body;
+    if (req.session.user) {
+      const signUpResponse = await ProfileService.changeUserProfile(name, content, phoneNumber, email, location, name);
+      return res.send(signUpResponse);
+    } else {
+      return res.send(baseResponse.UPDATE_ERROR_TYPE);
+    }
+  },
+  editExperience: async (req, res) => {
+    const { content } = req.body;
+    const userId = req.params.userId;
+    const editExperienceResult = await ProfileService.editExperienceContent(userId, content);
+    return res.send(editExperienceResult);
+  },
+  editTechStack: async (req, res) => {
+    const userId = req.params.userId;
+    const { advanced, experienced } = req.body;
+    const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, advanced, experienced);
+    return res.send(editExperiencedTechStackResult);
+  },
+  addEducation: async (req, res) => {
+    const { name, department, type, start, end } = req.body;
+    const userId = req.params.userId;
+    const addEducationREsult = await ProfileService.addEducationContent(userId, name, department, type, start, end);
+    return res.send(addEducationREsult);
+  },
+  editEducation: async (req, res) => {
+    const { instituteId, start, end, isDeleted } = req.body;
+    const userId = req.params.userId;
+    const editEducationResult = await ProfileService.editEducationContent(userId, instituteId, start, end, isDeleted);
+    return res.send(editEducationResult);
+  },
+  editInterest: async (req, res) => {
+    const { deleteInterest, insertInterest } = req.body;
+    const userId = req.params.userId;
+    const editInterestResult = await ProfileService.editInterestContent(userId, deleteInterest, insertInterest);
+    return res.send(editInterestResult);
+  },
 };
 
-exports.editExperience = async function (req, res) {
-  const { content } = req.body;
-  const userId = req.params.userId;
-  const editExperienceResult = await ProfileService.editExperienceContent(userId, content);
-  return res.send(editExperienceResult);
-};
-
-exports.editTechStack = async function (req, res) {
-  const userId = req.params.userId;
-  const { advanced, experienced } = req.body;
-  const editExperiencedTechStackResult = await ProfileService.editExperiencedTechStackContent(userId, advanced, experienced);
-  return res.send(editExperiencedTechStackResult);
-};
-
-exports.addEducation = async function (req, res) {
-  const { name, department, type, start, end } = req.body;
-  const userId = req.params.userId;
-  const addEducationREsult = await ProfileService.addEducationContent(userId, name, department, type, start, end);
-  return res.send(addEducationREsult);
-};
-exports.editEducation = async function (req, res) {
-  const { instituteId, start, end, isDeleted } = req.body;
-  const userId = req.params.userId;
-  const editEducationResult = await ProfileService.editEducationContent(userId, instituteId, start, end, isDeleted);
-  return res.send(editEducationResult);
-};
-
-exports.editInterest = async function (req, res) {
-  const { deleteInterest, insertInterest } = req.body;
-  const userId = req.params.userId;
-  const editInterestResult = await ProfileService.editInterestContent(userId, deleteInterest, insertInterest);
-  return res.send(editInterestResult);
+module.exports = {
+  output,
+  process,
 };
