@@ -66,7 +66,7 @@ const Projects = () => {
         </div>
         <button onClick={onAddClick} className="project-add-btn">
           <a id="github-login" href={githubUrl}>
-            Github 연동하기
+            Github
           </a>
         </button>
         <div className="projects-div">
