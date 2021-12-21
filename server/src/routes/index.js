@@ -23,7 +23,7 @@ router.get(
   '/portfolio',
   passport.authenticate('github', {
     failureRedirect: 'http://localhost:3000',
-    successRedirect: 'http://localhost:3000', //Todo(지윤): 깃허브 로그인 성공시 이동할 redirect page
+    successRedirect: 'http://localhost:3000',
   }),
 );
 
