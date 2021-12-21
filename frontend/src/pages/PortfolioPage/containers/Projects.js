@@ -22,7 +22,7 @@ const Projects = () => {
   const [add, setAdd] = useState(false);
 
   const onAddClick = () => {
-    setAdd(false);
+    setAdd(true);
   };
   const onAddCloseClick = () => {
     setAdd(false);
