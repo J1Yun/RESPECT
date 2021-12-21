@@ -1701,6 +1701,21 @@
   dependencies:
     "@toast-ui/editor" "^2.5.4"
 
+"@toast-ui/editor@^2.5.4":
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/@toast-ui/editor/-/editor-2.5.4.tgz#0764d56cddfb821778382a7e9efd8e0c273c5638"
+  integrity sha512-XsuYlPQxhec9dHQREFAigjE4enHSuGMF7D0YQ6wW7phmusvAu0FnJfZUPjJBoU/GKz7WP5U6fKU9/P+8j65D8A==
+  dependencies:
+    "@types/codemirror" "0.0.71"
+    codemirror "^5.48.4"
+
+"@toast-ui/react-editor@^2.5.3":
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/@toast-ui/react-editor/-/react-editor-2.5.4.tgz#37e366728377bc3ba0bdb06cb5a1e09b36437d97"
+  integrity sha512-XCy+hLtoGKB5Q+2CEh+iXahaeocHAmAo+EHwEIBJlIICPkqTBO0gg1LqMsw/1Xe8H2Xjp3im8Th6XHxkFQIPSg==
+  dependencies:
+    "@toast-ui/editor" "^2.5.4"
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.npmjs.org/@tootallnate/once/-/once-1.1.2.tgz"
@@ -1882,6 +1897,13 @@
 "@types/tern@*":
   version "0.23.4"
   resolved "https://registry.npmjs.org/@types/tern/-/tern-0.23.4.tgz"
+  integrity sha512-JAUw1iXGO1qaWwEOzxTKJZ/5JxVeON9kvGZ/osgZaJImBnyjyn0cjovPsf6FNLmyGY8Vw9DoXZCMlfMkMwHRWg==
+  dependencies:
+    "@types/estree" "*"
+
+"@types/tern@*":
+  version "0.23.4"
+  resolved "https://registry.yarnpkg.com/@types/tern/-/tern-0.23.4.tgz#03926eb13dbeaf3ae0d390caf706b2643a0127fb"
   integrity sha512-JAUw1iXGO1qaWwEOzxTKJZ/5JxVeON9kvGZ/osgZaJImBnyjyn0cjovPsf6FNLmyGY8Vw9DoXZCMlfMkMwHRWg==
   dependencies:
     "@types/estree" "*"
