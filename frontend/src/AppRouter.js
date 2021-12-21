@@ -46,7 +46,7 @@ const AppRouter = () => {
         <Route exact path="/repository">
           <RepositoryPage />
         </Route>
-        <Route exact path="/project">
+        <Route exact path="/project/:id">
           <ProjectPage />
         </Route>
         <Route exact path="/project/register/:id">

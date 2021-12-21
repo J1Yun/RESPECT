@@ -18,7 +18,7 @@ const projects = [
 ];
 
 const Projects = () => {
-  const [add, setAdd] = useState(true);
+  const [add, setAdd] = useState(false);
 
   const onAddClick = () => {
     setAdd(true);
