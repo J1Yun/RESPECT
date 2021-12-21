@@ -65,8 +65,8 @@ class App {
     //  next();
     //});
 
-    // this.app.use(cors(corsOption));
-
+    this.app.use(cors(corsOption));
+    this.app.use(cors());
     this.app.use(passport.initialize()); //user 정보가 req.user로 들어가게 된다.
     this.app.use(passport.session()); //passport 내에서 session을 사용해 로그인을 지속시킨다.
     passportConfig();
