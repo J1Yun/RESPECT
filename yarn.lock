@@ -1688,21 +1688,6 @@
 
 "@toast-ui/editor@^2.5.4":
   version "2.5.4"
-  resolved "https://registry.npmjs.org/@toast-ui/editor/-/editor-2.5.4.tgz"
-  integrity sha512-XsuYlPQxhec9dHQREFAigjE4enHSuGMF7D0YQ6wW7phmusvAu0FnJfZUPjJBoU/GKz7WP5U6fKU9/P+8j65D8A==
-  dependencies:
-    "@types/codemirror" "0.0.71"
-    codemirror "^5.48.4"
-
-"@toast-ui/react-editor@^2.5.3":
-  version "2.5.4"
-  resolved "https://registry.npmjs.org/@toast-ui/react-editor/-/react-editor-2.5.4.tgz"
-  integrity sha512-XCy+hLtoGKB5Q+2CEh+iXahaeocHAmAo+EHwEIBJlIICPkqTBO0gg1LqMsw/1Xe8H2Xjp3im8Th6XHxkFQIPSg==
-  dependencies:
-    "@toast-ui/editor" "^2.5.4"
-
-"@toast-ui/editor@^2.5.4":
-  version "2.5.4"
   resolved "https://registry.yarnpkg.com/@toast-ui/editor/-/editor-2.5.4.tgz#0764d56cddfb821778382a7e9efd8e0c273c5638"
   integrity sha512-XsuYlPQxhec9dHQREFAigjE4enHSuGMF7D0YQ6wW7phmusvAu0FnJfZUPjJBoU/GKz7WP5U6fKU9/P+8j65D8A==
   dependencies:
@@ -1893,13 +1878,6 @@
   version "1.0.8"
   resolved "https://registry.npmjs.org/@types/tapable/-/tapable-1.0.8.tgz"
   integrity sha512-ipixuVrh2OdNmauvtT51o3d8z12p6LtFW9in7U79der/kwejjdNchQC5UMn5u/KxNoM7VHHOs/l8KS8uHxhODQ==
-
-"@types/tern@*":
-  version "0.23.4"
-  resolved "https://registry.npmjs.org/@types/tern/-/tern-0.23.4.tgz"
-  integrity sha512-JAUw1iXGO1qaWwEOzxTKJZ/5JxVeON9kvGZ/osgZaJImBnyjyn0cjovPsf6FNLmyGY8Vw9DoXZCMlfMkMwHRWg==
-  dependencies:
-    "@types/estree" "*"
 
 "@types/tern@*":
   version "0.23.4"
@@ -3625,15 +3603,14 @@ concat-stream@^1.5.0:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-concurrently@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.npmjs.org/concurrently/-/concurrently-6.2.1.tgz"
-  integrity sha512-emgwhH+ezkuYKSHZQ+AkgEpoUZZlbpPVYCVv7YZx0r+T7fny1H03r2nYRebpi2DudHR4n1Rgbo2YTxKOxVJ4+g==
+concurrently@^6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.5.1.tgz#4518c67f7ac680cf5c34d5adf399a2a2047edc8c"
+  integrity sha512-FlSwNpGjWQfRwPLXvJ/OgysbBxPkWpiVjy1042b0U7on7S7qwwMIILRj7WTN1mTgqa582bG6NFuScOoh6Zgdag==
   dependencies:
     chalk "^4.1.0"
     date-fns "^2.16.1"
     lodash "^4.17.21"
-    read-pkg "^5.2.0"
     rxjs "^6.6.3"
     spawn-command "^0.0.2-1"
     supports-color "^8.1.0"

@@ -1,16 +1,16 @@
-const express = require("express");
-const logger = require("morgan");
-const methodOverride = require("method-override");
-const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-const expressSession = require("express-session");
-const home = require("./src/routes/index");
-const repository = require("./src/routes/index");
-const passport = require("passport");
-const cors = require("cors");
-const { MemoryStore } = require("express-session");
-const corsOption = { origin: "http://localhost:3000", credential: true };
-const passportConfig = require("../server/src/config/passport");
+const express = require('express');
+const logger = require('morgan');
+const methodOverride = require('method-override');
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
+const home = require('./src/routes/index');
+const repository = require('./src/routes/index');
+const passport = require('passport');
+const cors = require('cors');
+const { MemoryStore } = require('express-session');
+const corsOption = { origin: 'http://localhost:3000', credential: true };
+const passportConfig = require('../server/src/config/passport');
 
 class App {
   constructor() {
@@ -30,7 +30,7 @@ class App {
 
   setMiddleWare() {
     // 미들웨어 셋팅
-    this.app.use(logger("dev"));
+    this.app.use(logger('dev'));
 
     // body parser
     this.app.use(express.json());
@@ -50,7 +50,7 @@ class App {
           checkPeriod: 86400000, // 24 hours
         }),
         cookie: { signed: true, maxAge: 86400000 },
-      })
+      }),
     );
 
     this.app.use(function (req, res, next) {
@@ -65,10 +65,15 @@ class App {
     //  next();
     //});
 
-    this.app.use(cors(corsOption));
+    this.app.options('/github', (req, res) => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+      res.send();
+    });
+
+    // this.app.use(cors(corsOption));
     this.app.use(cors());
-
-
 
     this.app.use(passport.initialize()); //user 정보가 req.user로 들어가게 된다.
     this.app.use(passport.session()); //passport 내에서 session을 사용해 로그인을 지속시킨다.
@@ -76,7 +81,7 @@ class App {
   }
 
   setStatic() {
-    this.app.use("/uploads", express.static("uploads"));
+    this.app.use('/uploads', express.static('uploads'));
   }
 
   getRouting() {
