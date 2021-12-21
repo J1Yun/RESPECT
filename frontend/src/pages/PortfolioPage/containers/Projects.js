@@ -1,3 +1,4 @@
+import axios from "axios";
 import "pages/PortfolioPage/styles/Projects.css";
 import { useState, useEffect, useRef } from "react";
 import ProjectAdd from "../components/Project/ProjectAdd";
@@ -21,6 +22,7 @@ const Projects = () => {
   const [add, setAdd] = useState(false);
 
   const onAddClick = () => {
+    axios.get("http://localhost:5000/github");
     setAdd(true);
   };
   const onAddCloseClick = () => {
