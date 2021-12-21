@@ -40,6 +40,7 @@ const ProjectRegisterPage = () => {
   };
   const onUploadClick = () => {
     console.log(title, outline, role, period, markdown);
+    window.location.href = "/project/0";
   };
   return (
     <div>
@@ -100,7 +101,11 @@ const ProjectRegisterPage = () => {
             }}
           />
         </div>
-        <button className="project-submit" onClick={onUploadClick}>
+        <button
+          style={{ cursor: "pointer" }}
+          className="project-submit"
+          onClick={onUploadClick}
+        >
           UPLOAD
         </button>
       </div>
