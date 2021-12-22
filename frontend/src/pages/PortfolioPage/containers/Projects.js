@@ -19,9 +19,15 @@ const projects = [
 ];
 
 const Projects = () => {
-  const [add, setAdd] = useState(false);
+  const [add, setAdd] = useState(true);
+  useEffect(() => {
+    setAdd(false);
+  }, []);
+
   const githubUrl = `http://localhost:5000/github`;
-  const onAddClick = () => {
+  const onAddClick = async (res) => {
+    console.log(res);
+    window.location.href = `http://localhost:5000/github`;
     setAdd(true);
   };
   const onAddCloseClick = () => {
@@ -47,9 +53,9 @@ const Projects = () => {
         </div>
         <div>
           <button onClick={onAddClick} className="project-add-btn">
-            <a id="github-login" href={githubUrl}>
-              Github
-            </a>
+            {/* <a id="github-login" href={githubUrl}> */}
+            Github
+            {/* </a> */}
           </button>
         </div>
 
