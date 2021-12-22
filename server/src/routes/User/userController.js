@@ -30,7 +30,7 @@ const output = {
       }
       res.send(reposList);
     } catch (err) {
-      //console.log(err);
+      console.log(err);
       res.send(baseResponse.SERVER_CONNECT_ERROR);
     }
   },
