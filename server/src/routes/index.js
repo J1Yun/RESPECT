@@ -22,8 +22,8 @@ router.get('/github', passport.authenticate('github', { scope: 'repo,user,gist' 
 router.get(
   '/portfolio',
   passport.authenticate('github', {
-    failureRedirect: 'http://localhost:3000',
-    successRedirect: 'http://localhost:3000', //Todo(지윤): 깃허브 로그인 성공시 이동할 redirect page
+    failureRedirect: 'http://localhost:3000/user/21',
+    successRedirect: 'http://localhost:3000/user/21', //Todo(지윤): 깃허브 로그인 성공시 이동할 redirect page
   }),
 );
 
