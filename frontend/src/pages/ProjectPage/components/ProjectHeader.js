@@ -21,7 +21,7 @@ const ProjectHeader = () => {
       <button className="project-header-bookmark">
         <BsBookmark size="25" />
       </button>
-      <div className="project-header-title">영화 순위 서비스</div>
+      <div className="project-header-title">To do list 서비스</div>
       <div className="project-header-profile">
         <img width="35" height="35" src="https://1tb.favim.com/preview/7/773/7735/77357/7735766.jpg" />
         <span>김채은</span>
