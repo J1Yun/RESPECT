@@ -1,9 +1,9 @@
-import "../styles/ProjectOutline.css";
+import '../styles/ProjectOutline.css';
 
 const ProjectOutline = () => {
   return (
     <div className="project-outline-container">
-      <img src="https://i.pinimg.com/originals/32/aa/7f/32aa7f743012b4d6f6797489c86ee352.jpg" />
+      <img src="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E" />
       <div>
         <div>
           <span className="project-outline-titles">Outline</span>

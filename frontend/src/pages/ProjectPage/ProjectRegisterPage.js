@@ -9,6 +9,8 @@ const project = {
   markdown: '# hello',
   role: '백엔드 개발',
   period: ' 2021-07. ~ 2021-08.',
+
+
 };
 const ProjectRegisterPage = () => {
   const [title, setTitle] = useState(project.title);
@@ -42,7 +44,11 @@ const ProjectRegisterPage = () => {
   };
   const onUploadClick = () => {
     console.log(title, outline, role, period, markdown);
+
     window.location.href = '/project/0';
+
+    window.location.href = '/user/22';
+
   };
   return (
     <div>

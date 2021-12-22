@@ -1,87 +1,87 @@
-import React, { useState, useEffect } from "react";
-import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
-import { IoMdArrowDropdown } from "react-icons/io";
-import "pages/PoolPage/styles/PoolFilter.css";
+import React, { useState, useEffect } from 'react';
+import { MdCheckBoxOutlineBlank, MdCheckBox } from 'react-icons/md';
+import { IoMdArrowDropdown } from 'react-icons/io';
+import 'pages/PoolPage/styles/PoolFilter.css';
 const categories = [
   {
     id: 1,
-    contents: "서버/백엔드",
+    contents: '서버/백엔드',
   },
   {
     id: 2,
-    contents: "프론트엔드",
+    contents: '프론트엔드',
   },
   {
     id: 3,
-    contents: "웹 풀스택",
+    contents: '웹 풀스택',
   },
   {
     id: 4,
-    contents: "안드로이드 앱",
+    contents: '안드로이드 앱',
   },
   {
     id: 5,
-    contents: "아이폰 앱",
+    contents: '아이폰 앱',
   },
   {
     id: 6,
-    contents: "머신러닝",
+    contents: '머신러닝',
   },
   {
     id: 7,
-    contents: "인공지능(AI)",
+    contents: '인공지능(AI)',
   },
   {
     id: 8,
-    contents: "데이터 엔지니어",
+    contents: '데이터 엔지니어',
   },
   {
     id: 9,
-    contents: "모바일 게임",
+    contents: '모바일 게임',
   },
   {
     id: 10,
-    contents: "게임 클라이언트",
+    contents: '게임 클라이언트',
   },
   {
     id: 11,
-    contents: "게임 서버",
+    contents: '게임 서버',
   },
   {
     id: 12,
-    contents: "시스템/네트워크",
+    contents: '시스템/네트워크',
   },
   {
     id: 13,
-    contents: "시스템 소프트웨어",
+    contents: '시스템 소프트웨어',
   },
   {
     id: 14,
-    contents: "인터넷 보안",
+    contents: '인터넷 보안',
   },
   {
     id: 15,
-    contents: "임베디드 소프트웨어",
+    contents: '임베디드 소프트웨어',
   },
   {
     id: 16,
-    contents: "로보틱스 미들웨어",
+    contents: '로보틱스 미들웨어',
   },
   {
     id: 17,
-    contents: "QA",
+    contents: 'QA',
   },
   {
     id: 18,
-    contents: "사물인터넷(IoT)",
+    contents: '사물인터넷(IoT)',
   },
   {
     id: 19,
-    contents: "응용 프로그램",
+    contents: '응용 프로그램',
   },
   {
     id: 20,
-    contents: "블록체인",
+    contents: '블록체인',
   },
 ];
 
@@ -152,24 +152,12 @@ const PoolFilter = () => {
       <div>Filter</div>
       <div>
         <span className="filter-check" onClick={onSchoolClick}>
-          <span>
-            {school ? (
-              <MdCheckBox color="#0275b1" size="19" />
-            ) : (
-              <MdCheckBoxOutlineBlank color="#0275b1" size="19" />
-            )}
-          </span>
-          <span>우리 학교만</span>
+          <span>{school ? <MdCheckBox color="#0275b1" size="19" /> : <MdCheckBoxOutlineBlank color="#0275b1" size="19" />}</span>
+          <span>취업 중비 중</span>
         </span>
         <span className="filter-check" onClick={onEmployClick}>
-          <span>
-            {employ ? (
-              <MdCheckBox color="#0275b1" size="19" />
-            ) : (
-              <MdCheckBoxOutlineBlank color="#0275b1" size="19" />
-            )}
-          </span>
-          <span>취업자만</span>
+          <span>{employ ? <MdCheckBox color="#0275b1" size="19" /> : <MdCheckBoxOutlineBlank color="#0275b1" size="19" />}</span>
+          <span>이직 준비 중</span>
         </span>
         <span className="filter-sort">
           <span>정렬기준</span>
@@ -210,12 +198,7 @@ const PoolFilter = () => {
               {categories.map((item) => (
                 <li>
                   <label>
-                    <input
-                      onChange={onCheckChange}
-                      type="checkbox"
-                      value={item.id}
-                      defaultChecked="true"
-                    />
+                    <input onChange={onCheckChange} type="checkbox" value={item.id} defaultChecked="true" />
                     {item.contents}
                   </label>
                 </li>
