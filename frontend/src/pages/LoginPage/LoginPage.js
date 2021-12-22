@@ -16,21 +16,21 @@ const LoginPage = () => {
     transform: 'translateX(-50%)',
   };
 
-  const onEmailChange = event => {
+  const onEmailChange = (event) => {
     const {
       target: { value },
     } = event;
     setEmail(value);
   };
 
-  const onPasswordChange = event => {
+  const onPasswordChange = (event) => {
     const {
       target: { value },
     } = event;
     setPassword(value);
   };
 
-  const onLoginSubmit = event => {
+  const onLoginSubmit = (event) => {
     event.preventDefault();
     console.log(email, password);
   };
@@ -40,21 +40,22 @@ const LoginPage = () => {
       <div id="header"></div>
       <div id="login-container">
         <h2 id="login-txt">Sign In</h2>
-        <form onSubmit={onLoginSubmit}>
-          <div id="email-icon">
-            <BsFillPersonFill style={icon} color="#747474" size={30} />
-          </div>
-          <input id="email-input" type="text" value={email} onChange={onEmailChange} />
+        {/* <form onSubmit={onLoginSubmit}> */}
+        <div id="email-icon">
+          <BsFillPersonFill style={icon} color="#747474" size={30} />
+        </div>
+        <input id="email-input" type="text" value={email} onChange={onEmailChange} />
 
-          <div id="password-icon">
-            <BiKey style={icon} color="#747474" size={30} />
-          </div>
-          <input id="password-input" type="password" value={password} onChange={onPasswordChange} />
-
+        <div id="password-icon">
+          <BiKey style={icon} color="#747474" size={30} />
+        </div>
+        <input id="password-input" type="password" value={password} onChange={onPasswordChange} />
+        <a href="/user/22">
           <button style={{ cursor: 'pointer' }} id="submit-btn" type="submit">
             <FiLogIn color="#747474" size={30} />
           </button>
-        </form>
+        </a>
+        {/* </form> */}
       </div>
     </div>
   );

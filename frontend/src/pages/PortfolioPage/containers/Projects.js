@@ -22,25 +22,6 @@ const Projects = () => {
   const [add, setAdd] = useState(false);
   const githubUrl = `http://localhost:5000/github`;
   const onAddClick = () => {
-    axios
-      .get({
-        method: 'http://localhost:5000/github',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-      })
-      .catch(function (err) {
-        if (err.res) {
-          console.log(err.res.data);
-          console.log(err.res.status);
-          console.log(err.res.headers);
-        } else if (err.req) {
-          console.log(err.req);
-        } else {
-          console.log(err);
-        }
-        console.log(err.config);
-      });
     setAdd(true);
   };
   const onAddCloseClick = () => {
@@ -64,11 +45,14 @@ const Projects = () => {
 
           <span>3 of {projects.length}</span>
         </div>
-        <button onClick={onAddClick} className="project-add-btn">
-          <a id="github-login" href={githubUrl}>
-            Github
-          </a>
-        </button>
+        <div>
+          <button onClick={onAddClick} className="project-add-btn">
+            <a id="github-login" href={githubUrl}>
+              Github
+            </a>
+          </button>
+        </div>
+
         <div className="projects-div">
           {projects &&
             projects.map((item) => (
