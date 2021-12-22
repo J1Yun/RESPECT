@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import "pages/ProjectPage/styles/ProjectRegisterPage.css";
-import MarkdownReactEditor from "markdown-react-editor";
+import 'pages/ProjectPage/styles/ProjectRegisterPage.css';
+import MarkdownReactEditor from 'markdown-react-editor';
 
 const project = {
-  title: "To do list 서비스",
+  title: 'To do list 서비스',
   outline: "Chrome App 'Momentum' clone coding",
-  markdown: "# hello",
+  markdown: '# hello',
 };
 const ProjectRegisterPage = () => {
   const [title, setTitle] = useState(project.title);
@@ -40,51 +40,31 @@ const ProjectRegisterPage = () => {
   };
   const onUploadClick = () => {
     console.log(title, outline, role, period, markdown);
-    window.location.href = "/project/0";
+    window.location.href = '/user/22';
   };
   return (
     <div>
       <div className="project-register-container">
         <div className="project-register-header">
           <span className="project-register-category">Project 등록</span>
-          <input
-            onChange={onTitleChange}
-            className="project-header-title-input"
-            value={title}
-          />
+          <input onChange={onTitleChange} className="project-header-title-input" value={title} />
         </div>
         <div className="project-register-outline-container">
           <div>
             <span className="project-outline-titles">Image</span>
-            <input
-              className="project-outline-img"
-              type="file"
-              accept="image/*"
-            />
+            <input className="project-outline-img" type="file" accept="image/*" />
           </div>
           <div>
             <span className="project-outline-titles">Outline</span>
-            <input
-              className="project-outline-inputs"
-              onChange={onOutlineChange}
-              value={outline}
-            />
+            <input className="project-outline-inputs" onChange={onOutlineChange} value={outline} />
           </div>
           <div>
             <span className="project-outline-titles">Role</span>
-            <input
-              className="project-outline-inputs"
-              onChange={onRoleChange}
-              value={role}
-            />
+            <input className="project-outline-inputs" onChange={onRoleChange} value={role} />
           </div>
           <div>
             <span className="project-outline-titles">Period</span>
-            <input
-              className="project-outline-inputs"
-              onChange={onPeriodChange}
-              value={period}
-            />
+            <input className="project-outline-inputs" onChange={onPeriodChange} value={period} />
           </div>
           <div>
             <span className="project-outline-titles">Tech Stack</span>
@@ -101,11 +81,7 @@ const ProjectRegisterPage = () => {
             }}
           />
         </div>
-        <button
-          style={{ cursor: "pointer" }}
-          className="project-submit"
-          onClick={onUploadClick}
-        >
+        <button style={{ cursor: 'pointer' }} className="project-submit" onClick={onUploadClick}>
           UPLOAD
         </button>
       </div>

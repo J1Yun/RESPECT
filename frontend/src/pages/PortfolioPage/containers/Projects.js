@@ -5,7 +5,7 @@ import ProjectAdd from '../components/Project/ProjectAdd';
 
 const projects = [
   {
-    title: 'To do list Service',
+    title: 'To do list 서비스',
     img: 'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
   },
   {
@@ -56,10 +56,12 @@ const Projects = () => {
         <div className="projects-div">
           {projects &&
             projects.map((item) => (
-              <div className="project-box">
-                <img width="250" height="170" style={{ objectFit: 'cover' }} src={item.img} />
-                <div>{item.title}</div>
-              </div>
+              <a href="/project/0">
+                <div className="project-box">
+                  <img width="250" height="170" style={{ objectFit: 'cover' }} src={item.img} />
+                  <div>{item.title}</div>
+                </div>
+              </a>
             ))}
         </div>
       </div>
