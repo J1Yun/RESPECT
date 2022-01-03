@@ -37,7 +37,7 @@ const respect = [
 const ProfileRespect = () => {
   const [respectMe, setRespectMe] = useState(false);
   const [respectYou, setRespectYou] = useState(false);
-  const [test, setTest] = useState(5);
+  const [test, setTest] = useState(13);
 
   const meModal = useRef();
   const youModal = useRef();
@@ -89,7 +89,7 @@ const ProfileRespect = () => {
       <div className="profile-respect-you">
         이 사람은&nbsp;
         <span ref={youToggle} className="profile-respect-you-btn" onClick={onRespectYouClick}>
-          112명
+          200명
         </span>
         을
       </div>
